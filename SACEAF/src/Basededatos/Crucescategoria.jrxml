@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6ca4fa05-43f1-4d5e-9303-fb75a7539d47">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="serialtorneo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="letragrupo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="categoria" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Nombrecategoria" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     j.`jornada` AS Jornada,
+     c.`nombre_club` AS Equipo_local,
+     e.`identificador` AS Identificador_local,
+     cc.`nombre_club` AS Equipo_visitante,
+     ee.`identificador` AS Identificador_visitante
+FROM
+     `juego` j INNER JOIN `h_equipo` he ON j.`equipo_local` = he.`id_hequipo`
+     INNER JOIN `equipo` e ON he.`id_equipo` = e.`id_equipo`
+     INNER JOIN `club` c ON e.`id_club` = c.`id_club`
+     INNER JOIN `juego` jj ON j.`id_juego` = jj.`id_juego`
+     INNER JOIN `h_equipo` me ON jj.`equipo_visitante` = me.`id_hequipo`
+     INNER JOIN `equipo` ee ON me.`id_equipo` = ee.`id_equipo`
+     INNER JOIN `club` cc ON ee.`id_club` = cc.`id_club`
+WHERE
+     j.id_torneo = $P{serialtorneo}
+     and jj.id_torneo = $P{serialtorneo}
+     and j.grupo =$P{letragrupo}
+     and j.id_categoria = $P{categoria}
+ORDER BY
+     j.jornada and
+     jj.jornada asc]]>
+	</queryString>
+	<field name="Jornada" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Equipo_local" class="java.lang.String"/>
+	<field name="Identificador_local" class="java.lang.String"/>
+	<field name="Equipo_visitante" class="java.lang.String"/>
+	<field name="Identificador_visitante" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<staticText>
+				<reportElement x="141" y="0" width="275" height="21" uuid="f4cbde9c-55aa-4054-a391-7516b1e4e039"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Federacion Venezolana de Futbol]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="21" width="275" height="21" uuid="af88641c-ddd9-480c-9739-cdf1a8cf851d"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Asociacion de Futbol del estado Miranda]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="51" width="275" height="21" uuid="af88641c-ddd9-480c-9739-cdf1a8cf851d"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jornadas]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="51" width="100" height="20" uuid="3eeffd66-0bc2-4c26-830e-0d5f940c5532"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Nombrecategoria}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="7"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="8ca43476-37f4-4522-b331-8579b5bd1600"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="231" y="0" width="43" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="2ad820d7-e807-4bd6-a77f-c1e7aba39491"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="10" y="0" width="90" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="2b01b08b-dcd8-4d1b-af1a-21cbfc3f882a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jornada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="100" y="0" width="130" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="9253f5df-7bcb-4c5e-8ea1-4b1ee6821cf1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Local]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="274" y="0" width="43" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="8baab1df-82b3-40e0-bdc4-651aeb7bc8db"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="317" y="1" width="173" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="84115c4c-cce0-430c-95fb-c653bafe3444"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Visitante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="490" y="0" width="65" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="b31e194c-070d-4dde-bec5-a23362d026c6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="cbd49259-8257-4be8-a419-0b3bd1aab62b"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="100" y="0" width="130" height="20" uuid="a05a9ceb-35b3-4d73-a3fa-2e0c04ac82f4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Equipo_local}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="100" height="19" uuid="18ff63c6-c0b3-4953-b6e5-f0a58ce38a37"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Jornada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="0" width="65" height="20" uuid="439bddb7-963b-4824-b51e-c82499a1332d"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Identificador_visitante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="287" y="0" width="43" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="21eeb89b-3afb-45c9-a2fc-f1f178d642dd"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="340" y="0" width="150" height="20" uuid="986ad871-b315-4294-bb41-0490a274c888"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Equipo_visitante}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="231" y="0" width="56" height="20" uuid="4aa5b234-3611-40d1-8d98-9328fa41f4ae"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Identificador_local}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band/>
+		<band/>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="e958ceb2-7597-47ba-a7ca-e70f4e8fda62"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="42bd8bb8-8fc6-4cfb-8d02-8a5b89a06fa7"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="4e25da5b-4f50-42e7-955f-8cb270aaa1ab"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

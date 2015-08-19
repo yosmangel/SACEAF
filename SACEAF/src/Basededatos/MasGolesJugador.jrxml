@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MasGolesJugador" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="01cb954f-87d4-403e-b3e5-2adf6f481149">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     categoria.`nombre_cat` AS categoria_nombre_cat,
+     h_jugador.`goles` AS h_jugador_goles,
+     jugador.`nombre_j` AS jugador_nombre_j,
+     jugador.`apellido_j` AS jugador_apellido_j,
+     club.`nombre_club` AS club_nombre_club
+FROM
+     `categoria` categoria INNER JOIN `h_jugador` h_jugador ON categoria.`id_categoria` = h_jugador.`id_categoria`
+     INNER JOIN `jugador` jugador ON h_jugador.`cedula` = jugador.`cedula`
+     INNER JOIN `equipo` equipo ON h_jugador.`id_equipo` = equipo.`id_equipo`
+     AND equipo.`id_equipo` = jugador.`id_equipo`
+     AND categoria.`id_categoria` = equipo.`id_categoria`
+     INNER JOIN `club` club ON equipo.`id_club` = club.`id_club`
+     INNER JOIN `h_equipo` h_equipo ON equipo.`id_equipo` = h_equipo.`id_equipo`
+     AND categoria.`id_categoria` = h_equipo.`id_categoria`
+
+ORDER BY goles desc]]>
+	</queryString>
+	<field name="categoria_nombre_cat" class="java.lang.String"/>
+	<field name="h_jugador_goles" class="java.lang.Integer"/>
+	<field name="jugador_nombre_j" class="java.lang.String"/>
+	<field name="jugador_apellido_j" class="java.lang.String"/>
+	<field name="club_nombre_club" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<staticText>
+				<reportElement uuid="f4cbde9c-55aa-4054-a391-7516b1e4e039" x="140" y="0" width="275" height="21"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Federacion Venezolana de Futbol]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="af88641c-ddd9-480c-9739-cdf1a8cf851d" x="140" y="21" width="275" height="21"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Asociacion de Futbol del estado Miranda]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="13821501-c71c-463c-be2f-b73717164f59" x="140" y="51" width="275" height="21"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jugadores con mas goles]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement uuid="995df4de-8a2b-4658-a208-7fbc97f2a42c" x="-20" y="20" width="595" height="1" forecolor="#666666"/>
+			</line>
+			<staticText>
+				<reportElement uuid="3e2789d9-39d1-427b-a8d8-077b014aee25" mode="Opaque" x="0" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4b06d348-9126-4359-8b55-3e8c7a9bd555" mode="Opaque" x="111" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="00938069-34a8-4277-a411-4608147afcc0" mode="Opaque" x="222" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Club]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="88241e23-24b0-4f79-aad9-854e7a0d6d10" mode="Opaque" x="333" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Categoria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8eabbbaa-1f53-47d5-95c2-a24468ecc5aa" mode="Opaque" x="444" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Goles]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement uuid="dcf7b5b4-088a-49c8-8a08-4a4609060111" positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="8d4f77d6-9aa0-4a08-a3fe-7042a435eccf" x="0" y="0" width="111" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jugador_nombre_j}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="0e8697a6-ad71-4629-a698-51c478e52261" x="111" y="0" width="111" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jugador_apellido_j}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="9191befd-32f8-4a82-bc39-347a0c26c48a" x="222" y="0" width="111" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{club_nombre_club}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="3afc2b8e-da8b-46bc-b66f-646a713a9646" x="333" y="0" width="111" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{categoria_nombre_cat}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="4d6d888b-6484-4523-b992-60accd18f383" x="444" y="0" width="111" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{h_jugador_goles}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement uuid="6bd382f5-41bf-4c93-aaac-45481f6988c6" mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="bb827a73-0c82-462d-8d02-76ba5d694051" mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="fddb88e0-b563-4ba1-8526-6cd19b014afb" x="0" y="4" width="100" height="13"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

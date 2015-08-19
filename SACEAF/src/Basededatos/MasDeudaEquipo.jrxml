@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MasDeudaEquipo" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5e4fea5a-a232-436d-bd4d-77f740939daf">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     club.`nombre_club` AS club_nombre_club,
+     deuda.`monto_deuda_total` AS deuda_monto_deuda_total,
+     categoria.`nombre_cat` AS categoria_nombre_cat,
+     categoria.`sexo` AS categoria_sexo
+FROM
+     `club` club INNER JOIN `equipo` equipo ON club.`id_club` = equipo.`id_club`
+     INNER JOIN `deuda` deuda ON club.`id_club` = deuda.`id_club`
+     AND equipo.`id_equipo` = deuda.`id_equipo`
+     INNER JOIN `categoria` categoria ON equipo.`id_categoria` = categoria.`id_categoria`
+
+ORDER BY monto_deuda_total desc]]>
+	</queryString>
+	<field name="club_nombre_club" class="java.lang.String"/>
+	<field name="deuda_monto_deuda_total" class="java.lang.Float"/>
+	<field name="categoria_nombre_cat" class="java.lang.String"/>
+	<field name="categoria_sexo" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<staticText>
+				<reportElement uuid="f4cbde9c-55aa-4054-a391-7516b1e4e039" x="139" y="0" width="275" height="21"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Federacion Venezolana de Futbol]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="13821501-c71c-463c-be2f-b73717164f59" x="139" y="51" width="275" height="21"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Equipos con mas Deuda]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="af88641c-ddd9-480c-9739-cdf1a8cf851d" x="139" y="30" width="275" height="21"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Asociacion de Futbol del estado Miranda]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement uuid="390a019f-42fa-4bf1-86cc-8ae6ec1d3785" x="-20" y="20" width="595" height="1" forecolor="#666666"/>
+			</line>
+			<staticText>
+				<reportElement uuid="e678a20a-e07e-4120-a1ac-26cecbac336b" mode="Opaque" x="0" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Equipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="670d0b19-d433-4684-b6f0-d6fd2271fee6" mode="Opaque" x="138" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Categoria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ce697c93-d25f-43bd-a176-ac15a285a1d5" mode="Opaque" x="276" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="176e162d-62b9-40fd-9f72-7d22e57626ac" mode="Opaque" x="414" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto Deuda]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement uuid="cc0449d4-a7ed-4bd9-a73e-c9fb5eb943dc" positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="e592a0d5-b97f-4f17-ac54-9b8c982e8624" x="0" y="0" width="138" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{club_nombre_club}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="1983d2f5-fb1b-473a-8770-24c19fd6a219" x="138" y="0" width="138" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{categoria_nombre_cat}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="8349c6fd-68c8-4358-98c5-ea458b9bacca" x="276" y="0" width="138" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{categoria_sexo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="415ba91f-9497-4764-a9ca-6497fb2e6011" x="414" y="0" width="138" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deuda_monto_deuda_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement uuid="30ff86ae-269c-407d-bc5a-72d5b4d31999" mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="f4be47ea-a71d-48e5-8921-a2f87aeedc2f" mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="588cc46a-ddaf-4679-b70c-bcd7ebd29704" x="0" y="4" width="100" height="13"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MenosTarjetasJugador" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="94c40656-86a0-49f8-aaa3-1af595115818">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     h_jugador.`tarjeta_r` AS h_jugador_tarjeta_r,
+     h_jugador.`tarjeta_a` AS h_jugador_tarjeta_a,
+     jugador.`nombre_j` AS jugador_nombre_j,
+     jugador.`apellido_j` AS jugador_apellido_j,
+     club.`nombre_club` AS club_nombre_club
+FROM
+     `jugador` jugador INNER JOIN `h_jugador` h_jugador ON jugador.`cedula` = h_jugador.`cedula`
+     INNER JOIN `equipo` equipo ON h_jugador.`id_equipo` = equipo.`id_equipo`
+     AND equipo.`id_equipo` = jugador.`id_equipo`
+     INNER JOIN `club` club ON equipo.`id_club` = club.`id_club`
+     INNER JOIN `h_equipo` h_equipo ON equipo.`id_equipo` = h_equipo.`id_equipo`
+
+ORDER BY tarjeta_a desc]]>
+	</queryString>
+	<field name="h_jugador_tarjeta_r" class="java.lang.Integer"/>
+	<field name="h_jugador_tarjeta_a" class="java.lang.Integer"/>
+	<field name="jugador_nombre_j" class="java.lang.String"/>
+	<field name="jugador_apellido_j" class="java.lang.String"/>
+	<field name="club_nombre_club" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<staticText>
+				<reportElement uuid="13821501-c71c-463c-be2f-b73717164f59" x="135" y="51" width="275" height="21"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jugadores con mas Tarjetas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="af88641c-ddd9-480c-9739-cdf1a8cf851d" x="135" y="21" width="275" height="21"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Asociacion de Futbol del estado Miranda]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f4cbde9c-55aa-4054-a391-7516b1e4e039" x="135" y="0" width="275" height="21"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Federacion Venezolana de Futbol]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement uuid="deb42ee7-398f-4514-8a36-4ef2ea98edbb" x="-20" y="20" width="595" height="1" forecolor="#666666"/>
+			</line>
+			<staticText>
+				<reportElement uuid="14cffd3f-7f40-4bcc-9acc-26297cc37d7e" mode="Opaque" x="0" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ce4b30db-75d6-4af1-b2da-412da7893a5b" mode="Opaque" x="111" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1b872db0-4581-46d2-ac76-1d4dc681214e" mode="Opaque" x="222" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Equipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7d434d0e-719c-4c94-841d-d22710c16640" mode="Opaque" x="333" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tarjeta Amarilla]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c3608f72-31d9-4f79-a150-a58616cbdd8e" mode="Opaque" x="444" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tarjeta Roja]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement uuid="ba9c10f4-bffe-4871-88c1-d3cce1f9d440" positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="930d8c9e-8660-472c-ad9a-5b74be9446d5" x="0" y="0" width="111" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jugador_nombre_j}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="6549ecf6-5ddd-47b0-b67e-614e29aee0a9" x="111" y="0" width="111" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jugador_apellido_j}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="742d069f-ec02-49cc-ba5a-2fe455f56d42" x="222" y="0" width="111" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{club_nombre_club}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="6b769e88-5fc7-49c8-bc46-2e2db1771afa" x="333" y="0" width="111" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{h_jugador_tarjeta_r}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="facb60ac-b205-4c2d-9f18-473194956026" x="444" y="0" width="111" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{h_jugador_tarjeta_a}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement uuid="97af1b1a-0476-4efe-b6f4-b4aaf86ebaaf" mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="417f448e-1cb0-49e1-b4d1-0da959a331f6" mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="eba77334-c6c2-4a87-87f7-fe80b8c754d0" x="0" y="4" width="100" height="13"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>
