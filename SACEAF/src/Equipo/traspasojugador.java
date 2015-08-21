@@ -2,7 +2,6 @@
 package Equipo;
 
 import Basededatos.Conexion;
-import Basededatos.equipo.datosjugador;
 import Basededatos.equipo.jugador;
 import Basededatos.equipo.traspaso;
 import java.sql.Connection;
@@ -18,20 +17,21 @@ import javax.swing.table.TableRowSorter;
 import saceaf.Principal;
 
 
-public class traspasojugador extends javax.swing.JPanel {
+public final class traspasojugador extends javax.swing.JPanel {
 
     static DefaultTableModel receptor=new DefaultTableModel();
- 
-    public traspasojugador() {
-        initComponents();
-        labelserialactual.setVisible(false);
-        cargardatos();
-        cargarequipos();
-        bguardar.setEnabled(true);
-    }
-
     String nombre, apellido, cedula, fecha,equipo_actual,id_traspaso,equiporeceptor,categoria,id_categoria,idequipoactual,idequiporeceptor,identificador;
     static String idcategoria;
+    
+    
+    public traspasojugador() {
+        initComponents();
+        traspasojugador.labelserialactual.setVisible(false);
+        cargardatos();
+        cargarequipos();
+        traspasojugador.bguardar.setEnabled(true);
+    }
+
   
     public void cargardatos(){
         cedula=(String)mostrarjugador.tablajugadores.getValueAt(mostrarjugador.tablajugadores.getSelectedRow(), 0);
@@ -68,11 +68,11 @@ public class traspasojugador extends javax.swing.JPanel {
        }catch(SQLException | ClassNotFoundException ex){
            Logger.getLogger(traspasojugador.class.getName()).log(Level.SEVERE,null,ex);
        }
-         campocedula.setText(cedula);
-         camponombre.setText(nombre);
-         campoapellido.setText(apellido);
-         equipoactual.setText(equipo_actual+" "+identificador);
-         labelserialactual.setText(idequipoactual);
+         traspasojugador.campocedula.setText(cedula);
+         traspasojugador.camponombre.setText(nombre);
+         traspasojugador.campoapellido.setText(apellido);
+         traspasojugador.equipoactual.setText(equipo_actual+" "+identificador);
+         traspasojugador.labelserialactual.setText(idequipoactual);
     }
     public static void cargarequipos(){
 
@@ -106,21 +106,20 @@ public class traspasojugador extends javax.swing.JPanel {
                 registros [1]=rs.getString("e.identificador");
                 receptor.addRow(registros);
             }
-            tablareceptor.setModel(receptor);
-            tablareceptor.getColumnModel().getColumn(0).setPreferredWidth(138);
-            tablareceptor.getColumnModel().getColumn(1).setPreferredWidth(140);
+            traspasojugador.tablareceptor.setModel(receptor);
+            traspasojugador.tablareceptor.getColumnModel().getColumn(0).setPreferredWidth(138);
+            traspasojugador.tablareceptor.getColumnModel().getColumn(1).setPreferredWidth(140);
             TableRowSorter modeloordenado= new TableRowSorter(receptor);
-            tablareceptor.setRowSorter(modeloordenado);
+            traspasojugador.tablareceptor.setRowSorter(modeloordenado);
         }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(traspasojugador.class.getName()).log(Level.SEVERE,null,ex);
         }
         
     }
-
     public void guardar(){
-        cedula= campocedula.getText();
+        cedula= traspasojugador.campocedula.getText();
         fecha=Principal.labelfecha.getText();
-        idequipoactual=labelserialactual.getText();
+        idequipoactual=traspasojugador.labelserialactual.getText();
         equiporeceptor=(String)tablareceptor.getValueAt(tablareceptor.getSelectedRow(),0);
         identificador=(String)tablareceptor.getValueAt(tablareceptor.getSelectedRow(),1);
         try{
@@ -159,6 +158,8 @@ public class traspasojugador extends javax.swing.JPanel {
         }
     }
     }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -333,27 +334,27 @@ public class traspasojugador extends javax.swing.JPanel {
     }//GEN-LAST:event_bsalirActionPerformed
 
     private void campocedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campocedulaKeyTyped
-                   int Limite=8;
-    char K;
-    K=evt.getKeyChar();
-    if (campocedula.getText().length()== Limite){
-     evt.consume();
-    }
-    if(K<'0'|| K>'9'){
-     evt.consume();
-    }
+        int Limite=8;
+        char K;
+        K=evt.getKeyChar();
+        if (traspasojugador.campocedula.getText().length()== Limite){
+         evt.consume();
+        }
+        if(K<'0'|| K>'9'){
+         evt.consume();
+        }
     }//GEN-LAST:event_campocedulaKeyTyped
 
     private void camponombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camponombreKeyTyped
-                     int Limite=50;
-    char K;
-    K=evt.getKeyChar();
-    if (camponombre.getText().length()== Limite){
-     evt.consume();
-    }
-    if(!(K<'0'|| K>'9')){
-     evt.consume();
-    }
+        int Limite=50;
+        char K;
+        K=evt.getKeyChar();
+        if (traspasojugador.camponombre.getText().length()== Limite){
+         evt.consume();
+        }
+        if(!(K<'0'|| K>'9')){
+         evt.consume();
+        }
     }//GEN-LAST:event_camponombreKeyTyped
 
     private void campocedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campocedulaKeyReleased

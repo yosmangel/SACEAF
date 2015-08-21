@@ -3,57 +3,61 @@
 package Equipo;
 
 import Basededatos.Conexion;
-import Basededatos.equipo.club;
 import Basededatos.equipo.datobloquear;
-import Basededatos.equipo.datoimagen;
-
 import Basededatos.equipo.equipo;
-import Basededatos.equipo.imagenclub;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.RowFilter;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 import saceaf.Principal;
 
 
-public class pclub extends javax.swing.JPanel {
+public final class pclub extends javax.swing.JPanel {
 
-    
-    Image im;
-    BufferedImage img=null;
-    private int lista;
-
+ String imagen, nombreimagen, ruta;
+ 
     public pclub()  {
         initComponents();
         tomadato();
         mostrarequipos();
     }
 
-String ruta;
-ArrayList<imagenclub> imagenes;
+
     public void tomadato(){
 
         String nombre=(String) pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),1);
-         nombreclub.setText(nombre);
-      
+        nombreclub.setText(nombre);
+        String id=(String) pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),0);
+         try{   
+           String sql="Select logo_eq from imagenclub where id_club='"+id+"'";
+           Conexion parametros = new Conexion();
+           Class.forName(parametros.getDriver());
+           Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
+           Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+           ResultSet rs=st.executeQuery(sql);
+           while(rs.first()){
+             
+             imagen=rs.getString("logo_eq");
+             break;
+           }
+       }catch(SQLException | ClassNotFoundException ex){
+           Logger.getLogger(pclub.class.getName()).log(Level.SEVERE,null,ex);
+       }
+        
+        
+        Image preview = Toolkit.getDefaultToolkit().getImage(imagen);
+        if(preview != null){
+             pclub.labellogo.setText("");
+             ImageIcon icon = new ImageIcon(preview.getScaledInstance(pclub.labellogo.getWidth(), pclub.labellogo.getHeight(), Image.SCALE_DEFAULT));
+             pclub.labellogo.setIcon(icon);
+            }
        
             
         
@@ -93,11 +97,11 @@ ArrayList<imagenclub> imagenes;
         }
     }
     public static void hablitar(){
-       bagregar.setEnabled(true);
-       bacceder.setEnabled(true);
-       bmodificar.setEnabled(true);
-       bsalir.setEnabled(true);
-       bbloquear.setEnabled(true);
+       pclub.bagregar.setEnabled(true);
+       pclub.bacceder.setEnabled(true);
+       pclub.bmodificar.setEnabled(true);
+       pclub.bsalir.setEnabled(true);
+       pclub.bbloquear.setEnabled(true);
        mostrarequipo.rmasculino.setEnabled(true);
        mostrarequipo.rfemenino.setEnabled(true);
        
@@ -162,10 +166,8 @@ ArrayList<imagenclub> imagenes;
                    mostrarequipo.equiposfemenino(); 
                 }
                 }
-        }catch(SQLException ex){
-            Logger.getLogger(Gclubes.class.getName()).log(Level.SEVERE,null,ex);
-        }catch(ClassNotFoundException e){
-            Logger.getLogger(Gclubes.class.getName()).log(Level.SEVERE,null,e);
+        }catch(SQLException | ClassNotFoundException ex){
+            Logger.getLogger(pclub.class.getName()).log(Level.SEVERE,null,ex);
         }
         }
     }
@@ -188,10 +190,8 @@ ArrayList<imagenclub> imagenes;
                    mostrarequipo.equiposfemenino(); 
                    }
                 }
-        }catch(SQLException ex){
-            Logger.getLogger(Gclubes.class.getName()).log(Level.SEVERE,null,ex);
-        }catch(ClassNotFoundException e){
-            Logger.getLogger(Gclubes.class.getName()).log(Level.SEVERE,null,e);
+        }catch(SQLException | ClassNotFoundException ex){
+            Logger.getLogger(pclub.class.getName()).log(Level.SEVERE,null,ex);
         }
         }
     }

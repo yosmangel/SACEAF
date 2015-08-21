@@ -1,5 +1,3 @@
-
-
 package Equipo;
 
 import Basededatos.Conexion;
@@ -16,97 +14,98 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 
-public class cagregarequipo extends javax.swing.JPanel {
+public final class cagregarequipo extends javax.swing.JPanel {
 
     DefaultComboBoxModel cdisciplina= new DefaultComboBoxModel();
     DefaultComboBoxModel cfemenino= new DefaultComboBoxModel();
     DefaultComboBoxModel cmasculino= new DefaultComboBoxModel();
-
+    String categoria,disciplina;
+    int ctrse, ctrde;
+    
     public cagregarequipo() {
         initComponents();
-        rmasculino.setSelected(true);
+        cagregarequipo.rmasculino.setSelected(true);
         cargarmasculino();
         cargarserial();
         cargardisciplina();
     }
 
+    
     public void cargarserial(){
         
      String serial=(String) pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),0);
   
-     camposerialclub.setText(serial);
-     camposerialclub.setEnabled(false);
+     cagregarequipo.camposerialclub.setText(serial);
+     cagregarequipo.camposerialclub.setEnabled(false);
     }
     public void cargardisciplina(){
-    combodisciplina.removeAllItems();
-    try{
-        Conexion parametros=new Conexion();
-        Class.forName(parametros.getDriver());
-        Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
-        Statement st= con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        ResultSet rs= st.executeQuery("Select nombre_disciplina from disciplina;");
-        cdisciplina.addElement("Elige la Disciplina");
-        combodisciplina.setModel(cdisciplina);
-        while(rs.next()){
-            cdisciplina.addElement(rs.getObject("nombre_disciplina"));
-            combodisciplina.setModel(cdisciplina);
+        cagregarequipo.combodisciplina.removeAllItems();
+        try{
+            Conexion parametros=new Conexion();
+            Class.forName(parametros.getDriver());
+            Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
+            Statement st= con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs= st.executeQuery("Select nombre_disciplina from disciplina;");
+            cdisciplina.addElement("Elige la Disciplina");
+            cagregarequipo.combodisciplina.setModel(cdisciplina);
+            while(rs.next()){
+                cdisciplina.addElement(rs.getObject("nombre_disciplina"));
+                cagregarequipo.combodisciplina.setModel(cdisciplina);
+            }
+            st.close();
+        }catch(SQLException | ClassNotFoundException ex){
+            Logger.getLogger(cagregarequipo.class.getName()).log(Level.SEVERE,null,ex);
         }
-        st.close();
-    }catch(SQLException | ClassNotFoundException ex){
-        Logger.getLogger(cagregarequipo.class.getName()).log(Level.SEVERE,null,ex);
-    }
     }
     public void cargarfemenino(){
-        combocategoria.removeAllItems();
-    try{
-        Conexion parametros=new Conexion();
-        Class.forName(parametros.getDriver());
-        Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
-        Statement st= con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        ResultSet rs= st.executeQuery("Select nombre_cat from categoria where sexo='Femenino';");
-        cfemenino.addElement("Elige la Categoria");
-        combocategoria.setModel(cfemenino);
-        while(rs.next()){
-            cfemenino.addElement(rs.getObject("nombre_cat"));
-            combocategoria.setModel(cfemenino);
+        cagregarequipo.combocategoria.removeAllItems();
+        try{
+            Conexion parametros=new Conexion();
+            Class.forName(parametros.getDriver());
+            Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
+            Statement st= con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs= st.executeQuery("Select nombre_cat from categoria where sexo='Femenino';");
+            cfemenino.addElement("Elige la Categoria");
+            cagregarequipo.combocategoria.setModel(cfemenino);
+            while(rs.next()){
+                cfemenino.addElement(rs.getObject("nombre_cat"));
+                cagregarequipo.combocategoria.setModel(cfemenino);
+            }
+            st.close();
+        }catch(SQLException | ClassNotFoundException ex){
+            Logger.getLogger(cagregarequipo.class.getName()).log(Level.SEVERE,null,ex);
         }
-        st.close();
-    }catch(SQLException | ClassNotFoundException ex){
-        Logger.getLogger(cagregarequipo.class.getName()).log(Level.SEVERE,null,ex);
-    }
     }
     public void cargarmasculino(){
-        combocategoria.removeAllItems();
-    try{
-        Conexion parametros=new Conexion();
-        Class.forName(parametros.getDriver());
-        Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
-        Statement st= con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        ResultSet rs= st.executeQuery("Select nombre_cat from categoria where sexo='Masculino';");
-        cmasculino.addElement("Elige la Categoria");
-        combocategoria.setModel(cmasculino);
-        while(rs.next()){
-            cmasculino.addElement(rs.getObject("nombre_cat"));
-            combocategoria.setModel(cmasculino);
+            cagregarequipo.combocategoria.removeAllItems();
+        try{
+            Conexion parametros=new Conexion();
+            Class.forName(parametros.getDriver());
+            Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
+            Statement st= con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs= st.executeQuery("Select nombre_cat from categoria where sexo='Masculino';");
+            cmasculino.addElement("Elige la Categoria");
+            cagregarequipo.combocategoria.setModel(cmasculino);
+            while(rs.next()){
+                cmasculino.addElement(rs.getObject("nombre_cat"));
+               cagregarequipo.combocategoria.setModel(cmasculino);
+            }
+            st.close();
+        }catch(SQLException | ClassNotFoundException ex){
+            Logger.getLogger(cagregarequipo.class.getName()).log(Level.SEVERE,null,ex);
         }
-        st.close();
-    }catch(SQLException ex){
-        Logger.getLogger(cagregarequipo.class.getName()).log(Level.SEVERE,null,ex);
-    }catch(ClassNotFoundException e){
-        Logger.getLogger(cagregarequipo.class.getName()).log(Level.SEVERE,null,e);
-    }
     }
     public void limpiar(){
-        rmasculino.setSelected(true);
-        rfemenino.setSelected(false);
-        combocategoria.removeAllItems();
+        cagregarequipo.rmasculino.setSelected(true);
+        cagregarequipo.rfemenino.setSelected(false);
+        cagregarequipo.combocategoria.removeAllItems();
         cargarmasculino();
-        combodisciplina.removeAllItems();
+        cagregarequipo.combodisciplina.removeAllItems();
         cargardisciplina();
-        camposerialequipo.setText("");
-        campodelegado.setText("");
-        camposerialclub.requestFocus();
-        campoidentificador.setText("");
+        cagregarequipo.camposerialequipo.setText("");
+        cagregarequipo.campodelegado.setText("");
+        cagregarequipo.camposerialclub.requestFocus();
+        cagregarequipo.campoidentificador.setText("");
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -359,178 +358,177 @@ public class cagregarequipo extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-   String categoria,disciplina;
-   int ctrse, ctrde;
+   
     private void bguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bguardarActionPerformed
-    String nombrecate= combocategoria.getSelectedItem().toString();
-    try{
-           String sql="Select id_categoria from categoria where nombre_cat='"+nombrecate+"'";
-           Conexion parametros = new Conexion();
-           Class.forName(parametros.getDriver());
-           Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
-           Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-           ResultSet rs=st.executeQuery(sql);
-           while(rs.first()){
-               categoria=rs.getString("id_categoria");
-               break;
-          } 
-       }catch(SQLException | ClassNotFoundException ex){
-           Logger.getLogger(cagregarequipo.class.getName()).log(Level.SEVERE,null,ex);
-       }
-    String nombredisciplina=combodisciplina.getSelectedItem().toString();
-    try{
-           String sql="Select id_disciplina from disciplina where nombre_disciplina='"+nombredisciplina+"'";
-           Conexion parametros = new Conexion();
-           Class.forName(parametros.getDriver());
-           Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
-           Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-           ResultSet rs=st.executeQuery(sql);
-           while(rs.first()){
-               disciplina=rs.getString("id_disciplina");
-               break;
-          } 
-       }catch(SQLException | ClassNotFoundException ex){
-           Logger.getLogger(cagregarequipo.class.getName()).log(Level.SEVERE,null,ex);
-       }
-    
-        String equipo=camposerialequipo.getText();
-        String serialclub=camposerialclub.getText();
-        String serialequipo=serialclub+disciplina+categoria+equipo;
-        String delegado=campodelegado.getText();
-        String bloqueo="No";
-        String identificador=campoidentificador.getText();
-         try{
-           String sql="Select id_equipo from equipo where id_equipo='"+serialequipo+"'";
-           Conexion parametros = new Conexion();
-           Class.forName(parametros.getDriver());
-           Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
-           Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-           ResultSet rs=st.executeQuery(sql);
-           while(rs.first()){
-               ctrse=2;
-               break;
-          } 
-       }catch(SQLException | ClassNotFoundException ex){
-           Logger.getLogger(cagregarequipo.class.getName()).log(Level.SEVERE,null,ex);
-       }
-    try{
-           String sql="Select id_equipo from equipo where delegadoeq='"+delegado+"'";
-           Conexion parametros = new Conexion();
-           Class.forName(parametros.getDriver());
-           Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
-           Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-           ResultSet rs=st.executeQuery(sql);
-           while(rs.first()){
-               ctrde=2;
-               break;
-          } 
-       }catch(SQLException | ClassNotFoundException ex){
-           Logger.getLogger(cagregarequipo.class.getName()).log(Level.SEVERE,null,ex);
-       }
-    
-    if(ctrse==2){
-       JOptionPane.showMessageDialog(this,"El serial del equipo ya se encuentra guardado en la Base de Datos","Informacion",JOptionPane.INFORMATION_MESSAGE);
-       camposerialequipo.setText("");
-       camposerialequipo.requestFocus();
-    }else{
+        String nombrecate= cagregarequipo.combocategoria.getSelectedItem().toString();
         try{
-            datoequipo user= new datoequipo(serialequipo,delegado,serialclub,categoria,bloqueo,disciplina,identificador);
-            equipo in= new equipo();
-            boolean r;
-            r=in.Insertar(user);
-            if(r==false){
-                JOptionPane.showMessageDialog(this,"Registro Exitoso","Guardado",JOptionPane.INFORMATION_MESSAGE);
-                int opc= JOptionPane.showConfirmDialog(null, "Desea Guardar otro equipo en la base de datos?", "Informacion", JOptionPane.YES_NO_OPTION);
-                if(opc==0){
-                    limpiar();
-                    mostrarequipo.equiposfemenino();
-                    mostrarequipo.equiposmasculinos();
-                }else{
-                    pclub.panelequipos.remove(this);
-                    mostrarequipo.equiposfemenino();
-                    mostrarequipo.equiposmasculinos();
-                    pclub.hablitar();
+               String sql="Select id_categoria from categoria where nombre_cat='"+nombrecate+"'";
+               Conexion parametros = new Conexion();
+               Class.forName(parametros.getDriver());
+               Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
+               Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+               ResultSet rs=st.executeQuery(sql);
+               while(rs.first()){
+                   categoria=rs.getString("id_categoria");
+                   break;
+              } 
+           }catch(SQLException | ClassNotFoundException ex){
+               Logger.getLogger(cagregarequipo.class.getName()).log(Level.SEVERE,null,ex);
+           }
+        String nombredisciplina=cagregarequipo.combodisciplina.getSelectedItem().toString();
+        try{
+               String sql="Select id_disciplina from disciplina where nombre_disciplina='"+nombredisciplina+"'";
+               Conexion parametros = new Conexion();
+               Class.forName(parametros.getDriver());
+               Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
+               Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+               ResultSet rs=st.executeQuery(sql);
+               while(rs.first()){
+                   disciplina=rs.getString("id_disciplina");
+                   break;
+              } 
+           }catch(SQLException | ClassNotFoundException ex){
+               Logger.getLogger(cagregarequipo.class.getName()).log(Level.SEVERE,null,ex);
+           }
+
+            String equipo=cagregarequipo.camposerialequipo.getText();
+            String serialclub=cagregarequipo.camposerialclub.getText();
+            String serialequipo=serialclub+disciplina+categoria+equipo;
+            String delegado=cagregarequipo.campodelegado.getText();
+            String bloqueo="No";
+            String identificador=cagregarequipo.campoidentificador.getText();
+             try{
+               String sql="Select id_equipo from equipo where id_equipo='"+serialequipo+"'";
+               Conexion parametros = new Conexion();
+               Class.forName(parametros.getDriver());
+               Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
+               Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+               ResultSet rs=st.executeQuery(sql);
+               while(rs.first()){
+                   ctrse=2;
+                   break;
+              } 
+           }catch(SQLException | ClassNotFoundException ex){
+               Logger.getLogger(cagregarequipo.class.getName()).log(Level.SEVERE,null,ex);
+           }
+        try{
+               String sql="Select id_equipo from equipo where delegadoeq='"+delegado+"'";
+               Conexion parametros = new Conexion();
+               Class.forName(parametros.getDriver());
+               Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
+               Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+               ResultSet rs=st.executeQuery(sql);
+               while(rs.first()){
+                   ctrde=2;
+                   break;
+              } 
+           }catch(SQLException | ClassNotFoundException ex){
+               Logger.getLogger(cagregarequipo.class.getName()).log(Level.SEVERE,null,ex);
+           }
+
+        if(ctrse==2){
+           JOptionPane.showMessageDialog(this,"El serial del equipo ya se encuentra guardado en la Base de Datos","Informacion",JOptionPane.INFORMATION_MESSAGE);
+           cagregarequipo.camposerialequipo.setText("");
+           cagregarequipo.camposerialequipo.requestFocus();
+        }else{
+            try{
+                datoequipo user= new datoequipo(serialequipo,delegado,serialclub,categoria,bloqueo,disciplina,identificador);
+                equipo in= new equipo();
+                boolean r;
+                r=in.Insertar(user);
+                if(r==false){
+                    JOptionPane.showMessageDialog(this,"Registro Exitoso","Guardado",JOptionPane.INFORMATION_MESSAGE);
+                    int opc= JOptionPane.showConfirmDialog(null, "Desea Guardar otro equipo en la base de datos?", "Informacion", JOptionPane.YES_NO_OPTION);
+                    if(opc==0){
+                        limpiar();
+                        mostrarequipo.equiposfemenino();
+                        mostrarequipo.equiposmasculinos();
+                    }else{
+                        pclub.panelequipos.remove(this);
+                        mostrarequipo.equiposfemenino();
+                        mostrarequipo.equiposmasculinos();
+                        pclub.hablitar();
+                    }
                 }
+            }catch(SQLException ex){
+                JOptionPane.showMessageDialog(this,"Error "+ex.getMessage(),"Error...",JOptionPane.ERROR_MESSAGE);
+            }catch(ClassNotFoundException e){
+                Logger.getLogger(cagregarequipo.class.getName()).log(Level.SEVERE,null, e);
             }
-        }catch(SQLException ex){
-            JOptionPane.showMessageDialog(this,"Error "+ex.getMessage(),"Error...",JOptionPane.ERROR_MESSAGE);
-        }catch(ClassNotFoundException e){
-            Logger.getLogger(cagregarequipo.class.getName()).log(Level.SEVERE,null, e);
-        }
-        }
+            }
     }//GEN-LAST:event_bguardarActionPerformed
 
     private void blimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blimpiarActionPerformed
-    limpiar();
+        limpiar();
     }//GEN-LAST:event_blimpiarActionPerformed
 
     private void bsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsalirActionPerformed
-    pclub.panelequipos.remove(this);
-    pclub.hablitar();
+        pclub.panelequipos.remove(this);
+        pclub.hablitar();
     }//GEN-LAST:event_bsalirActionPerformed
 
     private void rmasculinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rmasculinoActionPerformed
-      rmasculino.setSelected(true);
-      cargarmasculino();
-      if(rmasculino.isSelected()==true){
-          rfemenino.setSelected(false);
-      }
+        cagregarequipo.rmasculino.setSelected(true);
+        cargarmasculino();
+        if(cagregarequipo.rmasculino.isSelected()==true){
+            cagregarequipo.rfemenino.setSelected(false);
+        }
     }//GEN-LAST:event_rmasculinoActionPerformed
 
     private void rfemeninoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rfemeninoActionPerformed
-     rfemenino.setSelected(true);
+     cagregarequipo.rfemenino.setSelected(true);
      cargarfemenino();
-     if(rfemenino.isSelected()==true){
-         rmasculino.setSelected(false);
+     if(cagregarequipo.rfemenino.isSelected()==true){
+         cagregarequipo.rmasculino.setSelected(false);
      }
     }//GEN-LAST:event_rfemeninoActionPerformed
 
     private void camposerialclubKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camposerialclubKeyTyped
-              int Limite=50;
-    char K;
-    K=evt.getKeyChar();
-    if (camposerialclub.getText().length()== Limite){
-     evt.consume();
-    }
-    if(K<'0'|| K>'9'){
-     evt.consume();
-    }
+        int Limite=50;
+        char K;
+        K=evt.getKeyChar();
+        if (camposerialclub.getText().length()== Limite){
+         evt.consume();
+        }
+        if(K<'0'|| K>'9'){
+         evt.consume();
+        }
     }//GEN-LAST:event_camposerialclubKeyTyped
 
     private void campoidentificadorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoidentificadorKeyTyped
-                    int Limite=2;
-    char K;
-    K=evt.getKeyChar();
-    if (campoidentificador.getText().length()== Limite){
-     evt.consume();
-    }
-    if(!(K<'0'|| K>'9')){
-     evt.consume();
-    }
+        int Limite=2;
+        char K;
+        K=evt.getKeyChar();
+        if (campoidentificador.getText().length()== Limite){
+         evt.consume();
+        }
+        if(!(K<'0'|| K>'9')){
+         evt.consume();
+        }
     }//GEN-LAST:event_campoidentificadorKeyTyped
 
     private void camposerialequipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camposerialequipoKeyTyped
-                 int Limite=50;
-    char K;
-    K=evt.getKeyChar();
-    if (camposerialequipo.getText().length()== Limite){
-     evt.consume();
-    }
-    if(K<'0'|| K>'9'){
-     evt.consume();
-    }
+        int Limite=50;
+        char K;
+        K=evt.getKeyChar();
+        if (camposerialequipo.getText().length()== Limite){
+         evt.consume();
+        }
+        if(K<'0'|| K>'9'){
+         evt.consume();
+        }
     }//GEN-LAST:event_camposerialequipoKeyTyped
 
     private void campodelegadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campodelegadoKeyTyped
-    int Limite=50;
-    char K;
-    K=evt.getKeyChar();
-    if (campoidentificador.getText().length()== Limite){
-     evt.consume();
-    }
-    if(!(K<'0'|| K>'9')){
-     evt.consume();
-    }
+        int Limite=50;
+        char K;
+        K=evt.getKeyChar();
+        if (campoidentificador.getText().length()== Limite){
+         evt.consume();
+        }
+        if(!(K<'0'|| K>'9')){
+         evt.consume();
+        }
     }//GEN-LAST:event_campodelegadoKeyTyped
 
 

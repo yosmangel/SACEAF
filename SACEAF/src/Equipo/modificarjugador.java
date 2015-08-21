@@ -3,7 +3,6 @@ package Equipo;
 
 import Basededatos.Conexion;
 import Basededatos.equipo.datomodificarjugador;
-import Basededatos.equipo.datosjugador;
 import Basededatos.equipo.jugador;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -19,81 +18,84 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 
-public class modificarjugador extends javax.swing.JPanel {
+public final class modificarjugador extends javax.swing.JPanel {
 
-    String cedula, nombre,apellido,imagen, nombreimagen;
+    String cedula, nombre,apellido,imagen, nombreimagen,fechadenacimiento, serialequipo, ficha,
+           foto,dia, mes, year,nacionalidad,bloqueo,nombrecat;
     int ctrlinicio,ctrlfin,ctrc,ddia,dmes,dyear;
-    String fechadenacimiento, serialequipo, ficha,foto,dia, mes, year,nacionalidad,bloqueo,nombrecat;
+    
+    
     public modificarjugador() {
         initComponents();
         cargardatos();
     }
-   public void HabilitarGuardar(){
-    String Cedula=this.campocedula.getText();
-    String Nombre=this.camponombre.getText();
-    String Apellido=this.campoapellido.getText();
-    String Dia=this.campodia.getText();
-    String Mes=this.campomes.getText();
-    String Year=this.campoyear.getText();
+    
+    
+    public void HabilitarGuardar(){
+    String Cedula=modificarjugador.campocedula.getText();
+    String Nombre=modificarjugador.camponombre.getText();
+    String Apellido=modificarjugador.campoapellido.getText();
+    String Dia=modificarjugador.campodia.getText();
+    String Mes=modificarjugador.campomes.getText();
+    String Year=modificarjugador.campoyear.getText();
     
     if(Cedula.isEmpty() || Nombre.isEmpty() || Apellido.isEmpty() || Dia.isEmpty() || Mes.isEmpty() || Year.isEmpty()){
-        this.bguardar.setEnabled(false);
+        modificarjugador.bguardar.setEnabled(false);
     }
     else{
-        this.bguardar.setEnabled(true);
+        modificarjugador.bguardar.setEnabled(true);
     }
 }
-   
-    
     public void limpiar(){
-        camponombre.setText("");
-        campoapellido.setText("");
-        campodia.setText("");
-        campomes.setText("");
-        campoyear.setText("");
-        ruta.setText("");
-        lfoto.setIcon(null);
-        bguardar.setEnabled(false);
+        modificarjugador.camponombre.setText("");
+        modificarjugador.campoapellido.setText("");
+        modificarjugador.campodia.setText("");
+        modificarjugador.campomes.setText("");
+        modificarjugador.campoyear.setText("");
+        modificarjugador.ruta.setText("");
+        modificarjugador.lfoto.setIcon(null);
+        modificarjugador.bguardar.setEnabled(false);
         
     }
     public void cargardatos(){
-    cedula=(String)mostrarjugador.tablajugadores.getValueAt(mostrarjugador.tablajugadores.getSelectedRow(), 0);
-    try{
-            String sql="Select nombre_j, apellido_j,dia_j,mes_j,year_j,foto, nacionalidad from jugador where cedula='"+cedula+"';";
-            Conexion parametros= new Conexion();
-            Class.forName(parametros.getDriver());
-            Connection con= DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
-            Statement st= con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs=st.executeQuery(sql);
-            while(rs.first()){
-                nombre=rs.getNString("nombre_j");
-                apellido=rs.getNString("apellido_j");
-                ddia=rs.getInt("dia_j");
-                dmes=rs.getInt("mes_j");
-                dyear=rs.getInt("year_j");
-                foto=rs.getNString("foto");
-                nacionalidad=rs.getNString("nacionalidad");
-                break;
+            cedula=(String)mostrarjugador.tablajugadores.getValueAt(mostrarjugador.tablajugadores.getSelectedRow(), 0);
+            try{
+                    String sql="Select nombre_j, apellido_j,dia_j,mes_j,year_j,foto, nacionalidad from jugador where cedula='"+cedula+"';";
+                    Conexion parametros= new Conexion();
+                    Class.forName(parametros.getDriver());
+                    Connection con= DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
+                    Statement st= con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                    ResultSet rs=st.executeQuery(sql);
+                    while(rs.first()){
+                        nombre=rs.getNString("nombre_j");
+                        apellido=rs.getNString("apellido_j");
+                        ddia=rs.getInt("dia_j");
+                        dmes=rs.getInt("mes_j");
+                        dyear=rs.getInt("year_j");
+                        foto=rs.getNString("foto");
+                        nacionalidad=rs.getNString("nacionalidad");
+                        break;
+                    }
+                }catch(SQLException | ClassNotFoundException ex){
+                    Logger.getLogger(modificarjugador.class.getName()).log(Level.SEVERE,null,ex);
+                }
+            dia=Integer.toString(ddia);
+            mes=Integer.toString(dmes);
+            year=Integer.toString(dyear);
+            modificarjugador.campocedula.setText(cedula);
+            modificarjugador.camponombre.setText(nombre);
+            modificarjugador.campoapellido.setText(apellido);
+            modificarjugador.campodia.setText(dia);
+            modificarjugador.campomes.setText(mes);
+            modificarjugador.campoyear.setText(year);
+            modificarjugador.ruta.setText(foto);
+            if("Venezolano".equals(nacionalidad)){
+                modificarjugador.rvenezolano.setSelected(true);
+            }else{
+                modificarjugador.rextranjero.setSelected(true);
             }
-        }catch(SQLException | ClassNotFoundException ex){
-            Logger.getLogger(modificarjugador.class.getName()).log(Level.SEVERE,null,ex);
-        }
-    dia=Integer.toString(ddia);
-    mes=Integer.toString(dmes);
-    year=Integer.toString(dyear);
-    campocedula.setText(cedula);
-    camponombre.setText(nombre);
-    campoapellido.setText(apellido);
-    campodia.setText(dia);
-    campomes.setText(mes);
-    campoyear.setText(year);
-    ruta.setText(foto);
-    if("Venezolano".equals(nacionalidad)){
-        rvenezolano.setSelected(true);
-    }else{
-        rextranjero.setSelected(true);
     }
-    }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -131,7 +133,7 @@ public class modificarjugador extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Agregar Datos del Jugador");
+        jLabel1.setText("Modificar Datos del Jugador");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -406,17 +408,17 @@ public class modificarjugador extends javax.swing.JPanel {
  
  
     private void bguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bguardarActionPerformed
-        cedula= campocedula.getText();
-        nombre=camponombre.getText();
-        apellido=campoapellido.getText();
-        int idia=Integer.parseInt(campodia.getText());
-        int imes= Integer.parseInt(campomes.getText());
-        int iyear=Integer.parseInt(campoyear.getText());
+        cedula= modificarjugador.campocedula.getText();
+        nombre=modificarjugador.camponombre.getText();
+        apellido=modificarjugador.campoapellido.getText();
+        int idia=Integer.parseInt(modificarjugador.campodia.getText());
+        int imes= Integer.parseInt(modificarjugador.campomes.getText());
+        int iyear=Integer.parseInt(modificarjugador.campoyear.getText());
         fechadenacimiento=iyear+"/"+imes+"/"+idia;
         serialequipo=pequipo.labelserial.getText();
         
         try{
-            if(rvenezolano.isSelected()==true){
+            if(modificarjugador.rvenezolano.isSelected()==true){
             
             nacionalidad="Venezolano";
         }else{
@@ -426,7 +428,7 @@ public class modificarjugador extends javax.swing.JPanel {
         }catch(Exception e){
             
         }
-        foto=ruta.getText();
+        foto=modificarjugador.ruta.getText();
         bloqueo="No";
         nombrecat=pequipo.labelcategoria.getText();
         try{
@@ -441,10 +443,8 @@ public class modificarjugador extends javax.swing.JPanel {
                 ctrlfin=rs.getInt("year_final");
                 break;
             }
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(modificarjugador.class.getName()).log(Level.SEVERE,null,ex);
-        }catch(ClassNotFoundException e){
-            Logger.getLogger(modificarjugador.class.getName()).log(Level.SEVERE,null,e);
         }
         
         
@@ -489,28 +489,28 @@ public class modificarjugador extends javax.swing.JPanel {
         if(o == JFileChooser.APPROVE_OPTION){
             imagen = elegirImagen.getSelectedFile().getAbsolutePath();
             nombreimagen = elegirImagen.getSelectedFile().getName();
-            ruta.setText(imagen);
+            modificarjugador.ruta.setText(imagen);
             Image preview = Toolkit.getDefaultToolkit().getImage(imagen);
             if(preview != null){
-                lfoto.setText("");
-                ImageIcon icon = new ImageIcon(preview.getScaledInstance(lfoto.getWidth(), lfoto.getHeight(), Image.SCALE_DEFAULT));
-                lfoto.setIcon(icon);
+                modificarjugador.lfoto.setText("");
+                ImageIcon icon = new ImageIcon(preview.getScaledInstance(modificarjugador.lfoto.getWidth(), modificarjugador.lfoto.getHeight(), Image.SCALE_DEFAULT));
+                modificarjugador.lfoto.setIcon(icon);
             }
         }
     }//GEN-LAST:event_bvisualizarActionPerformed
 
     private void rvenezolanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rvenezolanoActionPerformed
-        rvenezolano.setSelected(true);
-        if(rvenezolano.isSelected()==true){
-            rextranjero.setSelected(false);
+        modificarjugador.rvenezolano.setSelected(true);
+        if(modificarjugador.rvenezolano.isSelected()==true){
+            modificarjugador.rextranjero.setSelected(false);
             
         }
     }//GEN-LAST:event_rvenezolanoActionPerformed
 
     private void rextranjeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rextranjeroActionPerformed
-        rextranjero.setSelected(true);
-        if(rextranjero.isSelected()==true){
-            rvenezolano.setSelected(false);
+        modificarjugador.rextranjero.setSelected(true);
+        if(modificarjugador.rextranjero.isSelected()==true){
+            modificarjugador.rvenezolano.setSelected(false);
         }
     }//GEN-LAST:event_rextranjeroActionPerformed
 
@@ -520,75 +520,75 @@ public class modificarjugador extends javax.swing.JPanel {
     }//GEN-LAST:event_bsalirActionPerformed
 
     private void campocedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campocedulaKeyTyped
-                   int Limite=8;
-    char K;
-    K=evt.getKeyChar();
-    if (campocedula.getText().length()== Limite){
-     evt.consume();
-    }
-    if(K<'0'|| K>'9'){
-     evt.consume();
-    }
+        int Limite=8;
+        char K;
+        K=evt.getKeyChar();
+        if (modificarjugador.campocedula.getText().length()== Limite){
+         evt.consume();
+        }
+        if(K<'0'|| K>'9'){
+         evt.consume();
+        }
     }//GEN-LAST:event_campocedulaKeyTyped
 
     private void camponombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camponombreKeyTyped
-                     int Limite=50;
-    char K;
-    K=evt.getKeyChar();
-    if (camponombre.getText().length()== Limite){
-     evt.consume();
-    }
-    if(!(K<'0'|| K>'9')){
-     evt.consume();
-    }
+        int Limite=50;
+        char K;
+        K=evt.getKeyChar();
+        if (modificarjugador.camponombre.getText().length()== Limite){
+         evt.consume();
+        }
+        if(!(K<'0'|| K>'9')){
+         evt.consume();
+        }
     }//GEN-LAST:event_camponombreKeyTyped
 
     private void campoapellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoapellidoKeyTyped
-                        int Limite=50;
-    char K;
-    K=evt.getKeyChar();
-    if (campoapellido.getText().length()== Limite){
-     evt.consume();
-    }
-    if(!(K<'0'|| K>'9')){
-     evt.consume();
-    }
+        int Limite=50;
+        char K;
+        K=evt.getKeyChar();
+        if (modificarjugador.campoapellido.getText().length()== Limite){
+         evt.consume();
+        }
+        if(!(K<'0'|| K>'9')){
+         evt.consume();
+        }
     }//GEN-LAST:event_campoapellidoKeyTyped
 
     private void campodiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campodiaKeyTyped
-                      int Limite=2;
-    char K;
-    K=evt.getKeyChar();
-    if (campodia.getText().length()== Limite){
-     evt.consume();
-    }
-    if(K<'0'|| K>'9'){
-     evt.consume();
-    }
+        int Limite=2;
+        char K;
+        K=evt.getKeyChar();
+        if (modificarjugador.campodia.getText().length()== Limite){
+         evt.consume();
+        }
+        if(K<'0'|| K>'9'){
+         evt.consume();
+        }
     }//GEN-LAST:event_campodiaKeyTyped
 
     private void campomesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campomesKeyTyped
-                       int Limite=2;
-    char K;
-    K=evt.getKeyChar();
-    if (campomes.getText().length()== Limite){
-     evt.consume();
-    }
-    if(K<'0'|| K>'9'){
-     evt.consume();
-    }
+        int Limite=2;
+        char K;
+        K=evt.getKeyChar();
+        if (modificarjugador.campomes.getText().length()== Limite){
+         evt.consume();
+        }
+        if(K<'0'|| K>'9'){
+         evt.consume();
+        }
     }//GEN-LAST:event_campomesKeyTyped
 
     private void campoyearKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoyearKeyTyped
-                        int Limite=4;
-    char K;
-    K=evt.getKeyChar();
-    if (campoyear.getText().length()== Limite){
-     evt.consume();
-    }
-    if(K<'0'|| K>'9'){
-     evt.consume();
-    }
+        int Limite=4;
+        char K;
+        K=evt.getKeyChar();
+        if (modificarjugador.campoyear.getText().length()== Limite){
+         evt.consume();
+        }
+        if(K<'0'|| K>'9'){
+         evt.consume();
+        }
     }//GEN-LAST:event_campoyearKeyTyped
 
     private void campocedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campocedulaKeyReleased
@@ -636,7 +636,7 @@ public class modificarjugador extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     public static javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lfoto;
+    public static javax.swing.JLabel lfoto;
     public static javax.swing.JRadioButton rextranjero;
     public static javax.swing.JTextField ruta;
     public static javax.swing.JRadioButton rvenezolano;

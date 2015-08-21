@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Equipo;
 
 import Basededatos.Conexion;
@@ -21,15 +15,13 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author yosmangel
- */
 public final class modificarclub extends javax.swing.JPanel {
  
 
     DefaultComboBoxModel combo= new DefaultComboBoxModel();
     DefaultComboBoxModel combo2= new DefaultComboBoxModel();
+    String presidente,municipio,imagen, nombreimagen,img;
+    int ctrserial,ctrnombre,ctrpre;
 
     
     public modificarclub() {
@@ -39,79 +31,71 @@ public final class modificarclub extends javax.swing.JPanel {
     }
     
     public void HabilitarGuardar(){
-        String Nombre=this.camponombre.getText();
-        String Presidente=this.campopresidente.getText();
+        String Nombre=modificarclub.camponombre.getText();
+        String Presidente=modificarclub.campopresidente.getText();
         
         if(Nombre.isEmpty() || Presidente.isEmpty()){
-            this.bguardar.setEnabled(false);
+            modificarclub.bguardar.setEnabled(false);
         }
         else{
-            this.bguardar.setEnabled(true);
+            modificarclub.bguardar.setEnabled(true);
         }
-    }
-     String img;
-     String imagen, nombreimagen;
-     String municipio;
-     int ctrserial,ctrnombre,ctrpre;
-     
- public void limpiar(){
+    }   
+    public void limpiar(){
        modificarclub.camponombre.setText("");
        modificarclub.campopresidente.setText("");
        modificarclub.campoimagen.setText("");
- }
- public void cargarcampos(){
-     String serial= (String) pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),0);
-     camposerial.setText(serial);
-     camposerial.setEnabled(false);
-     String nombre=(String) pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),1);
-     camponombre.setText(nombre);
-     String muni=(String) pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),2);
-     combo.addElement(muni);
-     combomunicipio.setModel(combo);
-     combomunicipio.setEnabled(false);
-     String presidente=(String)pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),3);
-     campopresidente.setText(presidente);
-     try{
-           String sql="Select logoeq from club where id_club='"+serial+"'";
-           Conexion parametros = new Conexion();
-           Class.forName(parametros.getDriver());
-           Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
-           Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-           ResultSet rs=st.executeQuery(sql);
-           while(rs.first()){
-               img=rs.getString("logoeq");
-               break;
-          } 
-       }catch(SQLException ex){
-           Logger.getLogger(modificarclub.class.getName()).log(Level.SEVERE,null,ex);
-       }catch(ClassNotFoundException e){
-           Logger.getLogger(modificarclub.class.getName()).log(Level.SEVERE,null,e);
-       }
-     campoimagen.setText(img);
+    }
+    public void cargarcampos(){
+        String serial= (String) pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),0);
+        camposerial.setText(serial);
+        camposerial.setEnabled(false);
+        String nombre=(String) pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),1);
+        camponombre.setText(nombre);
+        String muni=(String) pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),2);
+        combo.addElement(muni);
+        combomunicipio.setModel(combo);
+        combomunicipio.setEnabled(false);
+        presidente = (String)pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),3);
+        campopresidente.setText(presidente);
+        try{
+              String sql="Select logoeq from club where id_club='"+serial+"'";
+              Conexion parametros = new Conexion();
+              Class.forName(parametros.getDriver());
+              Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
+              Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+              ResultSet rs=st.executeQuery(sql);
+              while(rs.first()){
+                  img=rs.getString("logoeq");
+                  break;
+             } 
+          }catch(SQLException | ClassNotFoundException ex){
+              Logger.getLogger(modificarclub.class.getName()).log(Level.SEVERE,null,ex);
+          }
+        campoimagen.setText(img);
      
  }
-  public void cargarmunicipio(){
-      combomunicipio.removeAllItems();
-      try{
-          Conexion parametros= new Conexion();
-          Class.forName(parametros.getDriver());
-          Connection con= DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
-          Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-          ResultSet rs=st.executeQuery("Select nombre_municipio from municipio");
-          combo.addElement("Seleccione el Municipio");
-          combomunicipio.setModel(combo);
-          while(rs.next()){
-              combo.addElement(rs.getObject("nombre_municipio"));
-              combomunicipio.setModel(combo);
-          }
-          st.close();
-      }catch(SQLException ex){
-          Logger.getLogger(modificarclub.class.getName()).log(Level.SEVERE,null,ex);
-      }catch(ClassNotFoundException e){
-          Logger.getLogger(modificarclub.class.getName()).log(Level.SEVERE,null,e);
-      }
+    public void cargarmunicipio(){
+        combomunicipio.removeAllItems();
+        try{
+            Conexion parametros= new Conexion();
+            Class.forName(parametros.getDriver());
+            Connection con= DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
+            Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs=st.executeQuery("Select nombre_municipio from municipio");
+            combo.addElement("Seleccione el Municipio");
+            combomunicipio.setModel(combo);
+            while(rs.next()){
+                combo.addElement(rs.getObject("nombre_municipio"));
+                combomunicipio.setModel(combo);
+            }
+            st.close();
+        }catch(SQLException | ClassNotFoundException ex){
+            Logger.getLogger(modificarclub.class.getName()).log(Level.SEVERE,null,ex);
+        }
       
-  }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -212,7 +196,7 @@ public final class modificarclub extends javax.swing.JPanel {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Agregar datos del Club");
+        jLabel8.setText("Modificar datos del Club");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -358,15 +342,13 @@ public final class modificarclub extends javax.swing.JPanel {
                municipio=rs.getString("id_municipio");
                break;
           } 
-       }catch(SQLException ex){
+       }catch(SQLException | ClassNotFoundException ex){
            Logger.getLogger(modificarclub.class.getName()).log(Level.SEVERE,null,ex);
-       }catch(ClassNotFoundException e){
-           Logger.getLogger(modificarclub.class.getName()).log(Level.SEVERE,null,e);
        }
        
        String idclub=modificarclub.camposerial.getText();
        String nombreclub=modificarclub.camponombre.getText();
-       String presidente=modificarclub.campopresidente.getText();
+       presidente=modificarclub.campopresidente.getText();
        String bloqueo=(String) pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),4);
       
        try{
@@ -380,10 +362,8 @@ public final class modificarclub extends javax.swing.JPanel {
                ctrnombre=2;
                break;
                  } 
-       }catch(SQLException ex){
+       }catch(SQLException | ClassNotFoundException ex){
            Logger.getLogger(modificarclub.class.getName()).log(Level.SEVERE,null,ex);
-       }catch(ClassNotFoundException e){
-           Logger.getLogger(modificarclub.class.getName()).log(Level.SEVERE,null,e);
        }
        try{
            String sql="Select id_club from club where presidenteclub='"+presidente+"'";
@@ -396,10 +376,8 @@ public final class modificarclub extends javax.swing.JPanel {
                ctrpre=2;
                break;
           } 
-       }catch(SQLException ex){
+       }catch(SQLException | ClassNotFoundException ex){
            Logger.getLogger(modificarclub.class.getName()).log(Level.SEVERE,null,ex);
-       }catch(ClassNotFoundException e){
-           Logger.getLogger(modificarclub.class.getName()).log(Level.SEVERE,null,e);
        }
        
       
@@ -429,11 +407,9 @@ public final class modificarclub extends javax.swing.JPanel {
            
        }catch(SQLException ex){
            JOptionPane.showMessageDialog(this,"Error "+ex.getMessage(),"Error...",JOptionPane.ERROR_MESSAGE);
-       }catch(ClassNotFoundException e){
+       }catch(ClassNotFoundException | FileNotFoundException e){
            Logger.getLogger(modificarclub.class.getName()).log(Level.SEVERE,null,e);
-       }   catch (FileNotFoundException ex) {
-               Logger.getLogger(modificarclub.class.getName()).log(Level.SEVERE, null, ex);
-           }
+       }
                }
     }//GEN-LAST:event_bguardarActionPerformed
 
@@ -459,39 +435,39 @@ public final class modificarclub extends javax.swing.JPanel {
     }//GEN-LAST:event_bsalirActionPerformed
 
     private void camponombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camponombreKeyTyped
-                    int Limite=50;
-    char K;
-    K=evt.getKeyChar();
-    if (camponombre.getText().length()== Limite){
-     evt.consume();
-    }
-    if(!(K<'0'|| K>'9')){
-     evt.consume();
-    }
+        int Limite=50;
+        char K;
+        K=evt.getKeyChar();
+        if (camponombre.getText().length()== Limite){
+         evt.consume();
+        }
+        if(!(K<'0'|| K>'9')){
+         evt.consume();
+        }
     }//GEN-LAST:event_camponombreKeyTyped
 
     private void camposerialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camposerialKeyTyped
-                     int Limite=50;
-    char K;
-    K=evt.getKeyChar();
-    if (camposerial.getText().length()== Limite){
-     evt.consume();
-    }
-    if(K<'0'|| K>'9'){
-     evt.consume();
-    }
+        int Limite=50;
+        char K;
+        K=evt.getKeyChar();
+        if (camposerial.getText().length()== Limite){
+         evt.consume();
+        }
+        if(K<'0'|| K>'9'){
+         evt.consume();
+        }
     }//GEN-LAST:event_camposerialKeyTyped
 
     private void campopresidenteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campopresidenteKeyTyped
-                     int Limite=50;
-    char K;
-    K=evt.getKeyChar();
-    if (campopresidente.getText().length()== Limite){
-     evt.consume();
-    }
-    if(!(K<'0'|| K>'9')){
-     evt.consume();
-    }
+        int Limite=50;
+        char K;
+        K=evt.getKeyChar();
+        if (campopresidente.getText().length()== Limite){
+         evt.consume();
+        }
+        if(!(K<'0'|| K>'9')){
+         evt.consume();
+        }
     }//GEN-LAST:event_campopresidenteKeyTyped
 
     private void camponombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camponombreKeyReleased

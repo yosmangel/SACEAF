@@ -21,38 +21,40 @@ import javax.swing.JOptionPane;
 
 public class agregarjugador extends javax.swing.JPanel {
 
+ String imagen, nombreimagen,ficha,nacionalidad,nombrecat;
+ int ctrlinicio,ctrlfin,ctrc;
+ 
  
     public agregarjugador() {
         initComponents();
-        rvenezolano.setSelected(true);
+        agregarjugador.rvenezolano.setSelected(true);
     }
-public void HabilitarGuardar(){
-    String Cedula=this.campocedula.getText();
-    String Nombre=this.camponombre.getText();
-    String Apellido=this.campoapellido.getText();
-    String Dia=this.campodia.getText();
-    String Mes=this.campomes.getText();
-    String Year=this.campoyear.getText();
-    
-    if(Cedula.isEmpty() || Nombre.isEmpty() || Apellido.isEmpty() || Dia.isEmpty() || Mes.isEmpty() || Year.isEmpty()){
-        this.bguardar.setEnabled(false);
+
+    public void HabilitarGuardar(){
+        String Cedula=agregarjugador.campocedula.getText();
+        String Nombre=agregarjugador.camponombre.getText();
+        String Apellido=agregarjugador.campoapellido.getText();
+        String Dia=agregarjugador.campodia.getText();
+        String Mes=agregarjugador.campomes.getText();
+        String Year=agregarjugador.campoyear.getText();
+
+        if(Cedula.isEmpty() || Nombre.isEmpty() || Apellido.isEmpty() || Dia.isEmpty() || Mes.isEmpty() || Year.isEmpty()){
+            agregarjugador.bguardar.setEnabled(false);
+        }
+        else{
+            agregarjugador.bguardar.setEnabled(true);
+        }
     }
-    else{
-        this.bguardar.setEnabled(true);
-    }
-}
-    String imagen, nombreimagen;
-    
     public void limpiar(){
-        campocedula.setText("");
-        camponombre.setText("");
-        campoapellido.setText("");
-        campodia.setText("");
-        campomes.setText("");
-        campoyear.setText("");
-        ruta.setText("");
-        lfoto.setIcon(null);
-        bguardar.setEnabled(false);
+        agregarjugador.campocedula.setText("");
+        agregarjugador.camponombre.setText("");
+        agregarjugador.campoapellido.setText("");
+        agregarjugador.campodia.setText("");
+        agregarjugador.campomes.setText("");
+        agregarjugador.campoyear.setText("");
+        agregarjugador.ruta.setText("");
+        agregarjugador.lfoto.setIcon(null);
+        agregarjugador.bguardar.setEnabled(false);
         
     }
     
@@ -363,20 +365,19 @@ public void HabilitarGuardar(){
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
- String ficha,nacionalidad,nombrecat;
- int ctrlinicio,ctrlfin,ctrc;
+
     private void bguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bguardarActionPerformed
-        String cedula= campocedula.getText();
-        String nombre=camponombre.getText();
-        String apellido=campoapellido.getText();
-        int dia=Integer.parseInt(campodia.getText());
-        int mes= Integer.parseInt(campomes.getText());
-        int year=Integer.parseInt(campoyear.getText());
+        String cedula= agregarjugador.campocedula.getText();
+        String nombre=agregarjugador.camponombre.getText();
+        String apellido=agregarjugador.campoapellido.getText();
+        int dia=Integer.parseInt(agregarjugador.campodia.getText());
+        int mes= Integer.parseInt(agregarjugador.campomes.getText());
+        int year=Integer.parseInt(agregarjugador.campoyear.getText());
         String fechadenacimiento=year+"/"+mes+"/"+dia;
         String serialequipo=pequipo.labelserial.getText();
         
         try{
-            if(rvenezolano.isSelected()==true){
+            if(agregarjugador.rvenezolano.isSelected()==true){
             ficha="V"+cedula;
             nacionalidad="Venezolano";
         }else{
@@ -421,7 +422,7 @@ public void HabilitarGuardar(){
         
         if(ctrc ==2){
             JOptionPane.showMessageDialog(this,"La cedula introducida ya se encuentra registrada en la base de datos","Informacion",JOptionPane.INFORMATION_MESSAGE);
-            campocedula.requestFocus();
+            agregarjugador.campocedula.requestFocus();
         }else
             if(year>= ctrlfin && year<=ctrlinicio){
                 try{
@@ -435,7 +436,7 @@ public void HabilitarGuardar(){
                 if(opc==0){
                     
                     limpiar();
-                    campocedula.requestFocus();
+                    agregarjugador.campocedula.requestFocus();
                     mostrarjugador.cargarjugadores();
                 }else{
                     pequipo.paneljugadores.remove(this);
@@ -470,28 +471,28 @@ public void HabilitarGuardar(){
         if(o == JFileChooser.APPROVE_OPTION){
             imagen = elegirImagen.getSelectedFile().getAbsolutePath();
             nombreimagen = elegirImagen.getSelectedFile().getName();
-            ruta.setText(imagen);
+            agregarjugador.ruta.setText(imagen);
             Image preview = Toolkit.getDefaultToolkit().getImage(imagen);
             if(preview != null){
-                lfoto.setText("");
-                ImageIcon icon = new ImageIcon(preview.getScaledInstance(lfoto.getWidth(), lfoto.getHeight(), Image.SCALE_DEFAULT));
-                lfoto.setIcon(icon);
+                agregarjugador.lfoto.setText("");
+                ImageIcon icon = new ImageIcon(preview.getScaledInstance(agregarjugador.lfoto.getWidth(), agregarjugador.lfoto.getHeight(), Image.SCALE_DEFAULT));
+                agregarjugador.lfoto.setIcon(icon);
             }
         }
     }//GEN-LAST:event_bvisualizarActionPerformed
 
     private void rvenezolanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rvenezolanoActionPerformed
-        rvenezolano.setSelected(true);
-        if(rvenezolano.isSelected()==true){
-            rextranjero.setSelected(false);
+        agregarjugador.rvenezolano.setSelected(true);
+        if(agregarjugador.rvenezolano.isSelected()==true){
+            agregarjugador.rextranjero.setSelected(false);
             
         }
     }//GEN-LAST:event_rvenezolanoActionPerformed
 
     private void rextranjeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rextranjeroActionPerformed
-        rextranjero.setSelected(true);
-        if(rextranjero.isSelected()==true){
-            rvenezolano.setSelected(false);
+        agregarjugador.rextranjero.setSelected(true);
+        if(agregarjugador.rextranjero.isSelected()==true){
+            agregarjugador.rvenezolano.setSelected(false);
         }
     }//GEN-LAST:event_rextranjeroActionPerformed
 
@@ -501,75 +502,75 @@ public void HabilitarGuardar(){
     }//GEN-LAST:event_bsalirActionPerformed
 
     private void campocedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campocedulaKeyTyped
-                   int Limite=8;
-    char K;
-    K=evt.getKeyChar();
-    if (campocedula.getText().length()== Limite){
-     evt.consume();
-    }
-    if(K<'0'|| K>'9'){
-     evt.consume();
-    }
+        int Limite=8;
+        char K;
+        K=evt.getKeyChar();
+        if (agregarjugador.campocedula.getText().length()== Limite){
+         evt.consume();
+        }
+        if(K<'0'|| K>'9'){
+         evt.consume();
+        }
     }//GEN-LAST:event_campocedulaKeyTyped
 
     private void camponombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camponombreKeyTyped
-                     int Limite=50;
-    char K;
-    K=evt.getKeyChar();
-    if (camponombre.getText().length()== Limite){
-     evt.consume();
-    }
-    if(!(K<'0'|| K>'9')){
-     evt.consume();
-    }
+        int Limite=50;
+        char K;
+        K=evt.getKeyChar();
+        if (agregarjugador.camponombre.getText().length()== Limite){
+         evt.consume();
+        }
+        if(!(K<'0'|| K>'9')){
+         evt.consume();
+        }
     }//GEN-LAST:event_camponombreKeyTyped
 
     private void campoapellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoapellidoKeyTyped
-                        int Limite=50;
-    char K;
-    K=evt.getKeyChar();
-    if (campoapellido.getText().length()== Limite){
-     evt.consume();
-    }
-    if(!(K<'0'|| K>'9')){
-     evt.consume();
-    }
+        int Limite=50;
+        char K;
+        K=evt.getKeyChar();
+        if (agregarjugador.campoapellido.getText().length()== Limite){
+         evt.consume();
+        }
+        if(!(K<'0'|| K>'9')){
+         evt.consume();
+        }
     }//GEN-LAST:event_campoapellidoKeyTyped
 
     private void campodiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campodiaKeyTyped
-                      int Limite=2;
-    char K;
-    K=evt.getKeyChar();
-    if (campodia.getText().length()== Limite){
-     evt.consume();
-    }
-    if(K<'0'|| K>'9'){
-     evt.consume();
-    }
+        int Limite=2;
+        char K;
+        K=evt.getKeyChar();
+        if (agregarjugador.campodia.getText().length()== Limite){
+         evt.consume();
+        }
+        if(K<'0'|| K>'9'){
+         evt.consume();
+        }
     }//GEN-LAST:event_campodiaKeyTyped
 
     private void campomesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campomesKeyTyped
-                       int Limite=2;
-    char K;
-    K=evt.getKeyChar();
-    if (campomes.getText().length()== Limite){
-     evt.consume();
-    }
-    if(K<'0'|| K>'9'){
-     evt.consume();
-    }
+        int Limite=2;
+        char K;
+        K=evt.getKeyChar();
+        if (agregarjugador.campomes.getText().length()== Limite){
+         evt.consume();
+        }
+        if(K<'0'|| K>'9'){
+         evt.consume();
+        }
     }//GEN-LAST:event_campomesKeyTyped
 
     private void campoyearKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoyearKeyTyped
-                        int Limite=4;
-    char K;
-    K=evt.getKeyChar();
-    if (campoyear.getText().length()== Limite){
-     evt.consume();
-    }
-    if(K<'0'|| K>'9'){
-     evt.consume();
-    }
+        int Limite=4;
+        char K;
+        K=evt.getKeyChar();
+        if (agregarjugador.campoyear.getText().length()== Limite){
+         evt.consume();
+        }
+        if(K<'0'|| K>'9'){
+         evt.consume();
+        }
     }//GEN-LAST:event_campoyearKeyTyped
 
     private void campocedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campocedulaKeyReleased
@@ -617,7 +618,7 @@ public void HabilitarGuardar(){
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     public static javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lfoto;
+    public static javax.swing.JLabel lfoto;
     public static javax.swing.JRadioButton rextranjero;
     public static javax.swing.JTextField ruta;
     public static javax.swing.JRadioButton rvenezolano;

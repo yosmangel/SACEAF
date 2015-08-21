@@ -1,4 +1,3 @@
-
 package Equipo;
 
 import Basededatos.Conexion;
@@ -17,6 +16,7 @@ import javax.swing.table.TableRowSorter;
 public class mostrarjugador extends javax.swing.JPanel {
 
     static DefaultTableModel jugadores= new DefaultTableModel();
+    
     public mostrarjugador() {
         initComponents();
         cargarjugadores();
@@ -44,23 +44,23 @@ public class mostrarjugador extends javax.swing.JPanel {
                 registros [5]=rs.getString("jugador.bloqueo_j");
                 jugadores.addRow(registros);
             }
-            tablajugadores.setModel(jugadores);
-            tablajugadores.getColumnModel().getColumn(0).setPreferredWidth(138);
-            tablajugadores.getColumnModel().getColumn(1).setPreferredWidth(140);
-            tablajugadores.getColumnModel().getColumn(2).setPreferredWidth(140);
-            tablajugadores.getColumnModel().getColumn(3).setPreferredWidth(138);
-            tablajugadores.getColumnModel().getColumn(4).setPreferredWidth(140);
-            tablajugadores.getColumnModel().getColumn(5).setPreferredWidth(138);
+            mostrarjugador.tablajugadores.setModel(jugadores);
+            mostrarjugador.tablajugadores.getColumnModel().getColumn(0).setPreferredWidth(138);
+            mostrarjugador.tablajugadores.getColumnModel().getColumn(1).setPreferredWidth(140);
+            mostrarjugador.tablajugadores.getColumnModel().getColumn(2).setPreferredWidth(140);
+            mostrarjugador.tablajugadores.getColumnModel().getColumn(3).setPreferredWidth(138);
+            mostrarjugador.tablajugadores.getColumnModel().getColumn(4).setPreferredWidth(140);
+            mostrarjugador.tablajugadores.getColumnModel().getColumn(5).setPreferredWidth(138);
             TableRowSorter modeloordenado= new TableRowSorter(jugadores);
-            tablajugadores.setRowSorter(modeloordenado);
+            mostrarjugador.tablajugadores.setRowSorter(modeloordenado);
             modeloordenado.setRowFilter(RowFilter.regexFilter(filtro.getText()));
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(mostrarjugador.class.getName()).log(Level.SEVERE,null,ex);
-        }catch(ClassNotFoundException e){
-            Logger.getLogger(mostrarjugador.class.getName()).log(Level.SEVERE,null,e);
         }
         
     }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 
-public class pmostrar extends javax.swing.JPanel {
+public final class pmostrar extends javax.swing.JPanel {
 
    DefaultComboBoxModel masculino= new DefaultComboBoxModel();
    DefaultComboBoxModel femenino= new DefaultComboBoxModel();
@@ -25,42 +25,42 @@ public class pmostrar extends javax.swing.JPanel {
    
     public pmostrar() {
         initComponents();
-
         accionclubes();
     }
 
+    
     public void accionclubes(){
-        rclubes.setSelected(true);
-        rfemenino.setSelected(false);
-        rmasculino.setSelected(false);
-       combocategoria.setEnabled(false);
+       pmostrar.rclubes.setSelected(true);
+       pmostrar.rfemenino.setSelected(false);
+       pmostrar.rmasculino.setSelected(false);
+       pmostrar.combocategoria.setEnabled(false);
        Gclubes.bacceder.setEnabled(true);
        Gclubes.bmodificar.setEnabled(true);
        cargarclubes();
     }
     public void accionfemenino(){
-       rfemenino.setSelected(true);
-       combocategoria.setEnabled(true);
+       pmostrar.rfemenino.setSelected(true);
+       pmostrar.combocategoria.setEnabled(true);
        Gclubes.bacceder.setEnabled(false);
        Gclubes.bmodificar.setEnabled(false);
-       rmasculino.setSelected(false);
-       rclubes.setSelected(false); 
+       pmostrar.rmasculino.setSelected(false);
+       pmostrar.rclubes.setSelected(false); 
        combofemenino();
        equiposfemenino();
              
     }
     public void accionmasculino(){
-        rmasculino.setSelected(true);
-        combocategoria.setEnabled(true);
+        pmostrar.rmasculino.setSelected(true);
+        pmostrar.combocategoria.setEnabled(true);
         Gclubes.bacceder.setEnabled(false);
         Gclubes.bmodificar.setEnabled(false);
-        rfemenino.setSelected(false);
-        rclubes.setSelected(false);
+        pmostrar.rfemenino.setSelected(false);
+        pmostrar.rclubes.setSelected(false);
         combomasculino();
         equiposmasculinos();
     }
     public void combofemenino(){
-        combocategoria.removeAllItems();
+        pmostrar.combocategoria.removeAllItems();
         try{
             Conexion parametros =new Conexion();
             Class.forName(parametros.getDriver());
@@ -68,22 +68,20 @@ public class pmostrar extends javax.swing.JPanel {
             Statement st= con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs=st.executeQuery("Select nombre_cat from categoria where sexo='Femenino'");
             femenino.addElement("Elige la categoria");
-            combocategoria.setModel(femenino);                    
+            pmostrar.combocategoria.setModel(femenino);                    
             while(rs.next()){
                 femenino.addElement(rs.getObject("nombre_cat"));
-                combocategoria.setModel(femenino);
+                pmostrar.combocategoria.setModel(femenino);
             }
             st.close();
             
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(pmostrar.class.getName()).log(Level.SEVERE,null,ex);
-        }catch(ClassNotFoundException e){
-            Logger.getLogger(pmostrar.class.getName()).log(Level.SEVERE,null,e);
         }
     }
     public void combomasculino(){
         
-        combocategoria.removeAllItems();
+        pmostrar.combocategoria.removeAllItems();
         try{
             Conexion parametros= new Conexion();
             Class.forName(parametros.getDriver());
@@ -91,19 +89,16 @@ public class pmostrar extends javax.swing.JPanel {
             Statement st= con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs=st.executeQuery("Select nombre_cat from categoria where sexo='Masculino'");
             masculino.addElement("Elige la categoria");
-            combocategoria.setModel(masculino);
+            pmostrar.combocategoria.setModel(masculino);
             while(rs.next()){
                 masculino.addElement(rs.getObject("nombre_cat"));
-                combocategoria.setModel(masculino);
+                pmostrar.combocategoria.setModel(masculino);
             }
             st.close();
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(pmostrar.class.getName()).log(Level.SEVERE,null,ex);
-        }catch(ClassNotFoundException e){
-            Logger.getLogger(pmostrar.class.getName()).log(Level.SEVERE,null,e);
         }
     }
-   
     public static void equiposfemenino(){
         String categoria= pmostrar.combocategoria.getSelectedItem().toString();
       
@@ -127,25 +122,22 @@ public class pmostrar extends javax.swing.JPanel {
                 registros [6]=rs.getString("equipo.bloqueo");
                 tfemenino.addRow(registros);
             }
-            tablaclub.setModel(tfemenino);
-            tablaclub.getColumnModel().getColumn(0).setPreferredWidth(135);
-            tablaclub.getColumnModel().getColumn(1).setPreferredWidth(135);
-            tablaclub.getColumnModel().getColumn(2).setPreferredWidth(36);
-            tablaclub.getColumnModel().getColumn(3).setPreferredWidth(135);
-            tablaclub.getColumnModel().getColumn(4).setPreferredWidth(135);
-            tablaclub.getColumnModel().getColumn(5).setPreferredWidth(135);
-            tablaclub.getColumnModel().getColumn(6).setPreferredWidth(135);
+            pmostrar.tablaclub.setModel(tfemenino);
+            pmostrar.tablaclub.getColumnModel().getColumn(0).setPreferredWidth(135);
+            pmostrar.tablaclub.getColumnModel().getColumn(1).setPreferredWidth(135);
+            pmostrar.tablaclub.getColumnModel().getColumn(2).setPreferredWidth(36);
+            pmostrar.tablaclub.getColumnModel().getColumn(3).setPreferredWidth(135);
+            pmostrar.tablaclub.getColumnModel().getColumn(4).setPreferredWidth(135);
+            pmostrar.tablaclub.getColumnModel().getColumn(5).setPreferredWidth(135);
+            pmostrar.tablaclub.getColumnModel().getColumn(6).setPreferredWidth(135);
             TableRowSorter modeloordenado= new TableRowSorter(tfemenino);
-            tablaclub.setRowSorter(modeloordenado);
+            pmostrar.tablaclub.setRowSorter(modeloordenado);
             modeloordenado.setRowFilter(RowFilter.regexFilter(filtro.getText()));
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(pmostrar.class.getName()).log(Level.SEVERE,null,ex);
-        }catch(ClassNotFoundException e){
-            Logger.getLogger(pmostrar.class.getName()).log(Level.SEVERE,null,e);
         }
         
     }
-    
     public static void equiposmasculinos(){
         String categoria= pmostrar.combocategoria.getSelectedItem().toString();
         try{
@@ -168,24 +160,21 @@ public class pmostrar extends javax.swing.JPanel {
                 registros [6]=rs.getString("equipo.bloqueo");
                 tmasculino.addRow(registros);
             }
-            tablaclub.setModel(tmasculino);
-            tablaclub.getColumnModel().getColumn(0).setPreferredWidth(135);
-            tablaclub.getColumnModel().getColumn(1).setPreferredWidth(135);
-            tablaclub.getColumnModel().getColumn(2).setPreferredWidth(36);
-            tablaclub.getColumnModel().getColumn(3).setPreferredWidth(135);
-            tablaclub.getColumnModel().getColumn(4).setPreferredWidth(135);
-            tablaclub.getColumnModel().getColumn(5).setPreferredWidth(135);
-            tablaclub.getColumnModel().getColumn(6).setPreferredWidth(135);
+            pmostrar.tablaclub.setModel(tmasculino);
+            pmostrar.tablaclub.getColumnModel().getColumn(0).setPreferredWidth(135);
+            pmostrar.tablaclub.getColumnModel().getColumn(1).setPreferredWidth(135);
+            pmostrar.tablaclub.getColumnModel().getColumn(2).setPreferredWidth(36);
+            pmostrar.tablaclub.getColumnModel().getColumn(3).setPreferredWidth(135);
+            pmostrar.tablaclub.getColumnModel().getColumn(4).setPreferredWidth(135);
+            pmostrar.tablaclub.getColumnModel().getColumn(5).setPreferredWidth(135);
+            pmostrar.tablaclub.getColumnModel().getColumn(6).setPreferredWidth(135);
             TableRowSorter modeloordenado= new TableRowSorter(tmasculino);
-            tablaclub.setRowSorter(modeloordenado);
+            pmostrar.tablaclub.setRowSorter(modeloordenado);
             modeloordenado.setRowFilter(RowFilter.regexFilter(filtro.getText()));
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(pmostrar.class.getName()).log(Level.SEVERE,null,ex);
-        }catch(ClassNotFoundException e){
-            Logger.getLogger(pmostrar.class.getName()).log(Level.SEVERE,null,e);
         }
     }
-    
     public static void cargarclubes(){
         try{
         String[] titulos={"Serial del Club","Nombre del Club","Municipio","Presidente Club","Bloqueado"};
@@ -205,22 +194,21 @@ public class pmostrar extends javax.swing.JPanel {
             registros [4]= rs.getString("club.bloqueo");
             tclubes.addRow(registros);
         }
-        tablaclub.setModel(tclubes);
-        tablaclub.getColumnModel().getColumn(0).setPreferredWidth(170);
-        tablaclub.getColumnModel().getColumn(1).setPreferredWidth(170);
-        tablaclub.getColumnModel().getColumn(2).setPreferredWidth(170);
-        tablaclub.getColumnModel().getColumn(3).setPreferredWidth(170);
-        tablaclub.getColumnModel().getColumn(4).setPreferredWidth(170);
+        pmostrar.tablaclub.setModel(tclubes);
+        pmostrar.tablaclub.getColumnModel().getColumn(0).setPreferredWidth(170);
+        pmostrar.tablaclub.getColumnModel().getColumn(1).setPreferredWidth(170);
+        pmostrar.tablaclub.getColumnModel().getColumn(2).setPreferredWidth(170);
+        pmostrar.tablaclub.getColumnModel().getColumn(3).setPreferredWidth(170);
+        pmostrar.tablaclub.getColumnModel().getColumn(4).setPreferredWidth(170);
         TableRowSorter modeloordenado= new TableRowSorter(tclubes);
-        tablaclub.setRowSorter(modeloordenado);
+        pmostrar.tablaclub.setRowSorter(modeloordenado);
         modeloordenado.setRowFilter(RowFilter.regexFilter(filtro.getText()));
       
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(pmostrar.class.getName()).log(Level.SEVERE,null,ex);
-        }catch(ClassNotFoundException e){
-            Logger.getLogger(pmostrar.class.getName()).log(Level.SEVERE,null,e);
         }
     }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -341,15 +329,15 @@ public class pmostrar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void filtroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_filtroKeyReleased
-        if(rclubes.isSelected()== true){
+        if(pmostrar.rclubes.isSelected()== true){
             cargarclubes();
         }else
-            if(rfemenino.isSelected()==true){
+            if(pmostrar.rfemenino.isSelected()==true){
               
                 equiposfemenino();
             
             }else
-                if(rmasculino.isSelected()==true){
+                if(pmostrar.rmasculino.isSelected()==true){
                     equiposmasculinos();
                 }
     }//GEN-LAST:event_filtroKeyReleased
@@ -368,15 +356,15 @@ public class pmostrar extends javax.swing.JPanel {
 
     private void combocategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combocategoriaActionPerformed
        try{
-        if(rfemenino.isSelected()== true){
+        if(pmostrar.rfemenino.isSelected()== true){
             equiposfemenino();
         }else
-            if(rmasculino.isSelected()== true){
+            if(pmostrar.rmasculino.isSelected()== true){
                 equiposmasculinos();
             }
        }catch(Exception e){
                 
-                }
+       }
     }//GEN-LAST:event_combocategoriaActionPerformed
 
 

@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import saceaf.Principal;
 
 
-public class pequipo extends javax.swing.JPanel {
+public final class pequipo extends javax.swing.JPanel {
 
  
     public pequipo() {
@@ -24,24 +24,24 @@ public class pequipo extends javax.swing.JPanel {
         String identificador=(String) mostrarequipo.tablaequipos.getValueAt(mostrarequipo.tablaequipos.getSelectedRow(),2);
         String categoria= (String) mostrarequipo.tablaequipos.getValueAt(mostrarequipo.tablaequipos.getSelectedRow(),3);       
         String serial= (String) mostrarequipo.tablaequipos.getValueAt(mostrarequipo.tablaequipos.getSelectedRow(),0);       
-        labelserial.setText(serial);
-        labelserial.setVisible(false);
-        labelcategoria.setText(categoria);
-        nombreequipo.setText(nombre+" "+identificador);
+        pequipo.labelserial.setText(serial);
+        pequipo.labelserial.setVisible(false);
+        pequipo.labelcategoria.setText(categoria);
+        pequipo.nombreequipo.setText(nombre+" "+identificador);
     }
     public static void habilitar(){
-        bagregar.setEnabled(true);
-        bbloquear.setEnabled(true);
-        bmodificar.setEnabled(true);
-        bsalir.setEnabled(true);
-        btraspaso.setEnabled(true);
+        pequipo.bagregar.setEnabled(true);
+        pequipo.bbloquear.setEnabled(true);
+        pequipo.bmodificar.setEnabled(true);
+        pequipo.bsalir.setEnabled(true);
+        pequipo.btraspaso.setEnabled(true);
     }
     public static void deshabilitar(){
-        bagregar.setEnabled(false);
-        bbloquear.setEnabled(false);
-        bmodificar.setEnabled(false);
-        bsalir.setEnabled(false);
-        btraspaso.setEnabled(false);
+        pequipo.bagregar.setEnabled(false);
+        pequipo.bbloquear.setEnabled(false);
+        pequipo.bmodificar.setEnabled(false);
+        pequipo.bsalir.setEnabled(false);
+        pequipo.btraspaso.setEnabled(false);
         
     }
     public void agregarjugadores(){
@@ -92,10 +92,8 @@ public class pequipo extends javax.swing.JPanel {
          if(r==false){
              mostrarjugador.cargarjugadores();     
         }
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(pequipo.class.getName()).log(Level.SEVERE,null,ex);
-        }catch(ClassNotFoundException e){
-            Logger.getLogger(pequipo.class.getName()).log(Level.SEVERE,null,e);
         }
         }
     }
@@ -114,10 +112,8 @@ public class pequipo extends javax.swing.JPanel {
          if(r==false){
              mostrarjugador.cargarjugadores();     
         }
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(pequipo.class.getName()).log(Level.SEVERE,null,ex);
-        }catch(ClassNotFoundException e){
-            Logger.getLogger(pequipo.class.getName()).log(Level.SEVERE,null,e);
         } 
     }
     }
@@ -403,7 +399,7 @@ public class pequipo extends javax.swing.JPanel {
     public static javax.swing.JPanel jPanel2;
     public static javax.swing.JLabel labelcategoria;
     public static javax.swing.JLabel labelserial;
-    private javax.swing.JLabel nombreequipo;
+    public static javax.swing.JLabel nombreequipo;
     public static javax.swing.JTabbedPane paneljugadores;
     // End of variables declaration//GEN-END:variables
 }

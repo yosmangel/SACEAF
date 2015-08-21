@@ -1,5 +1,3 @@
-
-
 package Equipo;
 
 import Basededatos.Conexion;
@@ -14,10 +12,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-/**
- *
- * @author Gatito
- */
+
 public class mostrarequipo extends javax.swing.JPanel {
 
     static DefaultTableModel tmasculino=new DefaultTableModel();
@@ -26,7 +21,7 @@ public class mostrarequipo extends javax.swing.JPanel {
     public mostrarequipo() {
         initComponents();
         equiposmasculinos();
-        rmasculino.setSelected(true);
+        mostrarequipo.rmasculino.setSelected(true);
     }
 
     public static void equiposfemenino(){
@@ -51,25 +46,22 @@ public class mostrarequipo extends javax.swing.JPanel {
                 registros [6]=rs.getString("equipo.bloqueo");
                 tfemenino.addRow(registros);
             }
-            tablaequipos.setModel(tfemenino);
-            tablaequipos.getColumnModel().getColumn(0).setPreferredWidth(126);
-            tablaequipos.getColumnModel().getColumn(1).setPreferredWidth(126);
-            tablaequipos.getColumnModel().getColumn(2).setPreferredWidth(30);
-            tablaequipos.getColumnModel().getColumn(3).setPreferredWidth(126);
-            tablaequipos.getColumnModel().getColumn(4).setPreferredWidth(126);
-            tablaequipos.getColumnModel().getColumn(5).setPreferredWidth(126);
-            tablaequipos.getColumnModel().getColumn(6).setPreferredWidth(126);
+            mostrarequipo.tablaequipos.setModel(tfemenino);
+            mostrarequipo.tablaequipos.getColumnModel().getColumn(0).setPreferredWidth(126);
+            mostrarequipo.tablaequipos.getColumnModel().getColumn(1).setPreferredWidth(126);
+            mostrarequipo.tablaequipos.getColumnModel().getColumn(2).setPreferredWidth(30);
+            mostrarequipo.tablaequipos.getColumnModel().getColumn(3).setPreferredWidth(126);
+            mostrarequipo.tablaequipos.getColumnModel().getColumn(4).setPreferredWidth(126);
+            mostrarequipo.tablaequipos.getColumnModel().getColumn(5).setPreferredWidth(126);
+            mostrarequipo.tablaequipos.getColumnModel().getColumn(6).setPreferredWidth(126);
             TableRowSorter modeloordenado= new TableRowSorter(tfemenino);
-            tablaequipos.setRowSorter(modeloordenado);
+            mostrarequipo.tablaequipos.setRowSorter(modeloordenado);
             modeloordenado.setRowFilter(RowFilter.regexFilter(filtro.getText()));
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(mostrarequipo.class.getName()).log(Level.SEVERE,null,ex);
-        }catch(ClassNotFoundException e){
-            Logger.getLogger(mostrarequipo.class.getName()).log(Level.SEVERE,null,e);
         }
         
     }
-    
     public static void equiposmasculinos(){
         String serial=(String) pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),0);
         try{
@@ -92,23 +84,23 @@ public class mostrarequipo extends javax.swing.JPanel {
                 registros [6]=rs.getString("equipo.bloqueo");
                 tmasculino.addRow(registros);
             }
-            tablaequipos.setModel(tmasculino);
-            tablaequipos.getColumnModel().getColumn(0).setPreferredWidth(126);
-            tablaequipos.getColumnModel().getColumn(1).setPreferredWidth(126);
-            tablaequipos.getColumnModel().getColumn(2).setPreferredWidth(30);
-            tablaequipos.getColumnModel().getColumn(3).setPreferredWidth(126);
-            tablaequipos.getColumnModel().getColumn(4).setPreferredWidth(126);
-            tablaequipos.getColumnModel().getColumn(5).setPreferredWidth(126);
-            tablaequipos.getColumnModel().getColumn(6).setPreferredWidth(126);
+            mostrarequipo.tablaequipos.setModel(tmasculino);
+            mostrarequipo.tablaequipos.getColumnModel().getColumn(0).setPreferredWidth(126);
+            mostrarequipo.tablaequipos.getColumnModel().getColumn(1).setPreferredWidth(126);
+            mostrarequipo.tablaequipos.getColumnModel().getColumn(2).setPreferredWidth(30);
+            mostrarequipo.tablaequipos.getColumnModel().getColumn(3).setPreferredWidth(126);
+            mostrarequipo.tablaequipos.getColumnModel().getColumn(4).setPreferredWidth(126);
+            mostrarequipo.tablaequipos.getColumnModel().getColumn(5).setPreferredWidth(126);
+            mostrarequipo.tablaequipos.getColumnModel().getColumn(6).setPreferredWidth(126);
             TableRowSorter modeloordenado= new TableRowSorter(tmasculino);
-            tablaequipos.setRowSorter(modeloordenado);
+            mostrarequipo.tablaequipos.setRowSorter(modeloordenado);
             modeloordenado.setRowFilter(RowFilter.regexFilter(filtro.getText()));
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(mostrarequipo.class.getName()).log(Level.SEVERE,null,ex);
-        }catch(ClassNotFoundException e){
-            Logger.getLogger(mostrarequipo.class.getName()).log(Level.SEVERE,null,e);
         }
     }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -212,27 +204,27 @@ public class mostrarequipo extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rmasculinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rmasculinoActionPerformed
-        rmasculino.setSelected(true);
+        mostrarequipo.rmasculino.setSelected(true);
         equiposmasculinos();
-        if(rmasculino.isSelected()==true){
-           rfemenino.setSelected(false);
+        if(mostrarequipo.rmasculino.isSelected()==true){
+           mostrarequipo.rfemenino.setSelected(false);
         }
         
     }//GEN-LAST:event_rmasculinoActionPerformed
 
     private void rfemeninoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rfemeninoActionPerformed
-        rfemenino.setSelected(true);
+        mostrarequipo.rfemenino.setSelected(true);
         equiposfemenino();
-        if(rfemenino.isSelected()==true){
-            rmasculino.setSelected(false);
+        if(mostrarequipo.rfemenino.isSelected()==true){
+            mostrarequipo.rmasculino.setSelected(false);
         }
     }//GEN-LAST:event_rfemeninoActionPerformed
 
     private void filtroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_filtroKeyReleased
-        if(rmasculino.isSelected()==true){
+        if(mostrarequipo.rmasculino.isSelected()==true){
             equiposmasculinos();
         }else
-            if(rfemenino.isSelected()==true){
+            if(mostrarequipo.rfemenino.isSelected()==true){
                 equiposfemenino();
             }
     }//GEN-LAST:event_filtroKeyReleased

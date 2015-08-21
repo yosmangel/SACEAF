@@ -19,7 +19,8 @@ import javax.swing.JOptionPane;
 
 public final class Agregarclub extends javax.swing.JPanel {
  
-
+    String imagen, nombreimagen,municipio;
+    int ctrserial,ctrnombre,ctrpre;
     DefaultComboBoxModel combo= new DefaultComboBoxModel();
     
     public Agregarclub() {
@@ -27,6 +28,8 @@ public final class Agregarclub extends javax.swing.JPanel {
         cargarmunicipio();
         
     }
+    
+    
     public void HabilitarGuardar(){
         String Serial=Agregarclub.camposerial.getText();
         String Nombre=Agregarclub.camponombre.getText();
@@ -39,9 +42,7 @@ public final class Agregarclub extends javax.swing.JPanel {
            Agregarclub.bguardar.setEnabled(true); 
         }
     }
- String imagen, nombreimagen;
-
- void limpiar(){
+    void limpiar(){
        Agregarclub.camposerial.setText("");
        Agregarclub.combomunicipio.removeAllItems();
        cargarmunicipio();
@@ -49,7 +50,7 @@ public final class Agregarclub extends javax.swing.JPanel {
        Agregarclub.campopresidente.setText("");
        Agregarclub.campoimagen.setText("");
  }
-  public void cargarmunicipio(){
+    public void cargarmunicipio(){
           Agregarclub.combomunicipio.removeAllItems();
           try{
           Conexion parametros= new Conexion();
@@ -68,6 +69,8 @@ public final class Agregarclub extends javax.swing.JPanel {
           Logger.getLogger(Agregarclub.class.getName()).log(Level.SEVERE,null,ex);
           }
   }
+  
+  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -314,8 +317,7 @@ public final class Agregarclub extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-   String municipio;
-   int ctrserial,ctrnombre,ctrpre;
+   
     private void bguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bguardarActionPerformed
        
         
@@ -377,7 +379,7 @@ public final class Agregarclub extends javax.swing.JPanel {
 
        
        if(ctrserial==2){
-           JOptionPane.showMessageDialog(this,"El serial se encuentra guardado en la Base de Datos","Informacion",JOptionPane.INFORMATION_MESSAGE);
+           JOptionPane.showMessageDialog(this,"El serial del Club ya  se encuentra guardado en la Base de Datos","Informacion",JOptionPane.INFORMATION_MESSAGE);
            camposerial.setText("");
            camposerial.requestFocus();
        
@@ -448,47 +450,47 @@ public final class Agregarclub extends javax.swing.JPanel {
     }//GEN-LAST:event_bsalirActionPerformed
 
     private void camposerialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camposerialKeyTyped
-                int Limite=50;
-    char K;
-    K=evt.getKeyChar();
-    if (camposerial.getText().length()== Limite){
-     evt.consume();
-    }
-    if(K<'0'|| K>'9'){
-     evt.consume();
-    }
+        int Limite=50;
+        char K;
+        K=evt.getKeyChar();
+        if (camposerial.getText().length()== Limite){
+         evt.consume();
+        }
+        if(K<'0'|| K>'9'){
+         evt.consume();
+        }
     }//GEN-LAST:event_camposerialKeyTyped
 
     private void camponombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camponombreKeyTyped
-              int Limite=50;
-    char K;
-    K=evt.getKeyChar();
-    if (camposerial.getText().length()== Limite){
-     evt.consume();
-    }
-    if(!(K<'0'|| K>'9')){
-     evt.consume();
-    }
+        int Limite=50;
+        char K;
+        K=evt.getKeyChar();
+        if (camposerial.getText().length()== Limite){
+         evt.consume();
+        }
+        if(!(K<'0'|| K>'9')){
+         evt.consume();
+        }
     }//GEN-LAST:event_camponombreKeyTyped
 
     private void campopresidenteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campopresidenteKeyTyped
-                  int Limite=50;
-    char K;
-    K=evt.getKeyChar();
-    if (camposerial.getText().length()== Limite){
-     evt.consume();
-    }
-    if(!(K<'0'|| K>'9')){
-     evt.consume();
-    }
+        int Limite=50;
+        char K;
+        K=evt.getKeyChar();
+        if (camposerial.getText().length()== Limite){
+         evt.consume();
+        }
+        if(!(K<'0'|| K>'9')){
+         evt.consume();
+        }
     }//GEN-LAST:event_campopresidenteKeyTyped
 
     private void camposerialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camposerialKeyReleased
-       this.HabilitarGuardar();
+       HabilitarGuardar();
     }//GEN-LAST:event_camposerialKeyReleased
 
     private void camponombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camponombreKeyReleased
-        this.HabilitarGuardar();
+        HabilitarGuardar();
     }//GEN-LAST:event_camponombreKeyReleased
 
     private void campopresidenteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campopresidenteKeyReleased

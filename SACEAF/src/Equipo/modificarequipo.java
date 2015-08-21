@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Equipo;
 
 import Basededatos.Conexion;
-import Basededatos.equipo.datoequipo;
 import Basededatos.equipo.datomodificarequipo;
 import Basededatos.equipo.equipo;
 import java.sql.Connection;
@@ -20,33 +13,32 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Gatito
- */
-public class modificarequipo extends javax.swing.JPanel {
+
+public final class modificarequipo extends javax.swing.JPanel {
 
     DefaultComboBoxModel cdisciplina= new DefaultComboBoxModel();
     DefaultComboBoxModel combo= new DefaultComboBoxModel();
-
+    String nombre, sexo, disciplina, categoria,club, equipo,identificador,delegado,serialclub;
+    int control,ctrse, ctrde;
+ 
     public modificarequipo() {
         initComponents();
         llenarcampos();
 
     }
+    
+    
     public void HabilitarGuardar(){
-        String Identificador=this.campoidentificador.getText();
-        String Delegado=this.campodelegado.getText();
+        String Identificador=modificarequipo.campoidentificador.getText();
+        String Delegado=modificarequipo.campodelegado.getText();
         
         if(Identificador.isEmpty() || Delegado.isEmpty()){
-            this.bguardar.setEnabled(false);
+            modificarequipo.bguardar.setEnabled(false);
         }
         else{
-            this.bguardar.setEnabled(true);
+            modificarequipo.bguardar.setEnabled(true);
         }
     }
- String nombre, sexo, disciplina, categoria,club, equipo,identificador,delegado,serialclub;
- int control;
     public void llenarcampos(){
         equipo=(String) mostrarequipo.tablaequipos.getValueAt(mostrarequipo.tablaequipos.getSelectedRow(),0);
         club=(String) mostrarequipo.tablaequipos.getValueAt(mostrarequipo.tablaequipos.getSelectedRow(),1);
@@ -55,13 +47,13 @@ public class modificarequipo extends javax.swing.JPanel {
         disciplina=(String) mostrarequipo.tablaequipos.getValueAt(mostrarequipo.tablaequipos.getSelectedRow(),4);
         delegado=(String) mostrarequipo.tablaequipos.getValueAt(mostrarequipo.tablaequipos.getSelectedRow(),5);
         
-        campodelegado.setText(delegado);
-        campoidentificador.setText(identificador);
-        camposerialequipo.setText(equipo);
+        modificarequipo.campodelegado.setText(delegado);
+        modificarequipo.campoidentificador.setText(identificador);
+        modificarequipo.camposerialequipo.setText(equipo);
         combo.addElement(categoria);
-        combocategoria.setModel(combo);
+        modificarequipo.combocategoria.setModel(combo);
         cdisciplina.addElement(disciplina);
-        combodisciplina.setModel(cdisciplina);
+        modificarequipo.combodisciplina.setModel(cdisciplina);
         try{   
            String sql="Select id_club from club where nombre_club='"+club+"'";
            Conexion parametros = new Conexion();
@@ -74,13 +66,11 @@ public class modificarequipo extends javax.swing.JPanel {
              break;
              
            }
-       }catch(SQLException ex){
-           Logger.getLogger(modificarequipo.class.getName()).log(Level.SEVERE,null,ex);
-       }catch(ClassNotFoundException e){
-           Logger.getLogger(modificarequipo.class.getName()).log(Level.SEVERE,null,e);
-       }
-     camposerialclub.setText(serialclub);
-     try{   
+            }catch(SQLException | ClassNotFoundException ex){
+                Logger.getLogger(modificarequipo.class.getName()).log(Level.SEVERE,null,ex);
+            }
+          modificarequipo.camposerialclub.setText(serialclub);
+          try{   
            String sql="Select sexo from categoria where nombre_cat='"+categoria+"'";
            Conexion parametros = new Conexion();
            Class.forName(parametros.getDriver());
@@ -92,28 +82,28 @@ public class modificarequipo extends javax.swing.JPanel {
              break;
              
            }
-       }catch(SQLException ex){
-           Logger.getLogger(modificarequipo.class.getName()).log(Level.SEVERE,null,ex);
-       }catch(ClassNotFoundException e){
-           Logger.getLogger(modificarequipo.class.getName()).log(Level.SEVERE,null,e);
-       }
-        if(sexo.equals("Masculino")){
-            rmasculino.setSelected(true);
-        }else{
-            rfemenino.setSelected(true);
+        }catch(SQLException | ClassNotFoundException ex){
+            Logger.getLogger(modificarequipo.class.getName()).log(Level.SEVERE,null,ex);
         }
-        rmasculino.setEnabled(false);
-        rfemenino.setEnabled(false);
-        combocategoria.setEnabled(false);
-        combodisciplina.setEnabled(false);
-        camposerialclub.setEnabled(false);
-        camposerialequipo.setEnabled(false);
-        
+         if(sexo.equals("Masculino")){
+             modificarequipo.rmasculino.setSelected(true);
+         }else{
+             modificarequipo.rfemenino.setSelected(true);
+         }
+         modificarequipo.rmasculino.setEnabled(false);
+         modificarequipo.rfemenino.setEnabled(false);
+         modificarequipo.combocategoria.setEnabled(false);
+         modificarequipo.combodisciplina.setEnabled(false);
+         modificarequipo.camposerialclub.setEnabled(false);
+         modificarequipo.camposerialequipo.setEnabled(false);
+
     }
     public void limpiar(){
-        campodelegado.setText("");
-        campoidentificador.setText("");
+        modificarequipo.campodelegado.setText("");
+        modificarequipo.campoidentificador.setText("");
     }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -148,7 +138,7 @@ public class modificarequipo extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Agregar Datos del Equipo");
+        jLabel1.setText("Modificar Datos del Equipo");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -378,14 +368,14 @@ public class modificarequipo extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 
-   int ctrse, ctrde;
+   
     private void bguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bguardarActionPerformed
         equipo=null;
         delegado=null;
         identificador=null;
-        equipo=camposerialequipo.getText();
-        delegado=campodelegado.getText();
-        identificador=campoidentificador.getText();
+        equipo=modificarequipo.camposerialequipo.getText();
+        delegado=modificarequipo.campodelegado.getText();
+        identificador=modificarequipo.campoidentificador.getText();
 
     
 
@@ -417,60 +407,60 @@ public class modificarequipo extends javax.swing.JPanel {
     }//GEN-LAST:event_bguardarActionPerformed
 
     private void blimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blimpiarActionPerformed
-    limpiar();
+         limpiar();
     }//GEN-LAST:event_blimpiarActionPerformed
 
     private void bsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsalirActionPerformed
-    pclub.panelequipos.remove(this);
-    pclub.hablitar();
+        pclub.panelequipos.remove(this);
+        pclub.hablitar();
     }//GEN-LAST:event_bsalirActionPerformed
 
     private void camposerialclubKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camposerialclubKeyTyped
-                    int Limite=50;
-    char K;
-    K=evt.getKeyChar();
-    if (camposerialclub.getText().length()== Limite){
-     evt.consume();
-    }
-    if(K<'0'|| K>'9'){
-     evt.consume();
-    }
+        int Limite=50;
+        char K;
+        K=evt.getKeyChar();
+        if (camposerialclub.getText().length()== Limite){
+         evt.consume();
+        }
+        if(K<'0'|| K>'9'){
+         evt.consume();
+        }
     }//GEN-LAST:event_camposerialclubKeyTyped
 
     private void campoidentificadorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoidentificadorKeyTyped
-                     int Limite=2;
-    char K;
-    K=evt.getKeyChar();
-    if (campoidentificador.getText().length()== Limite){
-     evt.consume();
-    }
-    if(!(K<'0'|| K>'9')){
-     evt.consume();
-    }
+        int Limite=2;
+        char K;
+        K=evt.getKeyChar();
+        if (campoidentificador.getText().length()== Limite){
+         evt.consume();
+        }
+        if(!(K<'0'|| K>'9')){
+         evt.consume();
+        }
     }//GEN-LAST:event_campoidentificadorKeyTyped
 
     private void camposerialequipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camposerialequipoKeyTyped
-                     int Limite=50;
-    char K;
-    K=evt.getKeyChar();
-    if (camposerialequipo.getText().length()== Limite){
-     evt.consume();
-    }
-    if(K<'0'|| K>'9'){
-     evt.consume();
-    }
+        int Limite=50;
+        char K;
+        K=evt.getKeyChar();
+        if (camposerialequipo.getText().length()== Limite){
+         evt.consume();
+        }
+        if(K<'0'|| K>'9'){
+         evt.consume();
+        }
     }//GEN-LAST:event_camposerialequipoKeyTyped
 
     private void campodelegadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campodelegadoKeyTyped
-                     int Limite=50;
-    char K;
-    K=evt.getKeyChar();
-    if (campodelegado.getText().length()== Limite){
-     evt.consume();
-    }
-    if(!(K<'0'|| K>'9')){
-     evt.consume();
-    }
+        int Limite=50;
+        char K;
+        K=evt.getKeyChar();
+        if (campodelegado.getText().length()== Limite){
+         evt.consume();
+        }
+        if(!(K<'0'|| K>'9')){
+         evt.consume();
+        }
     }//GEN-LAST:event_campodelegadoKeyTyped
 
     private void campoidentificadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoidentificadorKeyReleased

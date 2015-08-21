@@ -1,29 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Equipo;
 
 import Basededatos.equipo.club;
 import Basededatos.equipo.datobloquear;
 import Basededatos.equipo.equipo;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import saceaf.Principal;
-/**
- *
- * @author Gatito
- */
-public class Gclubes extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Gequipos
-     */
+public final class Gclubes extends javax.swing.JPanel {
+
+   
     public Gclubes() {
         initComponents();
         mostrarclub();
@@ -75,10 +63,8 @@ public class Gclubes extends javax.swing.JPanel {
                 if(r==false){
                    pmostrar.cargarclubes();
                 }
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(Gclubes.class.getName()).log(Level.SEVERE,null,ex);
-        }catch(ClassNotFoundException e){
-            Logger.getLogger(Gclubes.class.getName()).log(Level.SEVERE,null,e);
         }
         }
         
@@ -86,7 +72,6 @@ public class Gclubes extends javax.swing.JPanel {
     public void desbloquearc(){
         String serial= (String) pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),0);
         String nombre= (String) pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),1);
-        String bloqueo= (String) pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),4);
         String bloquear="No";
         int opc=JOptionPane.showConfirmDialog(null, "Desea Desbloquear el club "+nombre+"?", "Informacion", JOptionPane.YES_NO_OPTION);
         if(opc==0){
@@ -98,10 +83,8 @@ public class Gclubes extends javax.swing.JPanel {
                 if(r==false){
                    pmostrar.cargarclubes();
                 }
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(Gclubes.class.getName()).log(Level.SEVERE,null,ex);
-        }catch(ClassNotFoundException e){
-            Logger.getLogger(Gclubes.class.getName()).log(Level.SEVERE,null,e);
         }
         }
         
@@ -139,10 +122,8 @@ public class Gclubes extends javax.swing.JPanel {
                    pmostrar.equiposfemenino(); 
                 }
                 }
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(Gclubes.class.getName()).log(Level.SEVERE,null,ex);
-        }catch(ClassNotFoundException e){
-            Logger.getLogger(Gclubes.class.getName()).log(Level.SEVERE,null,e);
         }
         }
     }
@@ -165,10 +146,8 @@ public class Gclubes extends javax.swing.JPanel {
                    pmostrar.equiposfemenino(); 
                    }
                 }
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(Gclubes.class.getName()).log(Level.SEVERE,null,ex);
-        }catch(ClassNotFoundException e){
-            Logger.getLogger(Gclubes.class.getName()).log(Level.SEVERE,null,e);
         }
         }
     }
@@ -202,19 +181,20 @@ public class Gclubes extends javax.swing.JPanel {
         }
     }
     public void agregarclub(){
-    Agregarclub ac=new Agregarclub();
-    String titulo= "Agregar Club";
-    int index= panelclub.indexOfTab(titulo);
-    if(index==-1){
-        panelclub.addTab(titulo,ac);
-        int i= panelclub.indexOfTab(titulo);
-        panelclub.setSelectedIndex(i);
-    }else{
-        panelclub.remove(index);
-        panelclub.addTab(titulo, ac);
-        int i= panelclub.indexOfTab(titulo);
-        panelclub.setSelectedIndex(i);        
-    }
+        
+        Agregarclub ac=new Agregarclub();
+        String titulo= "Agregar Club";
+        int index= panelclub.indexOfTab(titulo);
+        if(index==-1){
+            panelclub.addTab(titulo,ac);
+            int i= panelclub.indexOfTab(titulo);
+            panelclub.setSelectedIndex(i);
+        }else{
+            panelclub.remove(index);
+            panelclub.addTab(titulo, ac);
+            int i= panelclub.indexOfTab(titulo);
+            panelclub.setSelectedIndex(i);        
+        }
     }
     public void modificarclub(){
         modificarclub mc= new modificarclub();
@@ -232,28 +212,29 @@ public class Gclubes extends javax.swing.JPanel {
         }
     }
     public static void habilitar(){
-        bacceder.setEnabled(true);
-        bagregar.setEnabled(true);
-        bbloquear.setEnabled(true);
-        bmodificar.setEnabled(true);
-        bsalir.setEnabled(true);
+        Gclubes.bacceder.setEnabled(true);
+        Gclubes.bagregar.setEnabled(true);
+        Gclubes.bbloquear.setEnabled(true);
+        Gclubes.bmodificar.setEnabled(true);
+        Gclubes.bsalir.setEnabled(true);
         pmostrar.tablaclub.setEnabled(true);
         pmostrar.rclubes.setEnabled(true);
         pmostrar.rfemenino.setEnabled(true);
         pmostrar.rmasculino.setEnabled(true);
     }
     public static void deshabilitar(){
-        bacceder.setEnabled(false);
-        bagregar.setEnabled(false);
-        bbloquear.setEnabled(false);
-        bmodificar.setEnabled(false);
-        bsalir.setEnabled(false);
+        Gclubes.bacceder.setEnabled(false);
+        Gclubes.bagregar.setEnabled(false);
+        Gclubes.bbloquear.setEnabled(false);
+        Gclubes.bmodificar.setEnabled(false);
+        Gclubes.bsalir.setEnabled(false);
         pmostrar.tablaclub.setEnabled(false);
         pmostrar.rclubes.setEnabled(false);
         pmostrar.rfemenino.setEnabled(false);
         pmostrar.rmasculino.setEnabled(false);
         pmostrar.combocategoria.setEnabled(false);
     }
+  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
