@@ -29,11 +29,7 @@ import javax.swing.ImageIcon;
 public class club {
   
     public boolean Insertar( datoclub user)throws SQLException, ClassNotFoundException, FileNotFoundException{
-        try{
-        FileInputStream fis = null;
-        PreparedStatement ps = null;
-        File file = new File(user.getImagen());
-        fis = new FileInputStream(file);
+
         Conexion parametros=new Conexion();
         Class.forName(parametros.getDriver());
         Connection con= DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(),parametros.getPass());
@@ -41,22 +37,13 @@ public class club {
         boolean result;
         String query="Insert into club values ('"+user.getIdclub()+"','"+user.getNombreclub()+"',"
                 + "'"+user.getPresidente()+"','"+user.getBloqueo()+"','"+user.getMunicipio()+"')";
-        String insert="Insert into imagenclub(id_imgclub, logo_eq, nombre_imagen, id_club) values(?,?,?,?);";
+        String insert="Insert into imagenclub values('"+user.getIdclub()+"', '"+user.getImagen()+"', '"+user.getNombreimagen()+"',"
+                + " '"+user.getIdclub()+"');";
         result=stm.execute(query);
-        ps=con.prepareStatement(insert);
-        ps.setString(1, user.getIdclub());
-        ps.setBinaryStream(2,fis,(int)file.length());
-        ps.setString(3, user.getNombreimagen() );
-        ps.setString(4, user.getIdclub());
-        ps.executeUpdate();
+        result=stm.execute(insert);
         stm.close();
-        ps.close();
         con.close();
         return result;
-        }catch (Exception ex) {
-            Logger.getLogger(club.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
     }
     public boolean Bloquear( datobloquear user) throws SQLException, ClassNotFoundException{
         
