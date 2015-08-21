@@ -474,7 +474,7 @@ String titulo= "Gestionar Pagos";
             }
         });
         panelsuperior.add(BTorneo);
-        BTorneo.setBounds(220, 11, 73, 100);
+        BTorneo.setBounds(220, 11, 93, 100);
 
         bprettyolap.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bprettyolap.setForeground(new java.awt.Color(255, 255, 255));
@@ -530,7 +530,7 @@ String titulo= "Gestionar Pagos";
             }
         });
         panelsuperior.add(bclubes);
-        bclubes.setBounds(70, 10, 67, 100);
+        bclubes.setBounds(70, 10, 93, 100);
 
         bpagos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bpagos.setForeground(new java.awt.Color(255, 255, 255));
@@ -549,7 +549,7 @@ String titulo= "Gestionar Pagos";
             }
         });
         panelsuperior.add(bpagos);
-        bpagos.setBounds(360, 11, 65, 100);
+        bpagos.setBounds(360, 11, 93, 100);
 
         bsalir.setForeground(new java.awt.Color(255, 255, 255));
         bsalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconossalir/logout30x30.png"))); // NOI18N
@@ -687,7 +687,7 @@ String titulo= "Gestionar Pagos";
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondos/PNG (2).png"))); // NOI18N
         Supremo.add(jLabel1);
-        jLabel1.setBounds(0, 0, 0, 140);
+        jLabel1.setBounds(0, 0, 154, 140);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondos/FondoPanelSuperior.jpg"))); // NOI18N
         Supremo.add(jLabel3);
