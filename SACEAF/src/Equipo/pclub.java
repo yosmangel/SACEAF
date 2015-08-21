@@ -50,8 +50,8 @@ public final class pclub extends javax.swing.JPanel {
        }catch(SQLException | ClassNotFoundException ex){
            Logger.getLogger(pclub.class.getName()).log(Level.SEVERE,null,ex);
        }
-        
-        
+        System.out.println(imagen);
+        /** 
         Image preview = Toolkit.getDefaultToolkit().getImage(imagen);
         if(preview != null){
              pclub.labellogo.setText("");
@@ -60,7 +60,7 @@ public final class pclub extends javax.swing.JPanel {
             }
        
             
-        
+        */
         
 
     }
