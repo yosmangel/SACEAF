@@ -5,8 +5,12 @@ package Equipo;
 import Basededatos.Conexion;
 import Basededatos.equipo.datobloquear;
 import Basededatos.equipo.equipo;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,6 +18,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import saceaf.Principal;
@@ -34,6 +39,7 @@ public final class pclub extends javax.swing.JPanel {
 
         String nombre=(String) pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),1);
         nombreclub.setText(nombre);
+        try{
         String id=(String) pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),0);
          try{   
            String sql="Select logo_eq from imagenclub where id_club='"+id+"'";
@@ -50,17 +56,19 @@ public final class pclub extends javax.swing.JPanel {
        }catch(SQLException | ClassNotFoundException ex){
            Logger.getLogger(pclub.class.getName()).log(Level.SEVERE,null,ex);
        }
-        System.out.println(imagen);
-        /** 
-        Image preview = Toolkit.getDefaultToolkit().getImage(imagen);
-        if(preview != null){
-             pclub.labellogo.setText("");
-             ImageIcon icon = new ImageIcon(preview.getScaledInstance(pclub.labellogo.getWidth(), pclub.labellogo.getHeight(), Image.SCALE_DEFAULT));
-             pclub.labellogo.setIcon(icon);
-            }
-       
+        imagen=imagen.replace("-", "\\");
+        ImageIcon preview = new ImageIcon(imagen);
+        ImageIcon ptamadre= new ImageIcon(preview.getImage().getScaledInstance(200, -1, Image.SCALE_DEFAULT));
+        pclub.labellogo.setText("");
+        pclub.labellogo.setIcon(ptamadre);
+        pclub.labellogo.setSize(173, 142);
+        
+        }catch(Exception e){
+
             
-        */
+        }
+            
+       
         
 
     }
@@ -438,4 +446,8 @@ public final class pclub extends javax.swing.JPanel {
     public static javax.swing.JLabel nombreclub;
     public static javax.swing.JTabbedPane panelequipos;
     // End of variables declaration//GEN-END:variables
+
+    private Icon ImageIcon(BufferedImage buffer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
