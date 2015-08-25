@@ -5,6 +5,7 @@ import Basededatos.Conexion;
 import Basededatos.equipo.datoclub;
 import Basededatos.equipo.club;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -20,7 +21,9 @@ import javax.swing.JOptionPane;
 public final class Agregarclub extends javax.swing.JPanel {
  
     String imagen, nombreimagen,municipio;
-    int ctrserial,ctrnombre,ctrpre;
+    String [] vector;
+    char c=(char)93;
+    int ctrserial,ctrnombre,ctrpre,i;
     DefaultComboBoxModel combo= new DefaultComboBoxModel();
     
     public Agregarclub() {
@@ -438,7 +441,15 @@ public final class Agregarclub extends javax.swing.JPanel {
         elegirImagen.setMultiSelectionEnabled(false);
         int o = elegirImagen.showOpenDialog(this);
         if(o == JFileChooser.APPROVE_OPTION){
-            imagen = elegirImagen.getSelectedFile().getAbsolutePath();
+           try {
+               imagen = elegirImagen.getSelectedFile().getCanonicalPath();
+ 
+              imagen=imagen.replace("\\", "-");
+     
+           } catch (IOException ex) {
+               Logger.getLogger(Agregarclub.class.getName()).log(Level.SEVERE, null, ex);
+           }
+            
             nombreimagen = elegirImagen.getSelectedFile().getName();
             campoimagen.setText(imagen);
         }
