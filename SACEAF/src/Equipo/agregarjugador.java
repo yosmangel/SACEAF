@@ -478,6 +478,7 @@ public class agregarjugador extends javax.swing.JPanel {
                 ImageIcon icon = new ImageIcon(preview.getScaledInstance(agregarjugador.lfoto.getWidth(), agregarjugador.lfoto.getHeight(), Image.SCALE_DEFAULT));
                 agregarjugador.lfoto.setIcon(icon);
             }
+            imagen=imagen.replace("\\", "-");
         }
     }//GEN-LAST:event_bvisualizarActionPerformed
 
