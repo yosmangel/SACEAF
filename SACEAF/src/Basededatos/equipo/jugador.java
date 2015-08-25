@@ -2,27 +2,17 @@
 package Basededatos.equipo;
 
 import Basededatos.Conexion;
-import java.io.File;
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 public class jugador {
 
 Conexion parametros= new Conexion();
     public boolean Insertar(datosjugador user) throws SQLException, ClassNotFoundException{
-        try{
-       // FileInputStream fis = null;
 
-        //PreparedStatement ps = null;
-        //File file = new File(user.getFoto());
-        //fis = new FileInputStream(file);
         Class.forName(parametros.getDriver());
         Connection con= DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(),parametros.getPass());
         Statement stm=con.createStatement();
@@ -31,22 +21,14 @@ Conexion parametros= new Conexion();
                 + ",'"+user.getDia()+"','"+user.getMes()+"','"+user.getYear()+"','"+user.getFechadenacimiento()+"',"
                 + "'"+user.getSerialequipo()+"','"+user.getFicha()+"','"+user.getNacionalidad()+"',"
                 + " '"+user.getBloqueo()+"');";
-        //String insert="Insert into imagenclub(id_imgjugador, foto, nombre_imgjugador, cedula) values(?,?,?,?);";
+        String insert="Insert into imagenclub values('"+user.getCedula()+"', '"+user.getFoto()+"',"
+                + "'"+user.getNombre()+" "+user.getApellido()+"', '"+user.getCedula()+"');";
         result=stm.execute(sql);
-        //ps=con.prepareStatement(insert);
-        //ps.setString(1, user.getCedula());
-        //ps.setBinaryStream(2,fis,(int)file.length());
-        //ps.setString(3, user.getNombre() );
-        //ps.setString(4, user.getCedula());
-        //ps.executeUpdate();
+        result=stm.execute(insert);
         stm.close();
-        //ps.close();
+ 
         con.close();
         return result;
-        }catch (Exception ex) {
-            Logger.getLogger(jugador.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
         
     }
     public boolean Modificar(datomodificarjugador user) throws SQLException, ClassNotFoundException{
