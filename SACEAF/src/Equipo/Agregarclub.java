@@ -16,6 +16,8 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import static org.apache.poi.hssf.usermodel.HeaderFooter.file;
 
 
 public final class Agregarclub extends javax.swing.JPanel {
@@ -399,7 +401,14 @@ public final class Agregarclub extends javax.swing.JPanel {
            campopresidente.requestFocus();
        
                }else{
-       
+                   
+               if(imagen==null){
+                   
+                   imagen=" ";
+                   nombreimagen=" ";
+                  
+               }
+              
        try{
        
            datoclub user= new datoclub(idclub, nombreclub, presidente, imagen,nombreimagen,bloqueo,municipio);
@@ -438,20 +447,29 @@ public final class Agregarclub extends javax.swing.JPanel {
 
     private void bbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbuscarActionPerformed
        final JFileChooser elegirImagen = new JFileChooser();
-        elegirImagen.setMultiSelectionEnabled(false);
+        FileNameExtensionFilter filtroImagen=new FileNameExtensionFilter("Imagenes de los escudos","jpg","png");
+        elegirImagen.setFileFilter(filtroImagen);
         int o = elegirImagen.showOpenDialog(this);
         if(o == JFileChooser.APPROVE_OPTION){
            try {
                imagen = elegirImagen.getSelectedFile().getCanonicalPath();
- 
-              imagen=imagen.replace("\\", "-");
+              if(imagen.endsWith(".png") || imagen.endsWith(".jpg") 
+                     || imagen.endsWith(".PNG") || imagen.endsWith(".JPG")){
+                  nombreimagen = elegirImagen.getSelectedFile().getName();
+                  campoimagen.setText(imagen);
+                  imagen=imagen.replace("\\", "-");
+              }else{
+                  imagen="";
+                  JOptionPane.showMessageDialog(null,"Recuerde que debe elegir una imagen en formato jpg y png.",
+                          "Información", JOptionPane.INFORMATION_MESSAGE);
+                  
+              }
      
            } catch (IOException ex) {
                Logger.getLogger(Agregarclub.class.getName()).log(Level.SEVERE, null, ex);
            }
             
-            nombreimagen = elegirImagen.getSelectedFile().getName();
-            campoimagen.setText(imagen);
+            
         }
     }//GEN-LAST:event_bbuscarActionPerformed
 
