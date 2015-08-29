@@ -29,7 +29,6 @@ public class club {
     public boolean Insertar( datoclub user)throws SQLException, ClassNotFoundException, FileNotFoundException{
 
         Conexion parametros=new Conexion();
-        System.out.printf(user.getImagen());
         Class.forName(parametros.getDriver());
         Connection con= DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(),parametros.getPass());
         Statement stm=con.createStatement();
