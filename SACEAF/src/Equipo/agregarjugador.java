@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 
@@ -387,7 +388,7 @@ public class agregarjugador extends javax.swing.JPanel {
         }catch(Exception e){
             
         }
-        String foto=ruta.getText();
+        String foto=imagen;
         String bloqueo="No";
         nombrecat=pequipo.labelcategoria.getText();
         try{
@@ -426,6 +427,9 @@ public class agregarjugador extends javax.swing.JPanel {
         }else
             if(year>= ctrlfin && year<=ctrlinicio){
                 try{
+                    if(foto==null){
+                        foto=" ";
+                    }
             datosjugador user= new datosjugador(cedula,nombre,apellido,dia,mes,year,fechadenacimiento,serialequipo,ficha,foto,nacionalidad,bloqueo);
             jugador in= new jugador();
             boolean r;
@@ -466,19 +470,29 @@ public class agregarjugador extends javax.swing.JPanel {
 
     private void bvisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bvisualizarActionPerformed
         final JFileChooser elegirImagen = new JFileChooser();
-        elegirImagen.setMultiSelectionEnabled(false);
+        FileNameExtensionFilter filtroImagen=new FileNameExtensionFilter("Foto del jugador","jpg","png");
+        elegirImagen.setFileFilter(filtroImagen);
         int o = elegirImagen.showOpenDialog(this);
         if(o == JFileChooser.APPROVE_OPTION){
             imagen = elegirImagen.getSelectedFile().getAbsolutePath();
-            nombreimagen = elegirImagen.getSelectedFile().getName();
-            agregarjugador.ruta.setText(imagen);
-            Image preview = Toolkit.getDefaultToolkit().getImage(imagen);
-            if(preview != null){
-                agregarjugador.lfoto.setText("");
-                ImageIcon icon = new ImageIcon(preview.getScaledInstance(agregarjugador.lfoto.getWidth(), agregarjugador.lfoto.getHeight(), Image.SCALE_DEFAULT));
-                agregarjugador.lfoto.setIcon(icon);
+            if(imagen.endsWith(".png") || imagen.endsWith(".jpg") 
+               || imagen.endsWith(".PNG") || imagen.endsWith(".JPG")){
+                    nombreimagen = elegirImagen.getSelectedFile().getName();
+                    agregarjugador.ruta.setText(imagen);
+                    Image preview = Toolkit.getDefaultToolkit().getImage(imagen);
+                    if(preview != null){
+                        agregarjugador.lfoto.setText("");
+                        ImageIcon icon = new ImageIcon(preview.getScaledInstance(agregarjugador.lfoto.getWidth(), agregarjugador.lfoto.getHeight(), Image.SCALE_DEFAULT));
+                        agregarjugador.lfoto.setIcon(icon);
+                    }
+                    imagen=imagen.replace("\\", "-");
+            }else{
+              imagen="";
+              JOptionPane.showMessageDialog(null,"Recuerde que debe elegir una imagen en formato jpg y png.",
+                          "Información", JOptionPane.INFORMATION_MESSAGE);  
+                
             }
-            imagen=imagen.replace("\\", "-");
+            
         }
     }//GEN-LAST:event_bvisualizarActionPerformed
 
