@@ -425,10 +425,19 @@ public final class modificarequipo extends javax.swing.JPanel {
         if(K<'0'|| K>'9'){
          evt.consume();
         }
+         if(Character.isLetter(K)) {
+              getToolkit().beep();
+              
+              evt.consume();
+              
+              JOptionPane.showMessageDialog(this,"Ingrese solo números","Informacion",JOptionPane.INFORMATION_MESSAGE);
+       
+              
+        }
     }//GEN-LAST:event_camposerialclubKeyTyped
 
     private void campoidentificadorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoidentificadorKeyTyped
-        int Limite=2;
+        int Limite=10;
         char K;
         K=evt.getKeyChar();
         if (campoidentificador.getText().length()== Limite){
@@ -436,6 +445,14 @@ public final class modificarequipo extends javax.swing.JPanel {
         }
         if(!(K<'0'|| K>'9')){
          evt.consume();
+        }
+        if(Character.isLetter(K)) {
+              getToolkit().beep();
+              
+              evt.consume();
+              
+              JOptionPane.showMessageDialog(this,"Ingrese solo números","Informacion",JOptionPane.INFORMATION_MESSAGE);
+       
         }
     }//GEN-LAST:event_campoidentificadorKeyTyped
 
@@ -449,10 +466,19 @@ public final class modificarequipo extends javax.swing.JPanel {
         if(K<'0'|| K>'9'){
          evt.consume();
         }
+        if(Character.isLetter(K)) {
+              getToolkit().beep();
+              
+              evt.consume();
+              
+              JOptionPane.showMessageDialog(this,"Ingrese solo números","Informacion",JOptionPane.INFORMATION_MESSAGE);
+       
+              
+        }
     }//GEN-LAST:event_camposerialequipoKeyTyped
 
     private void campodelegadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campodelegadoKeyTyped
-        int Limite=50;
+        int Limite=100;
         char K;
         K=evt.getKeyChar();
         if (campodelegado.getText().length()== Limite){
@@ -460,6 +486,15 @@ public final class modificarequipo extends javax.swing.JPanel {
         }
         if(!(K<'0'|| K>'9')){
          evt.consume();
+        }
+        if(Character.isDigit(K)) {
+              getToolkit().beep();
+              
+              evt.consume();
+              
+              JOptionPane.showMessageDialog(this,"Ingrese solo letras","Informacion",JOptionPane.INFORMATION_MESSAGE);
+       
+              
         }
     }//GEN-LAST:event_campodelegadoKeyTyped
 
