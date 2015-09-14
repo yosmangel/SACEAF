@@ -433,7 +433,7 @@ public final class Agregarclub extends javax.swing.JPanel {
            
        }catch(SQLException ex){
            JOptionPane.showMessageDialog(this,"Error "+ex.getMessage(),"Error...",JOptionPane.ERROR_MESSAGE);
-       }catch(ClassNotFoundException | FileNotFoundException e){
+       }catch(ClassNotFoundException e){
            Logger.getLogger(Agregarclub.class.getName()).log(Level.SEVERE,null,e);
        }
                }
