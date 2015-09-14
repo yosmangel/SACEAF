@@ -3,7 +3,8 @@ package Equipo;
 import Basededatos.Conexion;
 import Basededatos.equipo.datoclub;
 import Basededatos.equipo.club;
-import java.io.FileNotFoundException;
+import static Equipo.Agregarclub.campoimagen;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,6 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public final class modificarclub extends javax.swing.JPanel {
  
@@ -59,20 +61,25 @@ public final class modificarclub extends javax.swing.JPanel {
         presidente = (String)pmostrar.tablaclub.getValueAt(pmostrar.tablaclub.getSelectedRow(),3);
         campopresidente.setText(presidente);
         try{
-              String sql="Select logoeq from club where id_club='"+serial+"'";
+              String sql="Select logo_eq from imagenclub where id_club='"+serial+"'";
               Conexion parametros = new Conexion();
               Class.forName(parametros.getDriver());
               Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
               Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
               ResultSet rs=st.executeQuery(sql);
               while(rs.first()){
-                  img=rs.getString("logoeq");
+                  img=rs.getString("logo_eq");
                   break;
              } 
           }catch(SQLException | ClassNotFoundException ex){
               Logger.getLogger(modificarclub.class.getName()).log(Level.SEVERE,null,ex);
           }
-        campoimagen.setText(img);
+        
+        if("".equals(img) || " ".equals(img) || img==null ){
+        }else{
+            campoimagen.setText(img);
+        }
+        
      
  }
     public void cargarmunicipio(){
@@ -407,7 +414,7 @@ public final class modificarclub extends javax.swing.JPanel {
            
        }catch(SQLException ex){
            JOptionPane.showMessageDialog(this,"Error "+ex.getMessage(),"Error...",JOptionPane.ERROR_MESSAGE);
-       }catch(ClassNotFoundException | FileNotFoundException e){
+       }catch(ClassNotFoundException e){
            Logger.getLogger(modificarclub.class.getName()).log(Level.SEVERE,null,e);
        }
                }
@@ -420,12 +427,28 @@ public final class modificarclub extends javax.swing.JPanel {
 
     private void bbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbuscarActionPerformed
        final JFileChooser elegirImagen = new JFileChooser();
-        elegirImagen.setMultiSelectionEnabled(false);
+        FileNameExtensionFilter filtroImagen=new FileNameExtensionFilter("Imagenes de los escudos","jpg","png");
+        elegirImagen.setFileFilter(filtroImagen);
         int o = elegirImagen.showOpenDialog(this);
         if(o == JFileChooser.APPROVE_OPTION){
-            imagen = elegirImagen.getSelectedFile().getAbsolutePath();
-            nombreimagen = elegirImagen.getSelectedFile().getName();
-            campoimagen.setText(imagen);
+           try {
+               imagen = elegirImagen.getSelectedFile().getCanonicalPath();
+              if(imagen.endsWith(".png") || imagen.endsWith(".jpg") 
+                     || imagen.endsWith(".PNG") || imagen.endsWith(".JPG")){
+                  nombreimagen = elegirImagen.getSelectedFile().getName();
+                  campoimagen.setText(imagen);
+                  imagen=imagen.replace("\\", "-");
+              }else{
+                  imagen="";
+                  JOptionPane.showMessageDialog(null,"Recuerde que debe elegir una imagen en formato jpg y png.",
+                          "Información", JOptionPane.INFORMATION_MESSAGE);
+                  
+              }
+     
+           } catch (IOException ex) {
+               Logger.getLogger(Agregarclub.class.getName()).log(Level.SEVERE, null, ex);
+           }
+            
         }
     }//GEN-LAST:event_bbuscarActionPerformed
 
