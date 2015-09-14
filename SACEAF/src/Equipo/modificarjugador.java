@@ -4,8 +4,10 @@ package Equipo;
 import Basededatos.Conexion;
 import Basededatos.equipo.datomodificarjugador;
 import Basededatos.equipo.jugador;
+import static Equipo.Agregarclub.campoimagen;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -16,6 +18,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 public final class modificarjugador extends javax.swing.JPanel {
@@ -484,18 +487,28 @@ public final class modificarjugador extends javax.swing.JPanel {
 
     private void bvisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bvisualizarActionPerformed
         final JFileChooser elegirImagen = new JFileChooser();
-        elegirImagen.setMultiSelectionEnabled(false);
+        FileNameExtensionFilter filtroImagen=new FileNameExtensionFilter("Imagenes de los escudos","jpg","png");
+        elegirImagen.setFileFilter(filtroImagen);
         int o = elegirImagen.showOpenDialog(this);
         if(o == JFileChooser.APPROVE_OPTION){
-            imagen = elegirImagen.getSelectedFile().getAbsolutePath();
-            nombreimagen = elegirImagen.getSelectedFile().getName();
-            modificarjugador.ruta.setText(imagen);
-            Image preview = Toolkit.getDefaultToolkit().getImage(imagen);
-            if(preview != null){
-                modificarjugador.lfoto.setText("");
-                ImageIcon icon = new ImageIcon(preview.getScaledInstance(modificarjugador.lfoto.getWidth(), modificarjugador.lfoto.getHeight(), Image.SCALE_DEFAULT));
-                modificarjugador.lfoto.setIcon(icon);
-            }
+           try {
+               imagen = elegirImagen.getSelectedFile().getCanonicalPath();
+              if(imagen.endsWith(".png") || imagen.endsWith(".jpg") 
+                     || imagen.endsWith(".PNG") || imagen.endsWith(".JPG")){
+                  nombreimagen = elegirImagen.getSelectedFile().getName();
+                  campoimagen.setText(imagen);
+                  imagen=imagen.replace("\\", "-");
+              }else{
+                  imagen="";
+                  JOptionPane.showMessageDialog(null,"Recuerde que debe elegir una imagen en formato jpg y png.",
+                          "Información", JOptionPane.INFORMATION_MESSAGE);
+                  
+              }
+     
+           } catch (IOException ex) {
+               Logger.getLogger(Agregarclub.class.getName()).log(Level.SEVERE, null, ex);
+           }
+            
         }
     }//GEN-LAST:event_bvisualizarActionPerformed
 
