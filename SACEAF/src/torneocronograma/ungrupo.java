@@ -416,39 +416,98 @@ public class ungrupo extends javax.swing.JPanel {
             }
         }else
         if(cont==9){
-            if(rondas==1){
-            nueveequiposa();
+           if(rondas==1){
+                torneocronograma.nueveequipos.nueveequiposA nueveuno= new torneocronograma.nueveequipos.nueveequiposA();
+                nueveuno.nueveequiposa1();
             }else
             if(rondas==2){
-            nueveequiposa();
-            nueveequiposa2();
+                torneocronograma.nueveequipos.nueveequiposA nueveuno= new torneocronograma.nueveequipos.nueveequiposA();
+                nueveuno.nueveequiposa1();
+                nueveuno.nueveequiposa2();
             }else
             if(rondas==3){
-            nueveequiposa();
-            nueveequiposa2();
-
+                torneocronograma.nueveequipos.nueveequiposA nueveuno= new torneocronograma.nueveequipos.nueveequiposA();
+                nueveuno.nueveequiposa1();
+                nueveuno.nueveequiposa2();
+                nueveuno.nueveequiposa3();
+            }if(rondas==4){
+                torneocronograma.nueveequipos.nueveequiposA nueveuno= new torneocronograma.nueveequipos.nueveequiposA();
+                nueveuno.nueveequiposa1();
+                nueveuno.nueveequiposa2();
+                nueveuno.nueveequiposa3();
+                nueveuno.nueveequiposa4();
             }
             
         }else
         if(cont==10){
-            diezequiposa();
+             if(rondas==1){
+                torneocronograma.diezequipos.diezequiposA diezuno= new torneocronograma.diezequipos.diezequiposA();
+                diezuno.diezequiposa1();
+            }else
+            if(rondas==2){
+                torneocronograma.diezequipos.diezequiposA diezuno= new torneocronograma.diezequipos.diezequiposA();
+                diezuno.diezequiposa1();
+                diezuno.diezequiposa2();
+            }else
+            if(rondas==3){
+                torneocronograma.diezequipos.diezequiposA diezuno= new torneocronograma.diezequipos.diezequiposA();
+                diezuno.diezequiposa1();
+                diezuno.diezequiposa2();
+                diezuno.diezequiposa3();
+            }if(rondas==4){
+                torneocronograma.diezequipos.diezequiposA diezuno= new torneocronograma.diezequipos.diezequiposA();
+                diezuno.diezequiposa1();
+                diezuno.diezequiposa2();
+                diezuno.diezequiposa3();
+                diezuno.diezequiposa4();
+            }
         }else
         if(cont==11){
             if(rondas==1){
-            onceequiposa();
+                torneocronograma.onceequipos.onceequiposA onceuno= new torneocronograma.onceequipos.onceequiposA();
+                onceuno.onceequiposa1();
             }else
             if(rondas==2){
-            onceequiposa();
-            onceequiposa2();
+                torneocronograma.onceequipos.onceequiposA onceuno= new torneocronograma.onceequipos.onceequiposA();
+                onceuno.onceequiposa1();
+                onceuno.onceequiposa2();
             }else
             if(rondas==3){
-            onceequiposa();
-            onceequiposa2();
+                torneocronograma.onceequipos.onceequiposA onceuno= new torneocronograma.onceequipos.onceequiposA();
+                onceuno.onceequiposa1();
+                onceuno.onceequiposa2();
+                onceuno.onceequiposa3();
+            }if(rondas==4){
+                torneocronograma.onceequipos.onceequiposA onceuno= new torneocronograma.onceequipos.onceequiposA();
+                onceuno.onceequiposa1();
+                onceuno.onceequiposa2();
+                onceuno.onceequiposa3();
+                onceuno.onceequiposa4();
             }
             
         }else
         if(cont==12){
-           doceequiposa(); 
+            if(rondas==1){
+                torneocronograma.doceequipos.doceequiposA doceuno= new torneocronograma.doceequipos.doceequiposA();
+                doceuno.doceequiposa1();
+            }else
+            if(rondas==2){
+                torneocronograma.doceequipos.doceequiposA doceuno= new torneocronograma.doceequipos.doceequiposA();
+                doceuno.doceequiposa1();
+                doceuno.doceequiposa2();
+            }else
+            if(rondas==3){
+                torneocronograma.doceequipos.doceequiposA doceuno= new torneocronograma.doceequipos.doceequiposA();
+                doceuno.doceequiposa1();
+                doceuno.doceequiposa2();
+                doceuno.doceequiposa3();
+            }if(rondas==4){
+                torneocronograma.doceequipos.doceequiposA doceuno= new torneocronograma.doceequipos.doceequiposA();
+                doceuno.doceequiposa1();
+                doceuno.doceequiposa2();
+                doceuno.doceequiposa3();
+                doceuno.doceequiposa4();
+            }
         }else
         if(cont==13){
             JOptionPane.showMessageDialog(this,"No se poseen cruces para esa cantidad de equipos","Informacion",JOptionPane.INFORMATION_MESSAGE);
@@ -17131,8 +17190,8 @@ public class ungrupo extends javax.swing.JPanel {
 
         ///////////////////////////////////////////////////////////////////1
         
-        numero_local=12;
-        numero_visitante=11;
+        numero_local=11;
+        numero_visitante=12;
         jornada="12";
         try{ 
             String sql="Select id_hequipo from h_equipo where id_torneo='"+id_torneo+"' and id_categoria='"+id_categoria+"' and numero_eq='"+numero_local+"' and grupo_equipo='"+grupo+"';";
