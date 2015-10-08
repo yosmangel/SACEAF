@@ -10,7 +10,6 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import saceaf.Principal;
@@ -21,8 +20,10 @@ public class verfechajornada extends javax.swing.JPanel {
     static DefaultTableModel modelo= new DefaultTableModel();
     static DefaultComboBoxModel combo= new DefaultComboBoxModel();
     static int datogrupos;
-    String id_torneo, id_competencia,grupo,id_juego, id_categoria,datopostfase,nombre_modalidad,sexo,clublocal,clubvisitante,hlocal,hvisitante,idequipolocal,idequipovisitante;
-    String idequipob,idbuscar,idtorneo,categoria,jornada,letrag,id_club,idcategoria,nombre_local,identificador_local,nombre_visitante,identificador_visitante;
+    String id_torneo, id_competencia,grupo,id_juego, id_categoria,datopostfase,nombre_modalidad,sexo,clublocal,
+            clubvisitante,hlocal,hvisitante,idequipolocal,idequipovisitante, idequipob,idbuscar,idtorneo,categoria,
+            jornada,letrag,id_club,idcategoria,nombre_local,identificador_local,nombre_visitante,
+            identificador_visitante;
     int idnumero,numeroeq,ctrl,ronda;
     static String ncategoria, lsexo,serialtorneo,cidcategoria,letragrupo,id_modalidad; 
     public verfechajornada() {
@@ -48,10 +49,8 @@ public class verfechajornada extends javax.swing.JPanel {
             cidcategoria=rs.getNString("id_categoria");
             break;
             }            
-            }catch(SQLException ex){
-            Logger.getLogger(dosgrupos.class.getName()).log(Level.SEVERE, null, ex);
-            }catch(ClassNotFoundException e){
-            Logger.getLogger(dosgrupos.class.getName()).log(Level.SEVERE,null,e);
+            }catch(SQLException | ClassNotFoundException ex){
+            Logger.getLogger(verfechajornada.class.getName()).log(Level.SEVERE, null, ex);
             }
      try{
             String[] titulos={"Fecha juego","Jor.","Equipo local"," ","Equipo visitante"," "};
@@ -102,7 +101,7 @@ public class verfechajornada extends javax.swing.JPanel {
           break;
           }
           }catch(SQLException | ClassNotFoundException ex){
-          Logger.getLogger(crearcopa.class.getName()).log(Level.SEVERE,null,ex);
+          Logger.getLogger(verfechajornada.class.getName()).log(Level.SEVERE,null,ex);
           }
           try{
           Conexion parametros= new Conexion();
@@ -115,7 +114,7 @@ public class verfechajornada extends javax.swing.JPanel {
           break;
           }
           }catch(SQLException | ClassNotFoundException ex){
-          Logger.getLogger(crearcopa.class.getName()).log(Level.SEVERE,null,ex);
+          Logger.getLogger(verfechajornada.class.getName()).log(Level.SEVERE,null,ex);
           }
           try{
           Conexion parametros= new Conexion();
@@ -128,7 +127,7 @@ public class verfechajornada extends javax.swing.JPanel {
           break;
           }
           }catch(SQLException | ClassNotFoundException ex){
-          Logger.getLogger(crearcopa.class.getName()).log(Level.SEVERE,null,ex);
+          Logger.getLogger(verfechajornada.class.getName()).log(Level.SEVERE,null,ex);
           }
           if(datogrupos!=0){
           combogrupo.removeAllItems();
@@ -144,7 +143,7 @@ public class verfechajornada extends javax.swing.JPanel {
           }
           st.close();
           }catch(SQLException | ClassNotFoundException ex){
-          Logger.getLogger(Semifinal.class.getName()).log(Level.SEVERE,null,ex);
+          Logger.getLogger(verfechajornada.class.getName()).log(Level.SEVERE,null,ex);
           }
           }
   }
