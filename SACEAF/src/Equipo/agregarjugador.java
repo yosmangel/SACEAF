@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -23,8 +24,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class agregarjugador extends javax.swing.JPanel {
 
  String imagen, nombreimagen,ficha,nacionalidad,nombrecat;
- int ctrlinicio,ctrlfin,ctrc;
- 
+ int ctrlinicio,ctrlfin,ctrc,mesn;
+ boolean Mesvalido;
  
     public agregarjugador() {
         initComponents();
@@ -38,8 +39,10 @@ public class agregarjugador extends javax.swing.JPanel {
         String Dia=agregarjugador.campodia.getText();
         String Mes=agregarjugador.campomes.getText();
         String Year=agregarjugador.campoyear.getText();
-
-        if(Cedula.isEmpty() || Nombre.isEmpty() || Apellido.isEmpty() || Dia.isEmpty() || Mes.isEmpty() || Year.isEmpty()){
+        int Yearjugador=Year.length();
+                
+        if(Cedula.isEmpty() || Nombre.isEmpty() || Apellido.isEmpty() || Dia.isEmpty() || Mes.isEmpty()
+                || Year.isEmpty() || Mesvalido==false || Yearjugador<4){
             agregarjugador.bguardar.setEnabled(false);
         }
         else{
@@ -58,6 +61,79 @@ public class agregarjugador extends javax.swing.JPanel {
         agregarjugador.bguardar.setEnabled(false);
         
     }
+    public boolean mesValidarNacimiento(){
+
+        Mesvalido=true;
+        String mes=agregarjugador.campomes.getText();
+	int anoi=Integer.parseInt(agregarjugador.campoyear.getText());
+	GregorianCalendar calendar = new GregorianCalendar();
+        boolean bisiesto;
+        bisiesto = calendar.isLeapYear(anoi);
+        int diai=Integer.parseInt(agregarjugador.campodia.getText());
+        if("".equals(mes) || " ".equals(mes) || mes==null){
+            
+            JOptionPane.showMessageDialog(null,"El campo de mes de nacimiento, no se puede encontrar vacío,"
+                    + "por favor verifique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
+            agregarjugador.campomes.setText("");
+            agregarjugador.campoyear.setText("");
+            agregarjugador.campomes.requestFocus();
+            return false;
+            
+        }else{
+            mesn=Integer.parseInt(agregarjugador.campomes.getText());
+            if(mesn>12){
+                 JOptionPane.showMessageDialog(null,"El valor introducido en el campo de mes de nacimiento, no es valido,"
+                    + "por favor verifique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
+                agregarjugador.campomes.setText("");
+                agregarjugador.campoyear.setText("");
+                agregarjugador.campoyear.requestFocus();
+                return false;
+                
+            }
+        }
+            
+        
+        if(mesn==4 || mesn==6 || mesn==9 || mesn==11){
+        	
+		if(diai>30){
+                    JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia de nacimiento, no es valido,"
+                            + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
+                    agregarjugador.campodia.setText("");
+                    agregarjugador.campodia.requestFocus();
+                    Mesvalido=false;
+                }
+	}else
+	if(mesn==1 || mesn==3 || mesn==5 || mesn==7 || mesn==8 || mesn==10 || mesn==12){
+		
+
+		if(diai>31){
+                    JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia de nacimiento, no es valido,"
+                            + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
+                    agregarjugador.campodia.setText("");
+                    agregarjugador.campodia.requestFocus();
+                    Mesvalido=false;
+		}
+	}else
+	if(mesn==2){
+            
+		if(bisiesto==false && diai>28){
+                    JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia de nacimiento, no es valido,"
+                            + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
+                    agregarjugador.campodia.setText("");
+                    agregarjugador.campodia.requestFocus();
+                    Mesvalido=false;
+		}else
+		if(bisiesto=true && diai>29){
+                    JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia de nacimiento, no es valido,"
+                            + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
+                    agregarjugador.campodia.setText("");
+                    agregarjugador.campodia.requestFocus();
+                    Mesvalido=false;
+		}
+	}
+        return Mesvalido;
+}
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -609,6 +685,7 @@ public class agregarjugador extends javax.swing.JPanel {
     }//GEN-LAST:event_campomesKeyReleased
 
     private void campoyearKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoyearKeyReleased
+        mesValidarNacimiento();
         this.HabilitarGuardar();
     }//GEN-LAST:event_campoyearKeyReleased
 
