@@ -27,7 +27,10 @@ public class crearrecopa extends javax.swing.JPanel {
    DefaultComboBoxModel combo= new DefaultComboBoxModel();
    static DefaultTableModel tabla= new DefaultTableModel();
    int datogrupos,datoclasificaxgrupo,datosequiposgrupos,datomejor,datopasanmejor,ctrl,idnumero,numeroeq,rondas;
-   String id_torneo, id_competencia, id_categoria,datopostfase,id_modalidad,nombre_modalidad,categoria,idequipob,sexo,idbuscar,idtorneo,grupo;
+   String id_torneo, id_competencia, id_categoria,datopostfase,id_modalidad,nombre_modalidad,categoria,idequipob,
+          sexo,idbuscar,idtorneo,grupo;
+   
+   
     public crearrecopa() {
         initComponents();
         labelserial.setVisible(false);
@@ -512,7 +515,7 @@ sexo=Principal.labelsexo.getText();
         try{
             agregarequipo();
         }catch(Exception e){
-            JOptionPane.showMessageDialog(this,"Debe seleccionar algun equipo de la tabla para poder agregarlo","Informacion",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Debe seleccionar algun equipo de la tabla para poder agregarlo","Informacion",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_bagregarActionPerformed
 
