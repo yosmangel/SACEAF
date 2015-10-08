@@ -16,7 +16,7 @@ import torneodatoscronograma.datopostfase;
 import torneodatoscronograma.postfase;
 
 
-public class Cuartosdefinal extends javax.swing.JPanel {
+public final class Cuartosdefinal extends javax.swing.JPanel {
 
     DefaultComboBoxModel combox1 = new DefaultComboBoxModel();
     DefaultComboBoxModel combox2 = new DefaultComboBoxModel();
@@ -34,6 +34,11 @@ public class Cuartosdefinal extends javax.swing.JPanel {
     static DefaultComboBoxModel scombox6 = new DefaultComboBoxModel();
     static DefaultComboBoxModel scombox7 = new DefaultComboBoxModel();
     static DefaultComboBoxModel scombox8 = new DefaultComboBoxModel();
+    static String dcategoria,id_categoria,id_torneo,letra1,letra2,instancia,idcruce,lsexo;
+    static int numero1,numero2,opc;
+    String categoria,idcategoria,idtorneo,idcompetencia,idmodalidad,postfase,sexo;
+    int grupos;
+    
     public Cuartosdefinal() {
         initComponents();
         cargarcombo1();
@@ -47,10 +52,7 @@ public class Cuartosdefinal extends javax.swing.JPanel {
         verificardatos();
     }
 
-    static String dcategoria,id_categoria,id_torneo,letra1,letra2,instancia,idcruce,lsexo;
-    static int numero1,numero2,opc;
-    String categoria,idcategoria,idtorneo,idcompetencia,idmodalidad,postfase,sexo;
-    int grupos;
+    
     public void cargarcombo1(){
          categoria=panelcrear.combocategoria.getSelectedItem().toString();
          idtorneo=Principal.labelserialtorneo.getText();
@@ -620,7 +622,7 @@ public class Cuartosdefinal extends javax.swing.JPanel {
           }catch(SQLException e){
               JOptionPane.showMessageDialog(null,"Error "+e.getMessage(),"Error!",JOptionPane.ERROR_MESSAGE);
           }catch(ClassNotFoundException ex){
-              Logger.getLogger(Final.class.getName()).log(Level.SEVERE,null,ex);
+              Logger.getLogger(Cuartosdefinal.class.getName()).log(Level.SEVERE,null,ex);
           }
           dcategoria=panelcrear.combocategoria.getSelectedItem().toString();
          id_torneo=Principal.labelserialtorneo.getText();
@@ -654,7 +656,7 @@ public class Cuartosdefinal extends javax.swing.JPanel {
           }catch(SQLException e){
               JOptionPane.showMessageDialog(null,"Error "+e.getMessage(),"Error!",JOptionPane.ERROR_MESSAGE);
           }catch(ClassNotFoundException ex){
-              Logger.getLogger(Final.class.getName()).log(Level.SEVERE,null,ex);
+              Logger.getLogger(Cuartosdefinal.class.getName()).log(Level.SEVERE,null,ex);
           }
           dcategoria=panelcrear.combocategoria.getSelectedItem().toString();
          id_torneo=Principal.labelserialtorneo.getText();
