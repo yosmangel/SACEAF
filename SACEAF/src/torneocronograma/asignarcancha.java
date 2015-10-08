@@ -25,6 +25,7 @@ public class asignarcancha extends javax.swing.JPanel {
     String idequipob,idbuscar,idtorneo,categoria,jornada,letrag,id_club,idcategoria,nombre_local,identificador_local,nombre_visitante,identificador_visitante;
     int idnumero,numeroeq,ctrl,ronda;
     static String ncategoria, lsexo,serialtorneo,cidcategoria,letragrupo,id_modalidad; 
+    
     public asignarcancha() {
         initComponents();
         cargarcombo();
@@ -81,7 +82,7 @@ public class asignarcancha extends javax.swing.JPanel {
             tablacruces.setRowSorter(modeloordenado);
             
         }catch(SQLException | ClassNotFoundException ex){
-                Logger.getLogger(verfechajornada.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(asignarcancha.class.getName()).log(Level.SEVERE, null, ex);
                 }
     }
     public static void cargarcombo(){
