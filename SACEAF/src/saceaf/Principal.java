@@ -9,6 +9,7 @@ import Sanciones.Gsanciones;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import torneo.principaltorneo;
@@ -25,11 +26,16 @@ public final class Principal extends javax.swing.JFrame {
        abrirbienvenido();
        inhabilitar();
        this.getContentPane().add(panelinferior, BorderLayout.SOUTH);
-       Calendar cal=Calendar.getInstance();
-                String fecha=cal.get(Calendar.YEAR)+ "/" +cal.get(Calendar.MONTH)+ "/" +cal.get(Calendar.DAY_OF_MONTH);
-                labelfecha.setText(fecha);
-                System.gc();
-                flushMemory();
+     // Calendar c1 = Calendar.getInstance();
+      Calendar cal = new GregorianCalendar();
+      String dia=Integer.toString(cal.get(Calendar.DATE));
+      String mes=Integer.toString(cal.get(Calendar.MONTH)+1);
+      String ano=Integer.toString(cal.get(Calendar.YEAR));
+
+      String fecha=ano+ "/" +mes+ "/" +dia;
+      labelfecha.setText(fecha);
+      System.gc();
+      flushMemory();
     }
 
     public static void flushMemory(){
