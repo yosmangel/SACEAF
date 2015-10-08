@@ -21,7 +21,7 @@ Conexion parametros= new Conexion();
                 + ",'"+user.getDia()+"','"+user.getMes()+"','"+user.getYear()+"','"+user.getFechadenacimiento()+"',"
                 + "'"+user.getSerialequipo()+"','"+user.getFicha()+"','"+user.getNacionalidad()+"',"
                 + " '"+user.getBloqueo()+"');";
-        String insert="Insert into imagenclub values('"+user.getCedula()+"', '"+user.getFoto()+"',"
+        String insert="Insert into imagenjugador values('"+user.getCedula()+"', '"+user.getFoto()+"',"
                 + "'"+user.getNombre()+" "+user.getApellido()+"', '"+user.getCedula()+"');";
         result=stm.execute(sql);
         result=stm.execute(insert);
