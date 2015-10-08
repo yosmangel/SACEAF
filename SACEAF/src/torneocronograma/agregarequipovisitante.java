@@ -25,6 +25,7 @@ public final class agregarequipovisitante extends javax.swing.JPanel {
     String dia,mes,year,fecha_juego;
     String nombre, apellido,cedula,idhjugador,idformulario,formulariotitular;
     int numero;
+    
     public agregarequipovisitante() {
         initComponents();
         cargardatos();
