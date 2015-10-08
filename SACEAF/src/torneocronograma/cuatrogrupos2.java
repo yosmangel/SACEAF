@@ -10,13 +10,9 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import saceaf.Principal;
-import static torneocronograma.verliga.comboronda;
-import torneodatoscronograma.competencia;
-import torneodatoscronograma.datomodificarrondas;
 
 
 public class cuatrogrupos2 extends javax.swing.JPanel {
