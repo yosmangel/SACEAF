@@ -3,7 +3,6 @@ package torneocronograma;
 
 import Basededatos.Conexion;
 import Basededatos.ConexionReportes;
-import static Estadisticas.preportes.ComboReporte;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -30,10 +29,12 @@ public class cruces extends javax.swing.JPanel {
     static DefaultTableModel modelo= new DefaultTableModel();
     static DefaultComboBoxModel combo= new DefaultComboBoxModel();
     static int datogrupos;
-    String id_torneo, id_competencia, id_categoria,datopostfase,nombre_modalidad,sexo;
-    String idequipob,idbuscar,idtorneo,categoria,letrag,id_club,idcategoria;
+    String id_torneo, id_competencia, id_categoria,datopostfase,nombre_modalidad,sexo,
+           idequipob,idbuscar,idtorneo,categoria,letrag,id_club,idcategoria;
     int idnumero,numeroeq,ctrl,ronda;
-    static String ncategoria, lsexo,serialtorneo,cidcategoria,nombre_local,identificador_local,nombre_visitante,letragrupo,id_modalidad,identificador_visitante; 
+    static String ncategoria, lsexo,serialtorneo,cidcategoria,nombre_local,identificador_local,nombre_visitante,
+                  letragrupo,id_modalidad,identificador_visitante; 
+   
     public cruces() {
         initComponents();
         cargarcombo();
