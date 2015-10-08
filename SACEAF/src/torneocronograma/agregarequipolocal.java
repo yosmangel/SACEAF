@@ -378,7 +378,7 @@ public final class agregarequipolocal extends javax.swing.JPanel {
        try{
            agregar();
        }catch(Exception e){
-           JOptionPane.showMessageDialog(this,"Seleccione algun jugador de la tabla a la izquierda de la pantalla","Informacion",JOptionPane.INFORMATION_MESSAGE);
+           JOptionPane.showMessageDialog(null,"Seleccione algun jugador de la tabla a la izquierda de la pantalla","Informacion",JOptionPane.INFORMATION_MESSAGE);
        }
     }//GEN-LAST:event_bagregarActionPerformed
 
