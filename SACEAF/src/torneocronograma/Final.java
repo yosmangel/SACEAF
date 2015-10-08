@@ -16,25 +16,26 @@ import torneodatoscronograma.datopostfase;
 import torneodatoscronograma.postfase;
 
 
-public class Final extends javax.swing.JPanel {
+public final class Final extends javax.swing.JPanel {
 
     DefaultComboBoxModel combox1 = new DefaultComboBoxModel();
     DefaultComboBoxModel combox2 = new DefaultComboBoxModel();
     static DefaultComboBoxModel scombox1 = new DefaultComboBoxModel();
     static DefaultComboBoxModel scombox2 = new DefaultComboBoxModel();
-
+    static String dcategoria,id_categoria,id_torneo,letra1,letra2,instancia,idcruce,lsexo;
+    String categoria,idcategoria,idtorneo,idcompetencia,idmodalidad,postfase;
+    int grupos;
+    static int numero1,numero2,opc;
+    
     public Final() {
         initComponents();
         cargarcombo1();
         cargarcombo2();
         verificardatos();
     }
-    static String dcategoria,id_categoria,id_torneo,letra1,letra2,instancia,idcruce,lsexo;
-    String categoria,idcategoria,idtorneo,idcompetencia,idmodalidad,postfase;
-    int grupos;
-    static int numero1,numero2,opc;
+    
       public void cargarcombo1(){
-          categoria=panelcrear.combocategoria.getSelectedItem().toString();
+         categoria=panelcrear.combocategoria.getSelectedItem().toString();
          idtorneo=Principal.labelserialtorneo.getText();
          lsexo=Principal.labelsexo.getText();
           try{
