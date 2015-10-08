@@ -24,18 +24,18 @@ import torneodatoseq.torneojugador;
 public class jugadoresequipot extends javax.swing.JPanel {
     static DefaultTableModel modelo;
     static DefaultTableModel modelo1;
-
-
+    static String idcategoria, idclub,id_equipo, id_hjugador,id_serialb, cedulaj,id_torneo,equipo,bloqueo,year_final;
+    static int ctrl,n_nomina,ctrn,nfinal,ncomienzo,i,limite;
+    boolean seleccionException;
+            
     public jugadoresequipot() {
         initComponents();
         cargar();
-        cargarjugadorequipo();
         cargarjugadorestorneo();
-
+        jugadoresequipot.labelserialexce.setVisible(false);
 
     }
- static String idcategoria, idclub,id_equipo, id_hjugador,id_serialb, cedulaj,id_torneo,equipo,bloqueo;
- static int ctrl,n_nomina,ctrn,nfinal,ncomienzo,i,limite;
+ 
  public void cargar(){
      idcategoria=null;
      idclub=null;
@@ -91,6 +91,7 @@ public class jugadoresequipot extends javax.swing.JPanel {
             labelcategoria.setVisible(false);
             labelserial.setVisible(false);
             labelnombreeq.setText(nombre+" "+identificador);
+            cargarjugadorequipo();
  }
  public static void cargarjugadorequipo(){
      
@@ -131,7 +132,7 @@ public class jugadoresequipot extends javax.swing.JPanel {
              try{
             String[] titulos={"N°","Cedula","Nombre","Apellido"};
             String[] registro= new String[4];
-            String sql="Select hj.n_nomina ,j.cedula, j.nombre_j, j.apellido_j from jugador j, h_jugador hj where hj.cedula=j.cedula and hj.id_torneo='"+id_torneo+"' and hj.id_hequipo='"+equipo+"' order by hj.n_nomina;";
+            String sql="Select hj.n_nomina ,j.cedula, j.nombre_j, j.apellido_j from jugador j, h_jugador hj where hj.cedula=j.cedula and hj.id_torneo='"+id_torneo+"' and hj.id_equipo='"+equipo+"' order by hj.n_nomina;";
             Conexion parametro= new Conexion();
             Class.forName(parametro.getDriver());
             Connection con=DriverManager.getConnection(parametro.getURL(), parametro.getUsuario(), parametro.getPass());
@@ -334,9 +335,106 @@ public class jugadoresequipot extends javax.swing.JPanel {
      
      
  }
- public void verjugador(){
+ public static void cargarlistaException(){
+     String categoria= Equipostorneo.combocategorias.getSelectedItem().toString();
+     String identificador= (String) Equipostorneo.equipostorneo.getValueAt(Equipostorneo.equipostorneo.getSelectedRow(),1);
+     String nombre=(String) Equipostorneo.equipostorneo.getValueAt(Equipostorneo.equipostorneo.getSelectedRow(),0);
+     String lsexo=Principal.labelsexo.getText();
      
+     
+     try{
+         String sql="Select year_final from categoria where nombre_cat='"+categoria+"' and sexo='"+lsexo+"';";
+         Conexion parametros= new Conexion();
+         Class.forName(parametros.getDriver());
+         Connection con= DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(),parametros.getPass());
+         Statement st= con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+         ResultSet rs=st.executeQuery(sql);
+         while(rs.first()){
+             year_final=rs.getString("year_final");
+             break;
+         }
+     }catch(SQLException | ClassNotFoundException ex){
+         Logger.getLogger(jugadoresequipot.class.getName()).log(Level.SEVERE,null,ex);
+     }
+      try{
+         String sql="Select MAX(id_categoria) from categoria where year_final<'"+year_final+"';";
+         Conexion parametros= new Conexion();
+         Class.forName(parametros.getDriver());
+         Connection con= DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(),parametros.getPass());
+         Statement st= con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+         ResultSet rs=st.executeQuery(sql);
+         while(rs.first()){
+             idcategoria=rs.getString("MAX(id_categoria)");
+             break;
+         }
+     }catch(SQLException | ClassNotFoundException ex){
+         Logger.getLogger(jugadoresequipot.class.getName()).log(Level.SEVERE,null,ex);
+     }
+      try{
+         String sql="Select id_club from club where nombre_club='"+nombre+"';";
+         Conexion parametros= new Conexion();
+         Class.forName(parametros.getDriver());
+         Connection con= DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(),parametros.getPass());
+         Statement st= con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+         ResultSet rs=st.executeQuery(sql);
+         while(rs.first()){
+             idclub=rs.getString("id_club");
+             break;
+         }
+     }catch(SQLException | ClassNotFoundException ex){
+         Logger.getLogger(jugadoresequipot.class.getName()).log(Level.SEVERE,null,ex);
+     }
+            try{
+         String sql="Select id_equipo from equipo where id_club='"+idclub+"' and id_categoria='"+idcategoria+"' and identificador='"+identificador+"';";
+         Conexion parametros= new Conexion();
+         Class.forName(parametros.getDriver());
+         Connection con= DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(),parametros.getPass());
+         Statement st= con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+         ResultSet rs=st.executeQuery(sql);
+         while(rs.first()){
+             id_equipo=rs.getString("id_equipo");
+             break;
+         }
+     }catch(SQLException | ClassNotFoundException ex){
+         Logger.getLogger(jugadoresequipot.class.getName()).log(Level.SEVERE,null,ex);
+     }
+     jugadoresequipot.labelserialexce.setText(id_equipo);
+     cargarjugadorequipoException();
  }
+ public static void cargarjugadorequipoException(){
+     
+        String equipoc=jugadoresequipot.labelserialexce.getText();
+        try{
+            String[] titulos={"Cedula","Nombre","Apellido"};
+            String[] registro= new String[3];
+            String sql="Select j.cedula, j.nombre_j, j.apellido_j from jugador j where j.id_equipo='"+equipoc+"';";
+            Conexion parametro= new Conexion();
+            Class.forName(parametro.getDriver());
+            Connection con=DriverManager.getConnection(parametro.getURL(), parametro.getUsuario(), parametro.getPass());
+            modelo= new DefaultTableModel(null,titulos);
+            Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs=st.executeQuery(sql);
+            while(rs.next()){
+               registro [0]=rs.getString("j.cedula");
+               registro [1]=rs.getString("j.nombre_j");
+               registro [2]=rs.getString("j.apellido_j");
+               modelo.addRow(registro);
+            }
+            jugadores.setModel(modelo);
+            jugadores.getColumnModel().getColumn(0).setPreferredWidth(144);
+            jugadores.getColumnModel().getColumn(1).setPreferredWidth(144);
+            jugadores.getColumnModel().getColumn(2).setPreferredWidth(144);
+            TableRowSorter modeloordenado= new TableRowSorter(modelo);
+            jugadores.setRowSorter(modeloordenado);
+            modeloordenado.setRowFilter(RowFilter.regexFilter(filtro.getText()));
+            
+        }catch(SQLException | ClassNotFoundException ex){
+                Logger.getLogger(jugadoresequipot.class.getName()).log(Level.SEVERE, null, ex);
+                }
+ }
+ 
+ 
+ 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -364,6 +462,8 @@ public class jugadoresequipot extends javax.swing.JPanel {
         bacceder = new javax.swing.JButton();
         labelserial = new javax.swing.JLabel();
         labelcategoria = new javax.swing.JLabel();
+        radioBException = new javax.swing.JRadioButton();
+        labelserialexce = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(1000, 412));
@@ -469,24 +569,26 @@ public class jugadoresequipot extends javax.swing.JPanel {
         bacceder.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         bacceder.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
+        radioBException.setText("Excepción");
+        radioBException.setContentAreaFilled(false);
+        radioBException.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioBExceptionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addContainerGap()
+                .addComponent(labelserialexce, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelserial, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(filtro, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(233, 233, 233)
-                        .addComponent(filtro2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(157, 157, 157))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelnombreeq, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(87, 87, 87)))
+                .addGap(124, 124, 124)
+                .addComponent(labelnombreeq, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87)
                 .addComponent(bsalir))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
@@ -498,9 +600,16 @@ public class jugadoresequipot extends javax.swing.JPanel {
                             .addComponent(bagregar)
                             .addComponent(beliminar))))
                 .addGap(8, 8, 8)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(filtro, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(radioBException)))
                 .addGap(6, 6, 6)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(filtro2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -509,11 +618,14 @@ public class jugadoresequipot extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelserial, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(labelnombreeq, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelnombreeq, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelserialexce))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(filtro2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(filtro, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(filtro2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(radioBException)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(bsalir)))
@@ -581,6 +693,16 @@ public class jugadoresequipot extends javax.swing.JPanel {
        }
     }//GEN-LAST:event_beliminarActionPerformed
 
+    private void radioBExceptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioBExceptionActionPerformed
+        seleccionException=radioBException.isSelected();
+
+        if(seleccionException==true){
+            cargarlistaException();
+        }else{
+            cargar();
+        }
+    }//GEN-LAST:event_radioBExceptionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton bacceder;
@@ -599,5 +721,7 @@ public class jugadoresequipot extends javax.swing.JPanel {
     public static javax.swing.JLabel labelcategoria;
     public static javax.swing.JLabel labelnombreeq;
     public static javax.swing.JLabel labelserial;
+    public static javax.swing.JLabel labelserialexce;
+    public static javax.swing.JRadioButton radioBException;
     // End of variables declaration//GEN-END:variables
 }
