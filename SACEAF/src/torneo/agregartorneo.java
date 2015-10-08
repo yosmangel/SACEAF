@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -15,15 +16,19 @@ import torneodatos.datostorneo;
 import torneodatos.torneo;
 
 
-public class agregartorneo extends javax.swing.JPanel {
-    DefaultComboBoxModel cdisciplina= new DefaultComboBoxModel();
-
+public final class agregartorneo extends javax.swing.JPanel {
     
+    DefaultComboBoxModel cdisciplina= new DefaultComboBoxModel();
+    boolean MesbuenoI, MesbuenoF;
+    int mesi,mesf,nserial,total;
+    String serialtorneo, disciplina,sexo;
+
     public agregartorneo() {
         initComponents();
         cargardisciplina();
     }
 public void HabilitarGuardar(){
+
     String Nombre=agregartorneo.camponombre.getText();
     String Yearini=agregartorneo.yearini.getText();
     String Mesini=agregartorneo.mesini.getText();
@@ -31,8 +36,10 @@ public void HabilitarGuardar(){
     String Yearfin=agregartorneo.yearfin.getText();
     String Mesfin=agregartorneo.mesini.getText();
     String Diafin=agregartorneo.diafin.getText();
-    
-    if(Nombre.isEmpty() || Yearini.isEmpty() || Mesini.isEmpty() || Diaini.isEmpty() || Yearfin.isEmpty() || Mesfin.isEmpty() || Diafin.isEmpty()){
+    int Yearinicio=Integer.parseInt(agregartorneo.yearini.getText());
+    int Yearfinal=Integer.parseInt(agregartorneo.yearfin.getText());
+    if(Nombre.isEmpty() || Yearini.isEmpty() || Mesini.isEmpty() || Diaini.isEmpty() || Yearfin.isEmpty() || 
+            Mesfin.isEmpty() || Diafin.isEmpty()|| MesbuenoI==false ||MesbuenoF==false || Yearinicio<4 || Yearfinal<4){
         agregartorneo.bguardar.setEnabled(false);
     }
     else{
@@ -66,7 +73,156 @@ public void limpiar(){
         diafin.setText("");
         bguardar.setEnabled(false);
     }
-    
+public boolean mesAgregarTorneoIni(){
+
+        MesbuenoI=true;
+        String mes=agregartorneo.mesini.getText();
+	int anoi=Integer.parseInt(agregartorneo.yearini.getText());
+	GregorianCalendar calendar = new GregorianCalendar();
+        boolean bisiesto;
+        bisiesto = calendar.isLeapYear(anoi);
+        int diai=Integer.parseInt(agregartorneo.diaini.getText());
+        if("".equals(mes) || " ".equals(mes) || mes==null){
+            
+            JOptionPane.showMessageDialog(null,"El campo de mes de inicio, no se puede encontrar vacío,"
+                    + "por favor verifique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
+            agregartorneo.mesini.setText("");
+            agregartorneo.yearini.setText("");
+            agregartorneo.mesini.requestFocus();
+            return false;
+            
+        }else{
+            mesi=Integer.parseInt(agregartorneo.mesini.getText());
+            if(mesi>12){
+                 JOptionPane.showMessageDialog(null,"El valor introducido en el campo de mes de inicio, no es valido,"
+                    + "por favor verifique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
+                agregartorneo.mesini.setText("");
+                agregartorneo.yearini.setText("");
+                agregartorneo.mesini.requestFocus();
+                return false;
+                
+            }
+        }
+            
+        
+        if(mesi==4 || mesi==6 || mesi==9 || mesi==11){
+        	
+		if(diai>30){
+                    JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia de inicio, no es valido,"
+                            + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
+                    agregartorneo.diaini.setText("");
+                    agregartorneo.diaini.requestFocus();
+                    MesbuenoI=false;
+                }
+	}else
+	if(mesi==1 || mesi==3 || mesi==5 || mesi==7 || mesi==8 || mesi==10 || mesi==12){
+		
+
+		if(diai>31){
+                    JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia de inicio, no es valido,"
+                            + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
+                    agregartorneo.diaini.setText("");
+                    agregartorneo.diaini.requestFocus();
+                    MesbuenoI=false;
+		}
+	}else
+	if(mesi==2){
+            
+		if(bisiesto==false && diai>28){
+                    JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia de inicio, no es valido,"
+                            + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
+                    agregartorneo.diaini.setText("");
+                    agregartorneo.diaini.requestFocus();
+                    MesbuenoI=false;
+		}else
+		if(bisiesto=true && diai>29){
+                    JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia de inicio, no es valido,"
+                            + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
+                    agregartorneo.diaini.setText("");
+                    agregartorneo.diaini.requestFocus();
+                    MesbuenoI=false;
+		}
+	}
+        return MesbuenoI;
+}
+public boolean mesAgregarTorneoFin(){
+
+        MesbuenoF=true;
+	String mes=agregartorneo.mesfin.getText();
+	int anof=Integer.parseInt(agregartorneo.yearfin.getText());
+	GregorianCalendar calendar = new GregorianCalendar();
+        boolean bisiesto;
+        bisiesto = calendar.isLeapYear(anof);
+        int diaf=Integer.parseInt(agregartorneo.diafin.getText());
+        if("".equals(mes) || " ".equals(mes) || mes==null){
+            
+            JOptionPane.showMessageDialog(null,"El campo de mes en el que finaliza el torneo, no se puede encontrar vacío,"
+                    + "por favor verifique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
+            agregartorneo.mesfin.setText("");
+            agregartorneo.yearfin.setText("");
+            agregartorneo.mesfin.requestFocus();
+            return false;
+            
+        }else{
+            mesf=Integer.parseInt(agregartorneo.mesfin.getText());
+            if(mesf>12){
+                 JOptionPane.showMessageDialog(null,"El valor introducido en el campo de mes en el que"
+                         + " finaliza el torneo , no es valido,"
+                    + "por favor verifique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
+                agregartorneo.mesfin.setText("");
+                agregartorneo.yearfin.setText("");
+                agregartorneo.mesfin.requestFocus();
+                return false;
+                
+            }
+        }
+            
+        
+        if(mesf==4 || mesf==6 || mesf==9 || mesf==11){
+        	
+		if(diaf>30){
+                    JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia en el que finaliza"
+                            + "el torneo, no es valido,"
+                            + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
+                    agregartorneo.diafin.setText("");
+                    agregartorneo.diafin.requestFocus();
+                    MesbuenoF=false;
+                }
+	}else
+	if(mesf==1 || mesf==3 || mesf==5 || mesf==7 || mesf==8 || mesf==10 || mesf==12){
+		
+
+		if(diaf>31){
+                    JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia en el que finaliza el"
+                            + "torneo, no es valido,"
+                            + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
+                    agregartorneo.diafin.setText("");
+                    agregartorneo.diafin.requestFocus();
+                    MesbuenoF=false;
+		}
+	}else
+	if(mesf==2){
+            
+		if(bisiesto==false && diaf>28){
+                    JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia en el que finaliza el"
+                            + "torneo, no es valido,"
+                            + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
+                    agregartorneo.diafin.setText("");
+                    agregartorneo.diafin.requestFocus();
+                    MesbuenoF=false;
+		}else
+		if(bisiesto=true && diaf>29){
+                    JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia en el que finaliza"
+                            + "el torneo, no es valido,"
+                            + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
+                    agregartorneo.diafin.setText("");
+                    agregartorneo.diafin.requestFocus();
+                    MesbuenoF=false;
+		}
+	}
+        return MesbuenoF;
+}
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -362,9 +518,7 @@ public void limpiar(){
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    String serialtorneo;
-    int nserial,total;
-    String disciplina,sexo;
+
     private void bguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bguardarActionPerformed
         try{
             String sql="Select id_torneo from torneo ;";
@@ -539,6 +693,7 @@ public void limpiar(){
     }//GEN-LAST:event_camponombreKeyReleased
 
     private void yeariniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yeariniKeyReleased
+        mesAgregarTorneoIni();
         this.HabilitarGuardar();
     }//GEN-LAST:event_yeariniKeyReleased
 
@@ -552,6 +707,7 @@ public void limpiar(){
 
     private void yearfinKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearfinKeyReleased
         this.HabilitarGuardar();
+        mesAgregarTorneoFin();
     }//GEN-LAST:event_yearfinKeyReleased
 
     private void mesfinKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mesfinKeyPressed
