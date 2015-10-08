@@ -2,7 +2,6 @@
 package torneocronograma;
 
 import Basededatos.Conexion;
-import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -25,15 +24,19 @@ public final class crearcopa extends javax.swing.JPanel {
     DefaultComboBoxModel combo3 = new DefaultComboBoxModel();
     DefaultComboBoxModel combo4 = new DefaultComboBoxModel();
     DefaultComboBoxModel combo5 = new DefaultComboBoxModel();
-   public crearcopa() {
+    int clasifica, grupos, mejor,total,rondas,ctrl,equiposxgrupo, clasificadosxgrupo, pasanmejor;
+    int datogrupos,datoclasificaxgrupo,datosequiposgrupos,datomejor,datopasanmejor;
+    String id_torneo, id_competencia, id_categoria,datopostfase,id_modalidad,nombre_modalidad,fase,idcruce,
+           dcategoria,lsexo;
+    
+    public crearcopa() {
         initComponents();
         activamejor();
         verificar();
         
     }
-    int clasifica, grupos, mejor,total,rondas,ctrl,equiposxgrupo, clasificadosxgrupo, pasanmejor;
-    int datogrupos,datoclasificaxgrupo,datosequiposgrupos,datomejor,datopasanmejor;
-    String id_torneo, id_competencia, id_categoria,datopostfase,id_modalidad,nombre_modalidad,fase,idcruce,dcategoria,lsexo;
+    
+    
     public void activamejor(){
         if(rmejor.isSelected()==false){
             campomejor.setEnabled(false);
@@ -438,7 +441,7 @@ public final class crearcopa extends javax.swing.JPanel {
         if(pasanmejor<=grupos){
             bsiguientepostfase.setEnabled(true);
         }else{
-            JOptionPane.showMessageDialog(this,"La cantidad opcional de mejores clasificados es mayor que la de los grupos, por favor rectifique","Informacion",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,"La cantidad opcional de mejores clasificados es mayor que la de los grupos, por favor rectifique","Informacion",JOptionPane.INFORMATION_MESSAGE);
             bsiguientepostfase.setEnabled(false);
         }
         }catch(Exception e ){
