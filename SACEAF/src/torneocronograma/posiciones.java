@@ -20,10 +20,11 @@ public class posiciones extends javax.swing.JPanel {
     static DefaultTableModel modelo= new DefaultTableModel();
     static DefaultComboBoxModel combo= new DefaultComboBoxModel();
     static int datogrupos;
-    String id_torneo, id_competencia, id_categoria,datopostfase,nombre_modalidad,sexo;
-    String idequipob,idbuscar,idtorneo,categoria,letrag,id_club,idcategoria;
+    String id_torneo, id_competencia, id_categoria,datopostfase,nombre_modalidad,sexo,
+           idequipob,idbuscar,idtorneo,categoria,letrag,id_club,idcategoria;
     int idnumero,numeroeq,ctrl,ronda;
     static String ncategoria, lsexo,serialtorneo,cidcategoria,id_modalidad,identificador,nombre_club,letragrupo; 
+   
     public posiciones() {
         initComponents();
         cargarcombo();
@@ -48,7 +49,7 @@ public class posiciones extends javax.swing.JPanel {
           break;
           }
           }catch(SQLException | ClassNotFoundException ex){
-          Logger.getLogger(crearcopa.class.getName()).log(Level.SEVERE,null,ex);
+          Logger.getLogger(posiciones.class.getName()).log(Level.SEVERE,null,ex);
           }
      try{
             String[] titulos={"N°","Equipo","Pj","G","E","P","Gf","Gc","Dif","Pts"};
@@ -109,7 +110,7 @@ public class posiciones extends javax.swing.JPanel {
           break;
           }
           }catch(SQLException | ClassNotFoundException ex){
-          Logger.getLogger(crearcopa.class.getName()).log(Level.SEVERE,null,ex);
+          Logger.getLogger(posiciones.class.getName()).log(Level.SEVERE,null,ex);
           }
           try{
           Conexion parametros= new Conexion();
@@ -122,7 +123,7 @@ public class posiciones extends javax.swing.JPanel {
           break;
           }
           }catch(SQLException | ClassNotFoundException ex){
-          Logger.getLogger(crearcopa.class.getName()).log(Level.SEVERE,null,ex);
+          Logger.getLogger(posiciones.class.getName()).log(Level.SEVERE,null,ex);
           }
           try{
           Conexion parametros= new Conexion();
@@ -135,7 +136,7 @@ public class posiciones extends javax.swing.JPanel {
           break;
           }
           }catch(SQLException | ClassNotFoundException ex){
-          Logger.getLogger(crearcopa.class.getName()).log(Level.SEVERE,null,ex);
+          Logger.getLogger(posiciones.class.getName()).log(Level.SEVERE,null,ex);
           }
           if(datogrupos!=0){
           combogrupo.removeAllItems();
@@ -151,7 +152,7 @@ public class posiciones extends javax.swing.JPanel {
           }
           st.close();
           }catch(SQLException | ClassNotFoundException ex){
-          Logger.getLogger(Semifinal.class.getName()).log(Level.SEVERE,null,ex);
+          Logger.getLogger(posiciones.class.getName()).log(Level.SEVERE,null,ex);
           }
           }
   }
