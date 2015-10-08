@@ -10,13 +10,9 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import saceaf.Principal;
-import static torneocronograma.verliga.comboronda;
-import torneodatoscronograma.competencia;
-import torneodatoscronograma.datomodificarrondas;
 
 
 public class tresgrupos2 extends javax.swing.JPanel {
@@ -47,10 +43,8 @@ public class tresgrupos2 extends javax.swing.JPanel {
             idcategoria=rs.getNString("id_categoria");
             break;
             }            
-            }catch(SQLException ex){
+            }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(tresgrupos2.class.getName()).log(Level.SEVERE, null, ex);
-            }catch(ClassNotFoundException e){
-            Logger.getLogger(tresgrupos2.class.getName()).log(Level.SEVERE,null,e);
             }
      try{
             String[] titulos={"N°","Nombre","Identificador"};
@@ -75,11 +69,9 @@ public class tresgrupos2 extends javax.swing.JPanel {
             TableRowSorter modeloordenado= new TableRowSorter(modelo);
             grupoc.setRowSorter(modeloordenado);
             
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
                 Logger.getLogger(tresgrupos2.class.getName()).log(Level.SEVERE, null, ex);
-                }catch(ClassNotFoundException e){
-                Logger.getLogger(tresgrupos2.class.getName()).log(Level.SEVERE,null,e);
-                        }
+                }
     }
     public void abrirtresgrupos(){
        tresgrupos tg= new tresgrupos();
@@ -98,6 +90,7 @@ public class tresgrupos2 extends javax.swing.JPanel {
        }
 
    } 
+    
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
