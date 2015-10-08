@@ -24,10 +24,11 @@ import torneodatoscronograma.modalidad;
 public final class crearliga extends javax.swing.JPanel {
 
     static DefaultTableModel modelo= new DefaultTableModel();
-    int datogrupos,datoclasificaxgrupo,datosequiposgrupos,datomejor,datopasanmejor,cont;
-    String id_torneo, id_competencia, id_categoria,datopostfase,id_modalidad,nombre_modalidad,sexo;
-    String idequipob,idbuscar,idtorneo,categoria,letrag,id_club,idcategoria;
-    int idnumero,numeroeq,ctrl,ronda;
+    int datogrupos,datoclasificaxgrupo,datosequiposgrupos,datomejor,datopasanmejor,cont,idnumero,numeroeq,ctrl,ronda;
+    String id_torneo, id_competencia, id_categoria,datopostfase,id_modalidad,nombre_modalidad,sexo,
+           idequipob,idbuscar,idtorneo,categoria,letrag,id_club,idcategoria;
+
+    
     public crearliga() {
         initComponents();
         cargarequipos();
@@ -140,7 +141,7 @@ public final class crearliga extends javax.swing.JPanel {
         }catch(SQLException e){
             JOptionPane.showMessageDialog(this,"Error "+e.getMessage(),"Error!",JOptionPane.ERROR_MESSAGE);
         }catch(ClassNotFoundException ex){
-            Logger.getLogger(crearcopa.class.getName()).log(Level.SEVERE,null,ex);
+            Logger.getLogger(crearliga.class.getName()).log(Level.SEVERE,null,ex);
         }
          id_competencia=id_modalidad+datopostfase;
          datogrupos=1;
@@ -161,7 +162,7 @@ public final class crearliga extends javax.swing.JPanel {
         }catch(SQLException e){
             JOptionPane.showMessageDialog(this,"Error "+e.getMessage(),"Error!",JOptionPane.ERROR_MESSAGE);
         }catch(ClassNotFoundException ex){
-            Logger.getLogger(crearcopa.class.getName()).log(Level.SEVERE,null,ex);
+            Logger.getLogger(crearliga.class.getName()).log(Level.SEVERE,null,ex);
         }
          }
      }
@@ -513,7 +514,7 @@ public final class crearliga extends javax.swing.JPanel {
         try{
             guardarN();
         }catch(Exception e){
-            JOptionPane.showMessageDialog(this,"Debe seleccionar un equipo de la tabla\n"
+            JOptionPane.showMessageDialog(null,"Debe seleccionar un equipo de la tabla\n"
                     + "para poder agregarle el numero identificador","Informacion",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_bguardarActionPerformed
@@ -522,7 +523,7 @@ public final class crearliga extends javax.swing.JPanel {
         try{
             agregarequipo();
         }catch(Exception e){
-            JOptionPane.showMessageDialog(this,"Debe seleccionar un equipo de la tabla\n"
+            JOptionPane.showMessageDialog(null,"Debe seleccionar un equipo de la tabla\n"
                     + "para poder agregarle el numero identificador","Informacion",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_bagregarActionPerformed
