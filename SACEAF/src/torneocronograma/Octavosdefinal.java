@@ -50,7 +50,11 @@ public final class Octavosdefinal extends javax.swing.JPanel {
     static DefaultComboBoxModel scombox14 = new DefaultComboBoxModel();
     static DefaultComboBoxModel scombox15 = new DefaultComboBoxModel();
     static DefaultComboBoxModel scombox16 = new DefaultComboBoxModel();
-
+    static String dcategoria,id_categoria,id_torneo,letra1,letra2,instancia,idcruce,lsexo;
+    static int numero1,numero2,opc;
+    String categoria,idcategoria,idtorneo,idcompetencia,idmodalidad,postfase;
+    int grupos;
+    
     public Octavosdefinal() {
         initComponents();
         cargarcombo1();
@@ -73,10 +77,7 @@ public final class Octavosdefinal extends javax.swing.JPanel {
         
     }
 
-    static String dcategoria,id_categoria,id_torneo,letra1,letra2,instancia,idcruce,lsexo;
-    static int numero1,numero2,opc;
-    String categoria,idcategoria,idtorneo,idcompetencia,idmodalidad,postfase;
-    int grupos;
+    
     public void cargarcombo1(){
          dcategoria=panelcrear.combocategoria.getSelectedItem().toString();
          id_torneo=Principal.labelserialtorneo.getText();
@@ -120,7 +121,7 @@ public final class Octavosdefinal extends javax.swing.JPanel {
           break;
           }
           }catch(SQLException | ClassNotFoundException ex){
-          Logger.getLogger(crearcopa.class.getName()).log(Level.SEVERE,null,ex);
+          Logger.getLogger(Octavosdefinal.class.getName()).log(Level.SEVERE,null,ex);
           }
           if(grupos!=0){
           combo1.removeAllItems();
