@@ -26,7 +26,11 @@ public final class Semifinal extends javax.swing.JPanel {
     static DefaultComboBoxModel scombox2 = new DefaultComboBoxModel();
     static DefaultComboBoxModel scombox3 = new DefaultComboBoxModel();
     static DefaultComboBoxModel scombox4 = new DefaultComboBoxModel();
-
+    static String dcategoria,id_categoria,id_torneo,letra1,letra2,instancia,idcruce, lsexo;
+    static int numero1,numero2,opc;
+    String categoria,idcategoria,idtorneo,idcompetencia,idmodalidad,postfase;
+    int grupos;
+    
     public Semifinal() {
         initComponents();
         cargarcombo1();
@@ -35,10 +39,7 @@ public final class Semifinal extends javax.swing.JPanel {
         cargarcombo4();
         verificardatos();
     }
-    static String dcategoria,id_categoria,id_torneo,letra1,letra2,instancia,idcruce, lsexo;
-    static int numero1,numero2,opc;
-    String categoria,idcategoria,idtorneo,idcompetencia,idmodalidad,postfase;
-    int grupos;
+    
     public void cargarcombo1(){
          categoria=panelcrear.combocategoria.getSelectedItem().toString();
          idtorneo=Principal.labelserialtorneo.getText();
