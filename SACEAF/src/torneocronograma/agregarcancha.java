@@ -22,6 +22,8 @@ public final class agregarcancha extends javax.swing.JPanel {
     String jornada,nombre_juego,hlocal,idjuego,categoria,idcategoria,idtorneo, hvisitante, sexo,nombrelocal,nombrevisitante,identificadorlocal,identificadorvisitante;
     String dia,mes,year,fecha_juego, id_formulario,idcancha,cancha,eequipo_local,eequipo_visitante;
     static DefaultTableModel modelo;
+    
+    
     public agregarcancha() {
         initComponents();
         cargardatos();
@@ -76,7 +78,7 @@ public final class agregarcancha extends javax.swing.JPanel {
             break;
             }            
             }catch(SQLException | ClassNotFoundException ex){
-            Logger.getLogger(agregarfecha.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(agregarcancha.class.getName()).log(Level.SEVERE, null, ex);
             }
         try{ 
             String sql="Select jornada,nombre_juego,equipo_local, equipo_visitante from juego where id_juego='"+idjuego+"' and id_categoria='"+idcategoria+"' and id_torneo='"+idtorneo+"';";
