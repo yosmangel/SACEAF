@@ -19,12 +19,15 @@ import torneodatoscronograma.competencia;
 import torneodatoscronograma.datomodificarrondas;
 
 
-public class tresgrupos extends javax.swing.JPanel {
+public final class tresgrupos extends javax.swing.JPanel {
 
     static DefaultTableModel modelo= new DefaultTableModel();
     static DefaultTableModel modelo2= new DefaultTableModel();
     DefaultComboBoxModel combo= new DefaultComboBoxModel();
-    
+    String nombrecat,id_categoria,id_torneo,idcompetencia,idmodalidad,datopostfase;
+    int rondas,nrondas,grupos;
+    static String categoria, idtorneo,grupo,hequipo,idcategoria;
+
     public tresgrupos() {
         initComponents();
         verificarronda();
@@ -32,10 +35,8 @@ public class tresgrupos extends javax.swing.JPanel {
         cargarequiposb();
     }
 
-    String nombrecat,id_categoria,id_torneo,idcompetencia,idmodalidad,datopostfase;
-    int rondas,nrondas,grupos;
-    static String categoria, idtorneo,grupo,hequipo,idcategoria;
-
+    
+    
     public static void cargarequiposa(){
         categoria= panelcrear.combocategoria.getSelectedItem().toString();
         idtorneo= Principal.labelserialtorneo.getText();
@@ -50,10 +51,8 @@ public class tresgrupos extends javax.swing.JPanel {
             idcategoria=rs.getNString("id_categoria");
             break;
             }            
-            }catch(SQLException ex){
+            }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE, null, ex);
-            }catch(ClassNotFoundException e){
-            Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE,null,e);
             }
      try{
             String[] titulos={"N°","Nombre","Identificador"};
@@ -78,11 +77,9 @@ public class tresgrupos extends javax.swing.JPanel {
             TableRowSorter modeloordenado= new TableRowSorter(modelo);
             grupoa.setRowSorter(modeloordenado);
             
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
                 Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE, null, ex);
-                }catch(ClassNotFoundException e){
-                Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE,null,e);
-                        }
+                }
     }
     public static void cargarequiposb(){
         categoria= panelcrear.combocategoria.getSelectedItem().toString();
@@ -98,10 +95,8 @@ public class tresgrupos extends javax.swing.JPanel {
             idcategoria=rs.getNString("id_categoria");
             break;
             }            
-            }catch(SQLException ex){
+            }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE, null, ex);
-            }catch(ClassNotFoundException e){
-            Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE,null,e);
             }
      try{
             String[] titulos={"N°","Nombre","Identificador"};
@@ -126,11 +121,9 @@ public class tresgrupos extends javax.swing.JPanel {
             TableRowSorter modeloordenado= new TableRowSorter(modelo2);
             grupob.setRowSorter(modeloordenado);
             
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
                 Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE, null, ex);
-                }catch(ClassNotFoundException e){
-                Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE,null,e);
-                        }
+                }
     }
     public void abrircopa(){
        equiposcopa cc= new equiposcopa();
@@ -149,7 +142,7 @@ public class tresgrupos extends javax.swing.JPanel {
        }
 
    } 
-     public void abrirtresgrupos(){
+    public void abrirtresgrupos(){
        tresgrupos2 tg2= new tresgrupos2();
        String titulo= "Copa";
        int index= panelcrear.panelmodalidades.indexOfTab(titulo);
@@ -179,10 +172,8 @@ public class tresgrupos extends javax.swing.JPanel {
             id_categoria=rs.getNString("id_categoria");
             break;
             }            
-            }catch(SQLException ex){
+            }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE, null, ex);
-            }catch(ClassNotFoundException e){
-            Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE,null,e);
             }
         id_torneo=Principal.labelserialtorneo.getText();
         idmodalidad=id_torneo+id_categoria+"2";
@@ -197,10 +188,8 @@ public class tresgrupos extends javax.swing.JPanel {
             datopostfase=rs.getNString("postfase");
             break;
             }            
-            }catch(SQLException ex){
+            }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE, null, ex);
-            }catch(ClassNotFoundException e){
-            Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE,null,e);
             }
         idcompetencia=idmodalidad+datopostfase;
         try{ 
@@ -215,10 +204,8 @@ public class tresgrupos extends javax.swing.JPanel {
             rondas=rs.getInt("rondas");
             break;
             }            
-            }catch(SQLException ex){
+            }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE, null, ex);
-            }catch(ClassNotFoundException e){
-            Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE,null,e);
             }
         if(grupos!=0){
         if(rondas==0){
@@ -255,10 +242,8 @@ public class tresgrupos extends javax.swing.JPanel {
             id_categoria=rs.getNString("id_categoria");
             break;
             }            
-            }catch(SQLException ex){
+            }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE, null, ex);
-            }catch(ClassNotFoundException e){
-            Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE,null,e);
             }
         id_torneo=Principal.labelserialtorneo.getText();
        idmodalidad=id_torneo+id_categoria+"2";
@@ -273,10 +258,8 @@ public class tresgrupos extends javax.swing.JPanel {
             datopostfase=rs.getNString("postfase");
             break;
             }            
-            }catch(SQLException ex){
+            }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE, null, ex);
-            }catch(ClassNotFoundException e){
-            Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE,null,e);
             }
         idcompetencia=idmodalidad+datopostfase;
         try{ 
@@ -290,10 +273,8 @@ public class tresgrupos extends javax.swing.JPanel {
             rondas=rs.getInt("rondas");
             break;
             }            
-            }catch(SQLException ex){
+            }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE, null, ex);
-            }catch(ClassNotFoundException e){
-            Logger.getLogger(tresgrupos.class.getName()).log(Level.SEVERE,null,e);
             }
         if(rondas==0){
             comboronda.setEnabled(true);
@@ -304,6 +285,7 @@ public class tresgrupos extends javax.swing.JPanel {
             comboronda.setModel(combo);
         }
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
