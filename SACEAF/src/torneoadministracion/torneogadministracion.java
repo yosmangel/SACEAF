@@ -100,6 +100,22 @@ public class torneogadministracion extends javax.swing.JPanel {
            paneltadministracion.setSelectedIndex(i);
        }
    }
+     public void abrirexceptionj(){
+       
+       torneopexception tpe=new torneopexception();
+       String titulo="Excepción en las categorias";
+       int index= paneltadministracion.indexOfTab(titulo);
+       if(index == -1){
+           paneltadministracion.add(titulo,tpe);
+           int i= paneltadministracion.indexOfTab(titulo);
+           paneltadministracion.setSelectedIndex(i);
+       }else{
+           paneltadministracion.remove(index);
+           paneltadministracion.add(titulo,tpe);
+           int i=paneltadministracion.indexOfTab(titulo);
+           paneltadministracion.setSelectedIndex(i);
+       }
+   }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -114,6 +130,7 @@ public class torneogadministracion extends javax.swing.JPanel {
         bnjugadores = new javax.swing.JButton();
         barbitro = new javax.swing.JButton();
         bcanchas = new javax.swing.JButton();
+        bExcepcion = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(1000, 412));
@@ -125,7 +142,7 @@ public class torneogadministracion extends javax.swing.JPanel {
         jPanel2.setOpaque(false);
         jPanel2.setPreferredSize(new java.awt.Dimension(1000, 412));
 
-        bcategorias.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        bcategorias.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         bcategorias.setForeground(new java.awt.Color(255, 255, 255));
         bcategorias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconosadministracion/categoria60x60.png"))); // NOI18N
         bcategorias.setText("Categorias");
@@ -163,6 +180,7 @@ public class torneogadministracion extends javax.swing.JPanel {
             }
         });
 
+        bnjugadores.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         bnjugadores.setText("N° jugadores");
         bnjugadores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,6 +188,7 @@ public class torneogadministracion extends javax.swing.JPanel {
             }
         });
 
+        barbitro.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         barbitro.setForeground(new java.awt.Color(255, 255, 255));
         barbitro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconosadministracion/Arbitro60x60.png"))); // NOI18N
         barbitro.setText("Arbitros");
@@ -185,6 +204,7 @@ public class torneogadministracion extends javax.swing.JPanel {
             }
         });
 
+        bcanchas.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         bcanchas.setForeground(new java.awt.Color(255, 255, 255));
         bcanchas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconosadministracion/Cancha60x60.png"))); // NOI18N
         bcanchas.setText("Canchas");
@@ -197,6 +217,14 @@ public class torneogadministracion extends javax.swing.JPanel {
         bcanchas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bcanchasActionPerformed(evt);
+            }
+        });
+
+        bExcepcion.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        bExcepcion.setText("Excepción de edad");
+        bExcepcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bExcepcionActionPerformed(evt);
             }
         });
 
@@ -219,14 +247,16 @@ public class torneogadministracion extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(bcategorias)
-                        .addGap(18, 18, 18)
-                        .addComponent(barbitro, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(bcategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(barbitro, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bcanchas, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(bnjugadores)
-                        .addGap(18, 18, 18)
-                        .addComponent(bcanchas)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
+                        .addComponent(bnjugadores, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bExcepcion)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                 .addComponent(paneltadministracion, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -243,19 +273,20 @@ public class torneogadministracion extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(bcategorias)
-                            .addComponent(barbitro))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(barbitro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(bcategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(bcanchas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGap(43, 43, 43)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bnjugadores)
-                            .addComponent(bcanchas)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(paneltadministracion, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(bExcepcion, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(paneltadministracion, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -302,8 +333,14 @@ public class torneogadministracion extends javax.swing.JPanel {
         deshabilitar();
     }//GEN-LAST:event_bcanchasActionPerformed
 
+    private void bExcepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExcepcionActionPerformed
+        abrirexceptionj();
+        
+    }//GEN-LAST:event_bExcepcionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JButton bExcepcion;
     public static javax.swing.JButton barbitro;
     public static javax.swing.JButton bcanchas;
     public static javax.swing.JButton bcategorias;
