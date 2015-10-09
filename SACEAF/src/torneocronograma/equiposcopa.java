@@ -18,16 +18,18 @@ import torneodatoscronograma.datosnumeroeq;
 import torneodatoscronograma.equiponumero;
 
 
-public class equiposcopa extends javax.swing.JPanel {
+public final class equiposcopa extends javax.swing.JPanel {
 
     static DefaultTableModel modelo= new DefaultTableModel();
     DefaultComboBoxModel combo=new DefaultComboBoxModel();
-    int datogrupos,datoclasificaxgrupo,datosequiposgrupos,datomejor,datopasanmejor,cont;
-    String id_torneo, id_competencia, id_categoria,datopostfase,id_modalidad,nombre_modalidad,idhequipo;
-    String idequipob,idbuscar,idtorneo,categoria,letrag,id_club,idcategoria,grupo;
-    int idnumero,numeroeq,ctrl,ronda,exg;
-    String idcompetencia,idmodalidad,postfase,sexo;
-    int grupos;
+    int datogrupos,datoclasificaxgrupo,datosequiposgrupos,datomejor,datopasanmejor,cont,
+        idnumero,numeroeq,ctrl,ronda,exg, grupos;
+    String id_torneo, id_competencia, id_categoria,datopostfase,id_modalidad,nombre_modalidad,idhequipo,
+           idequipob,idbuscar,idtorneo,categoria,letrag,id_club,idcategoria,grupo,idcompetencia,
+            idmodalidad,postfase,sexo;
+
+    
+    
     public equiposcopa() {
         initComponents();
         cargarequipos();
@@ -64,11 +66,9 @@ public class equiposcopa extends javax.swing.JPanel {
             TableRowSorter modeloordenado= new TableRowSorter(modelo);
             tablaequipos.setRowSorter(modeloordenado);
             
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
                 Logger.getLogger(equiposcopa.class.getName()).log(Level.SEVERE, null, ex);
-                }catch(ClassNotFoundException e){
-                Logger.getLogger(equiposcopa.class.getName()).log(Level.SEVERE,null,e);
-                        }
+                }
      }
     public void agregarequipo(){
         String nombre=(String)tablaequipos.getValueAt(tablaequipos.getSelectedRow(),0);
@@ -93,10 +93,8 @@ public class equiposcopa extends javax.swing.JPanel {
             idcategoria=rs.getString("id_categoria");
             break;
             }            
-            }catch(SQLException ex){
+            }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(equiposcopa.class.getName()).log(Level.SEVERE, null, ex);
-            }catch(ClassNotFoundException e){
-            Logger.getLogger(equiposcopa.class.getName()).log(Level.SEVERE,null,e);
             }
         try{ 
             String sql="Select id_club from club where nombre_club= '"+nombre+"';";
@@ -109,10 +107,8 @@ public class equiposcopa extends javax.swing.JPanel {
             id_club=rs.getString("id_club");
             break;
             }            
-            }catch(SQLException ex){
+            }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(equiposcopa.class.getName()).log(Level.SEVERE, null, ex);
-            }catch(ClassNotFoundException e){
-            Logger.getLogger(equiposcopa.class.getName()).log(Level.SEVERE,null,e);
             }
      try{ 
             String sql="Select e.id_equipo from club c, equipo e where e.id_club='"+id_club+"' and e.id_categoria='"+idcategoria+"' and e.identificador='"+identificador+"';";
@@ -143,16 +139,14 @@ public class equiposcopa extends javax.swing.JPanel {
                 letrag=rs.getString("grupo_equipo");
                 break;
             }            
-            }catch(SQLException ex){
+            }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(equiposcopa.class.getName()).log(Level.SEVERE,null,ex);
-            }catch(ClassNotFoundException e){
-            Logger.getLogger(equiposcopa.class.getName()).log(Level.SEVERE,null,e);
             }
      if(idnumero==0){
        campoequipo.setText(nombre+" "+identificador);
         }else{
          labelserial.setText("");
-            JOptionPane.showMessageDialog(this,"El equipo ya posee el grupo y su numero asignado.\n"
+            JOptionPane.showMessageDialog(null,"El equipo ya posee el grupo y su numero asignado.\n"
                     + "Se encuentra en el grupo:"+letrag+" y su numero es el "+idnumero+". Por favor seleccione otro." ,"Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
      
@@ -171,10 +165,8 @@ public class equiposcopa extends javax.swing.JPanel {
             idcategoria=rs.getString("id_categoria");
             break;
             }            
-            }catch(SQLException ex){
-            Logger.getLogger(ungrupo.class.getName()).log(Level.SEVERE, null, ex);
-            }catch(ClassNotFoundException e){
-            Logger.getLogger(ungrupo.class.getName()).log(Level.SEVERE,null,e);
+            }catch(SQLException | ClassNotFoundException ex){
+            Logger.getLogger(equiposcopa.class.getName()).log(Level.SEVERE, null, ex);
             }
         try{ 
             String sql="Select he.posicion, c.nombre_club, e.identificador from club c, equipo e, h_equipo he where c.id_club=e.id_club and e.id_categoria='"+idcategoria+"' and he.id_equipo=e.id_equipo and he.id_torneo='"+idtorneo+"' and he.grupo_equipo='A' order by he.posicion;";
@@ -187,10 +179,8 @@ public class equiposcopa extends javax.swing.JPanel {
             ctrl=2;
             break;
             }            
-            }catch(SQLException ex){
-            Logger.getLogger(ungrupo.class.getName()).log(Level.SEVERE, null, ex);
-            }catch(ClassNotFoundException e){
-            Logger.getLogger(ungrupo.class.getName()).log(Level.SEVERE,null,e);
+            }catch(SQLException | ClassNotFoundException ex){
+            Logger.getLogger(equiposcopa.class.getName()).log(Level.SEVERE, null, ex);
             }
         if(ctrl==2){
             bsiguiente.setEnabled(true);
@@ -219,10 +209,8 @@ public class equiposcopa extends javax.swing.JPanel {
                 ctrl=2;
                 break;
             }
-        }catch(SQLException ex){
+        }catch(SQLException | ClassNotFoundException ex){
                 Logger.getLogger(equiposcopa.class.getName()).log(Level.SEVERE, null, ex);
-                }catch(ClassNotFoundException e){
-                Logger.getLogger(equiposcopa.class.getName()).log(Level.SEVERE,null,e);
                 }
         categoria=panelcrear.combocategoria.getSelectedItem().toString();
          id_torneo=Principal.labelserialtorneo.getText();
@@ -705,7 +693,7 @@ public class equiposcopa extends javax.swing.JPanel {
         try{
             guardarN();
         }catch(Exception e){
-            JOptionPane.showMessageDialog(this,"Debe seleccionar un equipo de la tabla\n"
+            JOptionPane.showMessageDialog(null,"Debe seleccionar un equipo de la tabla\n"
                     + "para poder agregarle el numero identificador","Informacion",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_bguardarActionPerformed
@@ -714,7 +702,7 @@ public class equiposcopa extends javax.swing.JPanel {
         try{
             agregarequipo();
         }catch(Exception e){
-            JOptionPane.showMessageDialog(this,"Debe seleccionar un equipo de la tabla\n"
+            JOptionPane.showMessageDialog(null,"Debe seleccionar un equipo de la tabla\n"
                     + "para poder agregarle el numero identificador","Informacion",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_bagregarActionPerformed
