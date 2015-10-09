@@ -19,6 +19,7 @@ public final class panelresultados extends javax.swing.JPanel {
 
     DefaultComboBoxModel combo=new DefaultComboBoxModel();
     String categoria,idcategoria,nombre_modalidad;
+    
     public panelresultados() {
         initComponents();
         cargarcategorias();
