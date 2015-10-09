@@ -12,28 +12,22 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
-import saceaf.Principal;
 import torneodatosadm.datoformulariogoles;
 import torneodatosadm.formulariogoles;
-import torneodatoscronograma.datofechajuego;
-import torneodatoscronograma.datoformulario2;
-import torneodatoscronograma.fecha_juego;
-import torneodatoscronograma.formulario2;
 
 
-public class pformulariogoles extends javax.swing.JPanel {
+public final class pformulariogoles extends javax.swing.JPanel {
 
     DefaultComboBoxModel combo= new DefaultComboBoxModel();
     DefaultComboBoxModel combo2= new DefaultComboBoxModel();
     DefaultTableModel modelo;
     DefaultTableModel modelo1;
-    String jornada,nombre_juego,hlocal,idjuego,categoria,idcategoria,idtorneo, hvisitante, sexo,nombrelocal,nombrevisitante,identificadorlocal,identificadorvisitante;
-    String dia,mes,year,fecha_juego;
-    String nombre, apellido,cedula,idhjugador,idformulario,formulariotitular,id_fgoles,id_hequipo;
-    int numero,minuto,marcador_local,marcador_visitante,golesj,golese;
-    int pstl,dgl,goleslc,goleslf,perdl,empl,ganal,pjl;
-    int pstv,dgv,golesvc,golesvf,perdv,empv,ganav,pjv;
+    String jornada,nombre_juego,hlocal,idjuego,categoria,idcategoria,idtorneo, hvisitante, sexo,nombrelocal,
+            nombrevisitante,identificadorlocal,identificadorvisitante,dia,mes,year,fecha_juego,nombre, apellido,
+            cedula,idhjugador,idformulario,formulariotitular,id_fgoles,id_hequipo;
+    int numero,minuto,marcador_local,marcador_visitante,golesj,golese,pstl,dgl,goleslc,goleslf,perdl,empl,ganal,pjl,
+        pstv,dgv,golesvc,golesvf,perdv,empv,ganav,pjv;
+    
     public pformulariogoles() {
         initComponents();
         cargardatos();
@@ -58,7 +52,7 @@ public class pformulariogoles extends javax.swing.JPanel {
           }
           st.close();
           }catch(SQLException | ClassNotFoundException ex){
-          Logger.getLogger(panelresultados.class.getName()).log(Level.SEVERE,null,ex);
+          Logger.getLogger(pformulariogoles.class.getName()).log(Level.SEVERE,null,ex);
           }
   }
     public void cargarvisitante(){
@@ -77,7 +71,7 @@ public class pformulariogoles extends javax.swing.JPanel {
           }
           st.close();
           }catch(SQLException | ClassNotFoundException ex){
-          Logger.getLogger(panelresultados.class.getName()).log(Level.SEVERE,null,ex);
+          Logger.getLogger(pformulariogoles.class.getName()).log(Level.SEVERE,null,ex);
           }
   }
     public void cargardatos(){
@@ -95,7 +89,7 @@ public class pformulariogoles extends javax.swing.JPanel {
             break;
             }            
             }catch(SQLException | ClassNotFoundException ex){
-            Logger.getLogger(fechajornada.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(pformulariogoles.class.getName()).log(Level.SEVERE, null, ex);
             }
        rnombrelocal.setText(nombrelocal+" "+identificadorlocal);
        hvisitante=panelresultados.labelequipovisitante.getText();
@@ -112,7 +106,7 @@ public class pformulariogoles extends javax.swing.JPanel {
             break;
             }            
             }catch(SQLException | ClassNotFoundException ex){
-            Logger.getLogger(fechajornada.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(pformulariogoles.class.getName()).log(Level.SEVERE, null, ex);
             }
         rnombrevisitante.setText(nombrevisitante+" "+identificadorvisitante);
     }
@@ -134,7 +128,7 @@ public class pformulariogoles extends javax.swing.JPanel {
             break;
             }            
             }catch(SQLException | ClassNotFoundException ex){
-            Logger.getLogger(fechajornada.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(pformulariogoles.class.getName()).log(Level.SEVERE, null, ex);
             }
      camponombre.setText(nombre+" "+apellido);
      labelserial.setText(cedula);
@@ -157,7 +151,7 @@ public class pformulariogoles extends javax.swing.JPanel {
             break;
             }            
             }catch(SQLException | ClassNotFoundException ex){
-            Logger.getLogger(fechajornada.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(pformulariogoles.class.getName()).log(Level.SEVERE, null, ex);
             }
      camponombre.setText(nombre+" "+apellido);
      labelserial.setText(cedula);
@@ -193,7 +187,7 @@ public class pformulariogoles extends javax.swing.JPanel {
             break;
             }            
             }catch(SQLException | ClassNotFoundException ex){
-            Logger.getLogger(fechajornada.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(pformulariogoles.class.getName()).log(Level.SEVERE, null, ex);
             }
         try{ 
             String sql="Select equipo_goles from h_equipo where id_hequipo='"+id_hequipo+"';";
@@ -207,7 +201,7 @@ public class pformulariogoles extends javax.swing.JPanel {
             break;
             }            
             }catch(SQLException | ClassNotFoundException ex){
-            Logger.getLogger(fechajornada.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(pformulariogoles.class.getName()).log(Level.SEVERE, null, ex);
             }
         golesj=golesj+1;
         golese=golese+1;
@@ -217,7 +211,7 @@ public class pformulariogoles extends javax.swing.JPanel {
             boolean r;
             r=in.Insertar(user);
             if(r==false){
-                JOptionPane.showMessageDialog(this,"Guardado","Informacion",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Guardado","Informacion",JOptionPane.INFORMATION_MESSAGE);
                 int opc=JOptionPane.showConfirmDialog(null,"Desea registrar otro gol?","Informacion", JOptionPane.YES_NO_OPTION);
                 if(opc==0){
                     
@@ -247,7 +241,7 @@ public class pformulariogoles extends javax.swing.JPanel {
                 }
             }
         }catch(SQLException e){
-            JOptionPane.showMessageDialog(this,"Error "+e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Error "+e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
         }catch(ClassNotFoundException ex){
             Logger.getLogger(pformulariogoles.class.getName()).log(Level.SEVERE,null,ex);
         }
@@ -267,7 +261,7 @@ public class pformulariogoles extends javax.swing.JPanel {
             break;
             }            
             }catch(SQLException | ClassNotFoundException ex){
-            Logger.getLogger(fechajornada.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(pformulariogoles.class.getName()).log(Level.SEVERE, null, ex);
             }
         if(marcador_local>marcador_visitante){
             hlocal=panelresultados.labelequipolocal.getText();
@@ -284,7 +278,7 @@ public class pformulariogoles extends javax.swing.JPanel {
             break;
             }            
             }catch(SQLException | ClassNotFoundException ex){
-            Logger.getLogger(fechajornada.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(pformulariogoles.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else
         if(marcador_visitante>marcador_local){
