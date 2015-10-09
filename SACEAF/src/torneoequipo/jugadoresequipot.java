@@ -343,28 +343,28 @@ public class jugadoresequipot extends javax.swing.JPanel {
      
      
      try{
-         String sql="Select year_final from categoria where nombre_cat='"+categoria+"' and sexo='"+lsexo+"';";
+         String sql="Select year_ini from categoria where nombre_cat='"+categoria+"' and sexo='"+lsexo+"';";
          Conexion parametros= new Conexion();
          Class.forName(parametros.getDriver());
          Connection con= DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(),parametros.getPass());
          Statement st= con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
          ResultSet rs=st.executeQuery(sql);
          while(rs.first()){
-             year_final=rs.getString("year_final");
+             year_final=rs.getString("year_ini");
              break;
          }
      }catch(SQLException | ClassNotFoundException ex){
          Logger.getLogger(jugadoresequipot.class.getName()).log(Level.SEVERE,null,ex);
      }
       try{
-         String sql="Select MAX(id_categoria) from categoria where year_final<'"+year_final+"';";
+         String sql="Select MIN(id_categoria) from categoria where year_ini>'"+year_final+"';";
          Conexion parametros= new Conexion();
          Class.forName(parametros.getDriver());
          Connection con= DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(),parametros.getPass());
          Statement st= con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
          ResultSet rs=st.executeQuery(sql);
          while(rs.first()){
-             idcategoria=rs.getString("MAX(id_categoria)");
+             idcategoria=rs.getString("MIN(id_categoria)");
              break;
          }
      }catch(SQLException | ClassNotFoundException ex){
