@@ -19,6 +19,7 @@ public final class panelcrear extends javax.swing.JPanel {
 
     DefaultComboBoxModel combo=new DefaultComboBoxModel();
     String categoria,idcategoria,nombre_modalidad,sexo,id_torneo;
+    
     public panelcrear() {
         initComponents();
         cargarcategorias();
@@ -190,6 +191,8 @@ public final class panelcrear extends javax.swing.JPanel {
         }
        
     }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
