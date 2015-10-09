@@ -14,11 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import saceaf.Principal;
-import static torneocronograma.verliga.comboronda;
 import torneodatoscronograma.competencia;
-import torneodatoscronograma.datojuego;
 import torneodatoscronograma.datomodificarrondas;
-import torneodatoscronograma.juegos;
 
 
 public final class dosgrupos extends javax.swing.JPanel {
@@ -148,6 +145,7 @@ public final class dosgrupos extends javax.swing.JPanel {
 
    } 
     public void guardarronda(){
+        if(dosgrupos.comborondas.isEnabled()==true){
         nrondas=0;
         nombrecat=panelcrear.combocategoria.getSelectedItem().toString();
         nrondas=Integer.parseInt(comborondas.getSelectedItem().toString());
@@ -209,7 +207,8 @@ public final class dosgrupos extends javax.swing.JPanel {
                     boolean r;
                     r=in.Modificar(user);
                     if(r==false){
-                        JOptionPane.showMessageDialog(this,"Cantidad de rondas guardadas","Informacion",JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this,"Cantidad de jornadas guardadas","Informacion",JOptionPane.INFORMATION_MESSAGE);
+                        guardarjuegos();
                     }
                 }catch(SQLException ex){
                     JOptionPane.showMessageDialog(this,"Error "+ex.getMessage(),"Error!",JOptionPane.ERROR_MESSAGE);
@@ -219,6 +218,10 @@ public final class dosgrupos extends javax.swing.JPanel {
             }
         }
     }
+        }else{
+            
+            guardarjuegos();
+        }
     }
     public void verificarronda(){
         nombrecat=panelcrear.combocategoria.getSelectedItem().toString();
@@ -842,7 +845,7 @@ public final class dosgrupos extends javax.swing.JPanel {
     }//GEN-LAST:event_batrasActionPerformed
 
     private void bsiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsiguienteActionPerformed
-        guardarjuegos();
+        guardarronda();
         
         
         try{
