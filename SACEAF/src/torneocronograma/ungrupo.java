@@ -14,11 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import saceaf.Principal;
-import static torneocronograma.verliga.comboronda;
 import torneodatoscronograma.competencia;
 import torneodatoscronograma.datomodificarrondas;
-import torneodatoscronograma.datojuego;
-import torneodatoscronograma.juegos;
 
 
 public class ungrupo extends javax.swing.JPanel {
@@ -99,6 +96,7 @@ public class ungrupo extends javax.swing.JPanel {
 
    } 
     public void guardarronda(){
+        if(ungrupo.comborondas.isEnabled()==true){
         nombrecat=panelcrear.combocategoria.getSelectedItem().toString();
         try{ 
             String sql="Select id_categoria from categoria where nombre_cat= '"+nombrecat+"' and sexo='Masculino';";
@@ -157,16 +155,20 @@ public class ungrupo extends javax.swing.JPanel {
                     boolean r;
                     r=in.Modificar(user);
                     if(r==false){
-                        JOptionPane.showMessageDialog(this,"Cantidad de rondas guardadas","Informacion",JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null,"Cantidad de jornadas guardadas","Informacion",JOptionPane.INFORMATION_MESSAGE);
+                        guardarjuegos();
                     }
                 }catch(SQLException ex){
-                    JOptionPane.showMessageDialog(this,"Error "+ex.getMessage(),"Error!",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Error "+ex.getMessage(),"Error!",JOptionPane.ERROR_MESSAGE);
                 }catch(ClassNotFoundException e){
                     Logger.getLogger(ungrupo.class.getName()).log(Level.SEVERE,null,e);
                 }
             }
         }
     }
+        }else{
+            guardarjuegos();
+        }
     }
     public final void verificarronda(){
         nombrecat=panelcrear.combocategoria.getSelectedItem().toString();
@@ -671,7 +673,6 @@ public class ungrupo extends javax.swing.JPanel {
 
     private void bsiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsiguienteActionPerformed
         guardarronda();
-        guardarjuegos();
         try{
        int tamano=Gcronograma.panelcronograma.getTabCount();
         for(int i=0;i<=tamano;i++){
