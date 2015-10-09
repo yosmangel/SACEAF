@@ -1424,7 +1424,7 @@ public class seisequiposD {
        }
        
     }
-     public void seisequiposa3(){
+     public void seisequiposd3(){
         grupo="D";
         nombre_juego="Jornada";
         id_torneo=Principal.labelserialtorneo.getText();
@@ -2125,7 +2125,7 @@ public class seisequiposD {
        }
        
     }
-     public void seisequiposa4(){
+     public void seisequiposd4(){
         grupo="D";
         nombre_juego="Jornada";
         id_torneo=Principal.labelserialtorneo.getText();
