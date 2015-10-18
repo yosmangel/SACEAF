@@ -153,7 +153,7 @@ public final class crearcopa extends javax.swing.JPanel {
             case "Semifinal":
                 datopostfase="4";
                 break;
-            case "Cuartos de Final":
+            case "Cuartos de final":
                 datopostfase="8";
                 break;
             case "Octavos de final":
@@ -222,6 +222,7 @@ public final class crearcopa extends javax.swing.JPanel {
         datopasanmejor=0;
         
         }
+
         try{
           datomodalidad user =new datomodalidad(id_modalidad,nombre_modalidad,id_categoria,datopostfase,id_torneo);
           modalidad in= new modalidad();
