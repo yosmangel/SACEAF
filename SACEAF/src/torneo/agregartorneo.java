@@ -36,8 +36,9 @@ public void HabilitarGuardar(){
     String Yearfin=agregartorneo.yearfin.getText();
     String Mesfin=agregartorneo.mesini.getText();
     String Diafin=agregartorneo.diafin.getText();
-    int Yearinicio=Integer.parseInt(agregartorneo.yearini.getText());
-    int Yearfinal=Integer.parseInt(agregartorneo.yearfin.getText());
+    int Yearinicio=agregartorneo.yearini.getText().length();
+    int Yearfinal=agregartorneo.yearfin.getText().length();
+
     if(Nombre.isEmpty() || Yearini.isEmpty() || Mesini.isEmpty() || Diaini.isEmpty() || Yearfin.isEmpty() || 
             Mesfin.isEmpty() || Diafin.isEmpty()|| MesbuenoI==false ||MesbuenoF==false || Yearinicio<4 || Yearfinal<4){
         agregartorneo.bguardar.setEnabled(false);
