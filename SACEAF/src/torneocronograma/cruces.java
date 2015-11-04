@@ -22,6 +22,8 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import saceaf.Principal;
+import static torneocronograma.vercalendario.combocategoria;
+import static torneocronograma.vercalendario.panelvercalendario;
 
 
 public class cruces extends javax.swing.JPanel {
@@ -39,11 +41,11 @@ public class cruces extends javax.swing.JPanel {
         initComponents();
         cargarcombo();
         cargarequipos();
-        MostrarReporte.setEnabled(false);
     }
 
 
     public static void cargarequipos(){
+        
         ncategoria= vercalendario.combocategoria.getSelectedItem().toString();
         serialtorneo= Principal.labelserialtorneo.getText();
         lsexo=Principal.labelsexo.getText();
@@ -65,7 +67,7 @@ public class cruces extends javax.swing.JPanel {
      try{
             String[] titulos={"Jornada","Equipo local","Equipo visitante"};
             String[] registro= new String[3];
-            String sql="Select j.jornada , c.nombre_club, e.identificador ,cc.nombre_club, ee.identificador from club c, equipo e, h_equipo he,juego j,club cc, equipo ee, h_equipo hee,juego jj where j.equipo_local=he.id_hequipo and he.id_equipo=e.id_equipo and e.id_club=c.id_club and jj.equipo_visitante=hee.id_hequipo and hee.id_equipo=ee.id_equipo and ee.id_club=cc.id_club and j.id_torneo='"+serialtorneo+"' and jj.id_torneo='"+serialtorneo+"' and j.grupo='"+letragrupo+"' and jj.id_juego=j.id_juego and j.id_categoria='"+cidcategoria+"' order by j.jornada and jj.jornada;";
+            String sql="Select j.jornada , c.nombre_club, e.identificador ,cc.nombre_club, ee.identificador from club c, equipo e, h_equipo he,juego j,club cc, equipo ee, h_equipo hee,juego jj where j.equipo_local=he.id_hequipo and he.id_equipo=e.id_equipo and e.id_club=c.id_club and jj.equipo_visitante=hee.id_hequipo and hee.id_equipo=ee.id_equipo and ee.id_club=cc.id_club and j.id_torneo='"+serialtorneo+"' and jj.id_torneo='"+serialtorneo+"' and j.grupo='"+letragrupo+"' and jj.id_juego=j.id_juego and j.id_categoria='"+cidcategoria+"' order by j.jornada ;";
             Conexion parametro= new Conexion();
             Class.forName(parametro.getDriver());
             Connection con=DriverManager.getConnection(parametro.getURL(), parametro.getUsuario(), parametro.getPass());
@@ -94,7 +96,8 @@ public class cruces extends javax.swing.JPanel {
                 }
     }
     public static void cargarcombo(){
-         ncategoria=vercalendario.combocategoria.getSelectedItem().toString();
+        combogrupo.removeAllItems(); 
+        ncategoria=vercalendario.combocategoria.getSelectedItem().toString();
          serialtorneo=Principal.labelserialtorneo.getText();
          lsexo=Principal.labelsexo.getText();
           try{
