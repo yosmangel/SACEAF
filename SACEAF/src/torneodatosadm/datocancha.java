@@ -6,12 +6,18 @@ String id_cancha;
 String nombre;
 String numero_identificador;
 String hora;
+String torneo;
 
-    public datocancha(String id_cancha, String nombre, String numero_identificador, String hora) {
+    public datocancha(String id_cancha, String nombre, String numero_identificador, String hora,String torneo) {
         this.id_cancha = id_cancha;
         this.nombre = nombre;
         this.numero_identificador = numero_identificador;
         this.hora = hora;
+        this.torneo=torneo;
+    }
+
+    public String getTorneo() {
+        return torneo;
     }
 
     public String getId_cancha() {
