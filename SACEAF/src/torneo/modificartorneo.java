@@ -16,37 +16,40 @@ import torneodatos.datostorneo;
 import torneodatos.torneo;
 
 
-public final class agregartorneo extends javax.swing.JPanel {
+public final class modificartorneo extends javax.swing.JPanel {
     
     DefaultComboBoxModel cdisciplina= new DefaultComboBoxModel();
     boolean MesbuenoI, MesbuenoF;
     int mesi,mesf,nserial,total;
     String serialtorneo, disciplina,sexo;
 
-    public agregartorneo() {
+    public modificartorneo() {
         initComponents();
         cargardisciplina();
+        llenarCampos();
+        mesAgregarTorneoIni();
+        mesAgregarTorneoFin();
+        HabilitarGuardar();
     }
-    
     
     public void HabilitarGuardar(){
 
-    String Nombre=agregartorneo.camponombre.getText();
-    String Yearini=agregartorneo.yearini.getText();
-    String Mesini=agregartorneo.mesini.getText();
-    String Diaini=agregartorneo.diaini.getText();
-    String Yearfin=agregartorneo.yearfin.getText();
-    String Mesfin=agregartorneo.mesini.getText();
-    String Diafin=agregartorneo.diafin.getText();
-    int Yearinicio=agregartorneo.yearini.getText().length();
-    int Yearfinal=agregartorneo.yearfin.getText().length();
+    String Nombre=modificartorneo.camponombre.getText();
+    String Yearini=modificartorneo.yearini.getText();
+    String Mesini=modificartorneo.mesini.getText();
+    String Diaini=modificartorneo.diaini.getText();
+    String Yearfin=modificartorneo.yearfin.getText();
+    String Mesfin=modificartorneo.mesini.getText();
+    String Diafin=modificartorneo.diafin.getText();
+    int Yearinicio=modificartorneo.yearini.getText().length();
+    int Yearfinal=modificartorneo.yearfin.getText().length();
 
     if(Nombre.isEmpty() || Yearini.isEmpty() || Mesini.isEmpty() || Diaini.isEmpty() || Yearfin.isEmpty() || 
             Mesfin.isEmpty() || Diafin.isEmpty()|| MesbuenoI==false ||MesbuenoF==false || Yearinicio<4 || Yearfinal<4){
-        agregartorneo.bguardar.setEnabled(false);
+        modificartorneo.bguardar.setEnabled(false);
     }
     else{
-        agregartorneo.bguardar.setEnabled(true);
+        modificartorneo.bguardar.setEnabled(true);
     }
 }
     public void cargardisciplina(){
@@ -63,13 +66,15 @@ public final class agregartorneo extends javax.swing.JPanel {
         }
         st.close();
     }catch(SQLException | ClassNotFoundException ex){
-        Logger.getLogger(agregartorneo.class.getName()).log(Level.SEVERE,null,ex);
+        Logger.getLogger(modificartorneo.class.getName()).log(Level.SEVERE,null,ex);
     }
     } 
     public void limpiar(){
         camponombre.setText("");
         yearini.setText("");
         mesini.setText("");
+        combodisciplina.removeAllItems();
+        cargardisciplina();
         diaini.setText("");
         yearfin.setText("");
         mesfin.setText("");
@@ -79,29 +84,29 @@ public final class agregartorneo extends javax.swing.JPanel {
     public boolean mesAgregarTorneoIni(){
 
         MesbuenoI=true;
-        String mes=agregartorneo.mesini.getText();
-	int anoi=Integer.parseInt(agregartorneo.yearini.getText());
+        String mes=modificartorneo.mesini.getText();
+	int anoi=Integer.parseInt(modificartorneo.yearini.getText());
 	GregorianCalendar calendar = new GregorianCalendar();
         boolean bisiesto;
         bisiesto = calendar.isLeapYear(anoi);
-        int diai=Integer.parseInt(agregartorneo.diaini.getText());
+        int diai=Integer.parseInt(modificartorneo.diaini.getText());
         if("".equals(mes) || " ".equals(mes) || mes==null){
             
             JOptionPane.showMessageDialog(null,"El campo de mes de inicio, no se puede encontrar vacío,"
                     + "por favor verifique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
-            agregartorneo.mesini.setText("");
-            agregartorneo.yearini.setText("");
-            agregartorneo.mesini.requestFocus();
+            modificartorneo.mesini.setText("");
+            modificartorneo.yearini.setText("");
+            modificartorneo.mesini.requestFocus();
             return false;
             
         }else{
-            mesi=Integer.parseInt(agregartorneo.mesini.getText());
+            mesi=Integer.parseInt(modificartorneo.mesini.getText());
             if(mesi>12){
                  JOptionPane.showMessageDialog(null,"El valor introducido en el campo de mes de inicio, no es valido,"
                     + "por favor verifique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
-                agregartorneo.mesini.setText("");
-                agregartorneo.yearini.setText("");
-                agregartorneo.mesini.requestFocus();
+                modificartorneo.mesini.setText("");
+                modificartorneo.yearini.setText("");
+                modificartorneo.mesini.requestFocus();
                 return false;
                 
             }
@@ -113,8 +118,8 @@ public final class agregartorneo extends javax.swing.JPanel {
 		if(diai>30){
                     JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia de inicio, no es valido,"
                             + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
-                    agregartorneo.diaini.setText("");
-                    agregartorneo.diaini.requestFocus();
+                    modificartorneo.diaini.setText("");
+                    modificartorneo.diaini.requestFocus();
                     MesbuenoI=false;
                 }
 	}else
@@ -124,8 +129,8 @@ public final class agregartorneo extends javax.swing.JPanel {
 		if(diai>31){
                     JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia de inicio, no es valido,"
                             + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
-                    agregartorneo.diaini.setText("");
-                    agregartorneo.diaini.requestFocus();
+                    modificartorneo.diaini.setText("");
+                    modificartorneo.diaini.requestFocus();
                     MesbuenoI=false;
 		}
 	}else
@@ -134,15 +139,15 @@ public final class agregartorneo extends javax.swing.JPanel {
 		if(bisiesto==false && diai>28){
                     JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia de inicio, no es valido,"
                             + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
-                    agregartorneo.diaini.setText("");
-                    agregartorneo.diaini.requestFocus();
+                    modificartorneo.diaini.setText("");
+                    modificartorneo.diaini.requestFocus();
                     MesbuenoI=false;
 		}else
 		if(bisiesto=true && diai>29){
                     JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia de inicio, no es valido,"
                             + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
-                    agregartorneo.diaini.setText("");
-                    agregartorneo.diaini.requestFocus();
+                    modificartorneo.diaini.setText("");
+                    modificartorneo.diaini.requestFocus();
                     MesbuenoI=false;
 		}
 	}
@@ -151,30 +156,30 @@ public final class agregartorneo extends javax.swing.JPanel {
     public boolean mesAgregarTorneoFin(){
 
         MesbuenoF=true;
-	String mes=agregartorneo.mesfin.getText();
-	int anof=Integer.parseInt(agregartorneo.yearfin.getText());
+	String mes=modificartorneo.mesfin.getText();
+	int anof=Integer.parseInt(modificartorneo.yearfin.getText());
 	GregorianCalendar calendar = new GregorianCalendar();
         boolean bisiesto;
         bisiesto = calendar.isLeapYear(anof);
-        int diaf=Integer.parseInt(agregartorneo.diafin.getText());
+        int diaf=Integer.parseInt(modificartorneo.diafin.getText());
         if("".equals(mes) || " ".equals(mes) || mes==null){
             
             JOptionPane.showMessageDialog(null,"El campo de mes en el que finaliza el torneo, no se puede encontrar vacío,"
                     + "por favor verifique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
-            agregartorneo.mesfin.setText("");
-            agregartorneo.yearfin.setText("");
-            agregartorneo.mesfin.requestFocus();
+            modificartorneo.mesfin.setText("");
+            modificartorneo.yearfin.setText("");
+            modificartorneo.mesfin.requestFocus();
             return false;
             
         }else{
-            mesf=Integer.parseInt(agregartorneo.mesfin.getText());
+            mesf=Integer.parseInt(modificartorneo.mesfin.getText());
             if(mesf>12){
                  JOptionPane.showMessageDialog(null,"El valor introducido en el campo de mes en el que"
                          + " finaliza el torneo , no es valido,"
                     + "por favor verifique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
-                agregartorneo.mesfin.setText("");
-                agregartorneo.yearfin.setText("");
-                agregartorneo.mesfin.requestFocus();
+                modificartorneo.mesfin.setText("");
+                modificartorneo.yearfin.setText("");
+                modificartorneo.mesfin.requestFocus();
                 return false;
                 
             }
@@ -187,8 +192,8 @@ public final class agregartorneo extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia en el que finaliza"
                             + "el torneo, no es valido,"
                             + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
-                    agregartorneo.diafin.setText("");
-                    agregartorneo.diafin.requestFocus();
+                    modificartorneo.diafin.setText("");
+                    modificartorneo.diafin.requestFocus();
                     MesbuenoF=false;
                 }
 	}else
@@ -199,8 +204,8 @@ public final class agregartorneo extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia en el que finaliza el"
                             + "torneo, no es valido,"
                             + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
-                    agregartorneo.diafin.setText("");
-                    agregartorneo.diafin.requestFocus();
+                    modificartorneo.diafin.setText("");
+                    modificartorneo.diafin.requestFocus();
                     MesbuenoF=false;
 		}
 	}else
@@ -210,22 +215,49 @@ public final class agregartorneo extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia en el que finaliza el"
                             + "torneo, no es valido,"
                             + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
-                    agregartorneo.diafin.setText("");
-                    agregartorneo.diafin.requestFocus();
+                    modificartorneo.diafin.setText("");
+                    modificartorneo.diafin.requestFocus();
                     MesbuenoF=false;
 		}else
 		if(bisiesto=true && diaf>29){
                     JOptionPane.showMessageDialog(null,"El valor introducido en el campo de dia en el que finaliza"
                             + "el torneo, no es valido,"
                             + "por favor verique e intente nuevamente","Información", JOptionPane.INFORMATION_MESSAGE);
-                    agregartorneo.diafin.setText("");
-                    agregartorneo.diafin.requestFocus();
+                    modificartorneo.diafin.setText("");
+                    modificartorneo.diafin.requestFocus();
                     MesbuenoF=false;
 		}
 	}
         return MesbuenoF;
 }
-
+    public void llenarCampos(){
+        
+        serialtorneo=(String) tmostrar.tablatorneo.getValueAt(tmostrar.tablatorneo.getSelectedRow(),0);
+        String nombre=(String) tmostrar.tablatorneo.getValueAt(tmostrar.tablatorneo.getSelectedRow(),1);
+        modificartorneo.camponombre.setText(nombre);
+        String[] fechainicio=((String) tmostrar.tablatorneo.getValueAt(tmostrar.tablatorneo.getSelectedRow(),2)).split("-");
+        diaini.setText(fechainicio[2]);
+        mesini.setText(fechainicio[1]);
+        yearini.setText(fechainicio[0]);
+        String[] fechafin=((String) tmostrar.tablatorneo.getValueAt(tmostrar.tablatorneo.getSelectedRow(),3)).split("-");
+        diafin.setText(fechafin[2]);
+        mesfin.setText(fechafin[1]);
+        yearfin.setText(fechafin[0]);
+        String disciplinatorneo=(String) tmostrar.tablatorneo.getValueAt(tmostrar.tablatorneo.getSelectedRow(),4);
+        cdisciplina.setSelectedItem(disciplinatorneo);
+        combodisciplina.setModel(cdisciplina);
+        String sexotorneo=(String) tmostrar.tablatorneo.getValueAt(tmostrar.tablatorneo.getSelectedRow(),5);
+        if("Masculino".equals(sexotorneo)){
+            modificartorneo.rmasculino.setSelected(true);
+            modificartorneo.rfemenino.setSelected(false);
+        }else{
+            modificartorneo.rfemenino.setSelected(true);
+            modificartorneo.rmasculino.setSelected(false);
+        }
+        
+    }
+  
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -523,28 +555,7 @@ public final class agregartorneo extends javax.swing.JPanel {
 
 
     private void bguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bguardarActionPerformed
-        try{
-            String sql="Select id_torneo from torneo ;";
-           Conexion parametros = new Conexion();
-           Class.forName(parametros.getDriver());
-           Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
-           Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-           ResultSet rs=st.executeQuery(sql);
-           if(rs.last()){
-             serialtorneo=rs.getString("id_torneo");
-             int serial=Integer.parseInt(serialtorneo);
-             serial=serial+1;
-             serialtorneo=Integer.toString(serial);
-             }else{
-              int serial=0;
-                 serial=serial+1;
-                 serialtorneo=Integer.toString(serial);
-             }
-             
-           
-        }catch(SQLException | ClassNotFoundException ex){
-            Logger.getLogger(agregartorneo.class.getName()).log(Level.SEVERE,null,ex);
-        }
+       
         String nombredisciplina=combodisciplina.getSelectedItem().toString();
     try{
            String sql="Select id_disciplina from disciplina where nombre_disciplina='"+nombredisciplina+"'";
@@ -558,10 +569,10 @@ public final class agregartorneo extends javax.swing.JPanel {
                break;
           } 
        }catch(SQLException | ClassNotFoundException ex){
-           Logger.getLogger(agregartorneo.class.getName()).log(Level.SEVERE,null,ex);
+           Logger.getLogger(modificartorneo.class.getName()).log(Level.SEVERE,null,ex);
        }
     
-        serialtorneo=serialtorneo+disciplina;
+
         String nombretorneo=camponombre.getText();
         String anoini=yearini.getText();
         String meini=mesini.getText();
@@ -580,22 +591,16 @@ public final class agregartorneo extends javax.swing.JPanel {
             datostorneo user= new datostorneo(serialtorneo,nombretorneo,fechaini,fechafin,disciplina,sexo);
             torneo in= new torneo();
             boolean r;
-            r=in.Insertar(user);
+            r=in.Modificar(user);
             if(r==false){
-                JOptionPane.showMessageDialog(this,"Registro Exitoso","Guardado",JOptionPane.INFORMATION_MESSAGE);
-                int opc= JOptionPane.showConfirmDialog(null, "Desea Guardar otro torneo en la base de datos?", "Informacion", JOptionPane.YES_NO_OPTION);
-                if(opc==0){
-                    limpiar();
-                    tmostrar.cargartorneo();
-                }else{
-                    principaltorneo.paneltorneo.remove(this);
+                JOptionPane.showMessageDialog(this,"Modificación Exitosa","Guardado",JOptionPane.INFORMATION_MESSAGE);
+                   principaltorneo.paneltorneo.remove(this);
                    tmostrar.cargartorneo();
-                }
             }
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(this,"Error "+ex.getMessage(),"Error...",JOptionPane.ERROR_MESSAGE);
         }catch(ClassNotFoundException e){
-            Logger.getLogger(agregartorneo.class.getName()).log(Level.SEVERE,null, e);
+            Logger.getLogger(modificartorneo.class.getName()).log(Level.SEVERE,null, e);
         }
     }//GEN-LAST:event_bguardarActionPerformed
 

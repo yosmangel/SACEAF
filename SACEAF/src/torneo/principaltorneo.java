@@ -1,31 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package torneo;
 
-import Basededatos.Conexion;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import saceaf.Principal;
 import saceaf.torneoprincipal;
 
-/**
- *
- * @author Gatito
- */
-public class principaltorneo extends javax.swing.JPanel {
+ public class principaltorneo extends javax.swing.JPanel {
 
-    /**
-     * Creates new form principaltorneo
-     */
+
     public principaltorneo() {
         initComponents();
         abrirmostrar();
@@ -33,7 +15,7 @@ public class principaltorneo extends javax.swing.JPanel {
 
     public static void torneop(){
        
-        String nombre=(String) tmostrar.tablatorneo.getValueAt(tmostrar.tablatorneo.getSelectedRow(),0);
+        String nombre=(String) tmostrar.tablatorneo.getValueAt(tmostrar.tablatorneo.getSelectedRow(),1);
         torneoprincipal tp= new torneoprincipal();
         String titulo="'"+nombre+"'";
         int index= Principal.panelprincipal.indexOfTab(titulo);
@@ -49,29 +31,18 @@ public class principaltorneo extends javax.swing.JPanel {
         }
     }
     public void acceder(){
-        String nombretorneo= (String) tmostrar.tablatorneo.getValueAt(tmostrar.tablatorneo.getSelectedRow(),0);
-          String disciplina=(String) tmostrar.tablatorneo.getValueAt(tmostrar.tablatorneo.getSelectedRow(),3 );
-          String sexo=(String) tmostrar.tablatorneo.getValueAt(tmostrar.tablatorneo.getSelectedRow(),4);
+          String nombretorneo= (String) tmostrar.tablatorneo.getValueAt(tmostrar.tablatorneo.getSelectedRow(),1);
+          String disciplina=(String) tmostrar.tablatorneo.getValueAt(tmostrar.tablatorneo.getSelectedRow(),4 );
+          String sexo=(String) tmostrar.tablatorneo.getValueAt(tmostrar.tablatorneo.getSelectedRow(),5);
           Principal.labelnombretorneo.setText(nombretorneo);
           Principal.labeldisciplina.setText(disciplina);
           Principal.labelsexo.setText(sexo);
-          try{
-           String sql="Select id_torneo from torneo where nombre_t='"+nombretorneo+"'";
-           Conexion parametros = new Conexion();
-           Class.forName(parametros.getDriver());
-           Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
-           Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-           ResultSet rs=st.executeQuery(sql);
-           while(rs.first()){
-               String idtorneo=rs.getString("id_torneo");
+  
+               String idtorneo=(String) tmostrar.tablatorneo.getValueAt(tmostrar.tablatorneo.getSelectedRow(),0);
                Principal.labelserialtorneo.setText(idtorneo);
-               break;
-          } 
-       }catch(SQLException ex){
-           Logger.getLogger(principaltorneo.class.getName()).log(Level.SEVERE,null,ex);
-       }catch(ClassNotFoundException e){
-           Logger.getLogger(principaltorneo.class.getName()).log(Level.SEVERE,null,e);
-       }  
+
+
+
         Principal.habilitar2();
         Principal.inhabilitar2();
         try{
@@ -120,7 +91,22 @@ public class principaltorneo extends javax.swing.JPanel {
             paneltorneo.setSelectedIndex(i);
         }
     }
-    
+    public void modificartorneo(){
+        modificartorneo at= new modificartorneo();
+        String titulo="Modificar Torneo";
+        int index= paneltorneo.indexOfTab(titulo);
+        if(index==-1){
+            paneltorneo.addTab(titulo, at);
+            int i= paneltorneo.indexOfTab(titulo);
+            paneltorneo.setSelectedIndex(i);
+        }else{
+            paneltorneo.remove(index);
+            paneltorneo.addTab(titulo, at);
+            int i= paneltorneo.indexOfTab(titulo);
+            paneltorneo.setSelectedIndex(i);
+        }
+    }
+     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -276,7 +262,11 @@ public class principaltorneo extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bmodificarActionPerformed
-        // TODO add your handling code here:
+        try{
+           modificartorneo();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this,"Debe seleccionar un torneo para poder modificar","Informacion", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_bmodificarActionPerformed
 
     private void baccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baccederActionPerformed

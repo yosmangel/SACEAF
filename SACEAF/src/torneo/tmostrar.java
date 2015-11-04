@@ -25,9 +25,9 @@ public class tmostrar extends javax.swing.JPanel {
 
     public static void cargartorneo(){
         try{
-            String[] titulos={"Nombre del Torneo","Fecha de Inicio", "Fecha de Finalizacion","Tipo de competencia","Sexo"};
-            String[] registros= new String[5];
-            String sql="Select t.nombre_t, t.fecha_init, t.fecha_fint,d.nombre_disciplina, t.sexo from torneo t, disciplina d where t.id_disciplina=d.id_disciplina order by fecha_init;";
+            String[] titulos={"","Nombre del Torneo","Fecha de Inicio", "Fecha de Finalizacion","Tipo de competencia","Sexo"};
+            String[] registros= new String[6];
+            String sql="Select  t.id_torneo,t.nombre_t, t.fecha_init, t.fecha_fint,d.nombre_disciplina, t.sexo from torneo t, disciplina d where t.id_disciplina=d.id_disciplina order by fecha_init;";
             Conexion parametros=new Conexion();
             Class.forName(parametros.getDriver());
             Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(),parametros.getPass());
@@ -35,19 +35,23 @@ public class tmostrar extends javax.swing.JPanel {
             Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs=st.executeQuery(sql);
             while(rs.next()){
-                registros [0]= rs.getString("t.nombre_t");
-                registros [1]= rs.getString("t.fecha_init");
-                registros [2]= rs.getString("t.fecha_fint");
-                registros [3]= rs.getString("d.nombre_disciplina");
-                registros [4]= rs.getString("t.sexo");                
+                registros [0]= rs.getString("t.id_torneo");
+                registros [1]= rs.getString("t.nombre_t");
+                registros [2]= rs.getString("t.fecha_init");
+                registros [3]= rs.getString("t.fecha_fint");
+                registros [4]= rs.getString("d.nombre_disciplina");
+                registros [5]= rs.getString("t.sexo");                
                 torneo.addRow(registros);
             }
             tablatorneo.setModel(torneo);
-            tablatorneo.getColumnModel().getColumn(0).setPreferredWidth(168);
+            tablatorneo.getColumnModel().getColumn(0).setMinWidth(0);
+            tablatorneo.getColumnModel().getColumn(0).setMaxWidth(0);
+            tablatorneo.getColumnModel().getColumn(0).setPreferredWidth(0);
             tablatorneo.getColumnModel().getColumn(1).setPreferredWidth(168);
             tablatorneo.getColumnModel().getColumn(2).setPreferredWidth(168);
             tablatorneo.getColumnModel().getColumn(3).setPreferredWidth(168);
             tablatorneo.getColumnModel().getColumn(4).setPreferredWidth(168);
+            tablatorneo.getColumnModel().getColumn(5).setPreferredWidth(168);
             TableRowSorter modeloordenado = new TableRowSorter(torneo);
             tablatorneo.setRowSorter(modeloordenado);
             modeloordenado.setRowFilter(RowFilter.regexFilter(filtro.getText()));
