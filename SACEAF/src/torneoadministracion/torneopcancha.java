@@ -31,6 +31,8 @@ public class torneopcancha extends javax.swing.JPanel {
     static String id_torneo;
     String serialtorneo,serialcategoria, serialborrart;
     int ctr;
+    
+    
     public torneopcancha() {
         initComponents();
         cargartabla();
@@ -98,7 +100,7 @@ public class torneopcancha extends javax.swing.JPanel {
     String hora=campohora.getText()+":"+campominutos.getText();
     String id_cancha=torneo+numero_identificador;
        try{
-           String sql="Select id_cancha from cancha where id_cancha='"+id_cancha+"' and id_toneo='"+torneo+"';";
+           String sql="Select id_cancha from cancha where id_cancha='"+id_cancha+"' and id_torneo='"+torneo+"';";
            Conexion parametros = new Conexion();
            Class.forName(parametros.getDriver());
            Connection con=DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
@@ -121,7 +123,7 @@ public class torneopcancha extends javax.swing.JPanel {
               deshabilitar();
              }else{
       try{
-      datocancha user= new datocancha(id_cancha,nombre,numero_identificador,hora);
+      datocancha user= new datocancha(id_cancha,nombre,numero_identificador,hora,torneo);
       cancha in = new cancha();
       boolean r;
       r=in.Insertar(user);
