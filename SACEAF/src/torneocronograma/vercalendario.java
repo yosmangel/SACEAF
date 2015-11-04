@@ -10,7 +10,9 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import saceaf.Principal;
+import static torneocronograma.Gcronograma.panelcronograma;
 
 
 
@@ -123,6 +125,7 @@ public final class vercalendario extends javax.swing.JPanel {
         rcruces = new javax.swing.JRadioButton();
         rjornadas = new javax.swing.JRadioButton();
         panelvercalendario = new javax.swing.JTabbedPane();
+        btnSalir = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(880, 330));
         setOpaque(false);
@@ -155,6 +158,20 @@ public final class vercalendario extends javax.swing.JPanel {
         panelvercalendario.setMinimumSize(new java.awt.Dimension(860, 273));
         panelvercalendario.setPreferredSize(new java.awt.Dimension(860, 273));
 
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconossalir/exit6 30x30.png"))); // NOI18N
+        btnSalir.setText("Salir");
+        btnSalir.setContentAreaFilled(false);
+        btnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSalir.setIconTextGap(-2);
+        btnSalir.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconossalir/exit6 40x40.png"))); // NOI18N
+        btnSalir.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnSalir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -169,19 +186,23 @@ public final class vercalendario extends javax.swing.JPanel {
                         .addComponent(rcruces, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rjornadas, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalir)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(combocategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rcruces)
-                    .addComponent(rjornadas))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(combocategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rcruces)
+                            .addComponent(rjornadas)))
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelvercalendario, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
+                .addComponent(panelvercalendario, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -197,55 +218,73 @@ public final class vercalendario extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rcrucesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rcrucesActionPerformed
-       rjornadas.setSelected(false);
-       
-        if(rcruces.isSelected()==true){
-         bloquearcombo();
-         abrircruces(); 
-        }else
-        if(rcruces.isSelected()==false){
-            
-         combocategoria.setEnabled(true);
-         try{
-         int tamano=panelvercalendario.getTabCount();              
-         for(int i=0;i<=tamano;i++){
-                 panelvercalendario.remove(i);
-                 i--;
-                 tamano=panelvercalendario.getTabCount(); 
-                 if( tamano== -1){
-                 break;
-                 }
-                 }
+       try{
+            rjornadas.setSelected(false);
 
-       }catch(Exception e){
-           
-       } 
+                if(rcruces.isSelected()==true){
+                 bloquearcombo();
+                 abrircruces(); 
+                }else
+                if(rcruces.isSelected()==false){
+
+                 combocategoria.setEnabled(true);
+                 try{
+                 int tamano=panelvercalendario.getTabCount();              
+                 for(int i=0;i<=tamano;i++){
+                         panelvercalendario.remove(i);
+                         i--;
+                         tamano=panelvercalendario.getTabCount(); 
+                         if( tamano== -1){
+                         break;
+                         }
+                         }
+
+                }catch(Exception el){
+
+                } 
+                 }
+        }catch(Exception em){
+            JOptionPane.showMessageDialog(null,"No posee cruces para esta categoria","Información", JOptionPane.INFORMATION_MESSAGE);
+            rcruces.setSelected(false);
+            combocategoria.setEnabled(true);
         }
+        
+        
+        
     }//GEN-LAST:event_rcrucesActionPerformed
 
     private void rjornadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rjornadasActionPerformed
-        rcruces.setSelected(false);
-        if(rjornadas.isSelected()==true){
-         bloquearcombo();
-         abrirverjornada(); 
-        }else
-        if(rjornadas.isSelected()==false){
-         combocategoria.setEnabled(true);
-         try{
-         int tamano=panelvercalendario.getTabCount();              
-         for(int i=0;i<=tamano;i++){
-                 panelvercalendario.remove(i);
-                 i--;
-                 tamano=panelvercalendario.getTabCount(); 
-                 if( tamano== -1){
-                 break;
-                 }
-                 }
+        try{
+            rcruces.setSelected(false);
+                if(rjornadas.isSelected()==true){
+                 bloquearcombo();
+                 abrirverjornada(); 
+                }else
+                if(rjornadas.isSelected()==false){
+                 combocategoria.setEnabled(true);
+                 try{
+                 int tamano=panelvercalendario.getTabCount();              
+                 for(int i=0;i<=tamano;i++){
+                         panelvercalendario.remove(i);
+                         i--;
+                         tamano=panelvercalendario.getTabCount(); 
+                         if( tamano== -1){
+                         break;
+                         }
+                         }
 
-       }catch(Exception e){
-           
-       } 
+                }catch(Exception ek){
+
+                } 
+                 }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"No posee jornadas para esta categoria","Información", JOptionPane.INFORMATION_MESSAGE);
+            rjornadas.setSelected(false);
+            combocategoria.setEnabled(true);
         }
+        
+        
+        
         
            
   
@@ -255,8 +294,13 @@ public final class vercalendario extends javax.swing.JPanel {
        bloquearcat();
     }//GEN-LAST:event_combocategoriaActionPerformed
 
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        panelcronograma.remove(this);
+    }//GEN-LAST:event_btnSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JButton btnSalir;
     public static javax.swing.JComboBox combocategoria;
     public static javax.swing.JPanel jPanel1;
     public static javax.swing.JTabbedPane panelvercalendario;
