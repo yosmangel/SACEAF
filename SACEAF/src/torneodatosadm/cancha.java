@@ -17,7 +17,7 @@ public class cancha {
         Connection con= DriverManager.getConnection(parametros.getURL(), parametros.getUsuario(), parametros.getPass());
         Statement st=con.createStatement();
         String sql="Insert into cancha values('"+user.getId_cancha()+"', '"+user.getNombre()+"', '"+user.getNumero_identificador()+"',"
-                + " '"+user.getHora()+"');";
+                + " '"+user.getHora()+"','"+user.getTorneo()+"');";
         boolean result;
         result=st.execute(sql);
         st.close();
