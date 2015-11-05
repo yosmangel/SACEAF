@@ -32,14 +32,16 @@ public class fechajornada extends javax.swing.JPanel {
         initComponents();
         cargarcombo();
         cargarequipos();
+
     }
 
 
     public static void cargarequipos(){
+       
         ncategoria= modificarcalendario.combocategoria.getSelectedItem().toString();
         serialtorneo= Principal.labelserialtorneo.getText();
         lsexo=Principal.labelsexo.getText();
-        letragrupo=combogrupo.getSelectedItem().toString();
+        letragrupo=fechajornada.combogrupo.getSelectedItem().toString();
         try{ 
             String sql="Select id_categoria from categoria where nombre_cat= '"+ncategoria+"' and sexo='"+lsexo+"';";
             Conexion parametro= new Conexion();
@@ -48,7 +50,7 @@ public class fechajornada extends javax.swing.JPanel {
             Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs=st.executeQuery(sql);
             while(rs.first()){
-            cidcategoria=rs.getNString("id_categoria");
+            cidcategoria=rs.getString("id_categoria");
             break;
             }            
             }catch(SQLException | ClassNotFoundException ex){
@@ -86,10 +88,11 @@ public class fechajornada extends javax.swing.JPanel {
                 }
     }
     public static void cargarcombo(){
-         ncategoria=modificarcalendario.combocategoria.getSelectedItem().toString();
-         serialtorneo=Principal.labelserialtorneo.getText();
-         lsexo=Principal.labelsexo.getText();
-         combogrupo.removeAllItems();
+          
+          fechajornada.combogrupo.removeAll();
+          ncategoria=modificarcalendario.combocategoria.getSelectedItem().toString();
+          serialtorneo=Principal.labelserialtorneo.getText();
+          lsexo=Principal.labelsexo.getText();
           try{
           Conexion parametros= new Conexion();
           Class.forName(parametros.getDriver());
@@ -97,7 +100,7 @@ public class fechajornada extends javax.swing.JPanel {
           Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
           ResultSet rs=st.executeQuery("Select id_categoria from categoria where nombre_cat='"+ncategoria+"' and sexo='"+lsexo+"';");
           while(rs.first()){
-          cidcategoria=rs.getNString("id_categoria");
+          cidcategoria=rs.getString("id_categoria");
           break;
           }
           }catch(SQLException | ClassNotFoundException ex){
@@ -110,7 +113,7 @@ public class fechajornada extends javax.swing.JPanel {
           Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
           ResultSet rs=st.executeQuery("Select id_modalidad from modalidad where id_categoria='"+cidcategoria+"' and id_torneo='"+serialtorneo+"';");
           while(rs.first()){
-          id_modalidad=rs.getNString("id_modalidad");
+          id_modalidad=rs.getString("id_modalidad");
           break;
           }
           }catch(SQLException | ClassNotFoundException ex){
@@ -148,6 +151,15 @@ public class fechajornada extends javax.swing.JPanel {
           }
   }
     public void buscarid(){
+        jornada="";
+        nombre_local="";
+        identificador_local="";
+        nombre_visitante="";
+        identificador_visitante="";
+        categoria="";
+        sexo="";
+        grupo="";
+        ctrl=0;
         jornada=(String) fechajornada.tablacruces.getValueAt(fechajornada.tablacruces.getSelectedRow(),0);
         nombre_local=(String) fechajornada.tablacruces.getValueAt(fechajornada.tablacruces.getSelectedRow(),1);
         identificador_local=(String) fechajornada.tablacruces.getValueAt(fechajornada.tablacruces.getSelectedRow(),2);
@@ -156,6 +168,7 @@ public class fechajornada extends javax.swing.JPanel {
         categoria=modificarcalendario.combocategoria.getSelectedItem().toString();
         sexo=Principal.labelsexo.getText();
         grupo=combogrupo.getSelectedItem().toString();
+        System.out.println(ctrl+" "+jornada+" "+nombre_local+identificador_local+" "+nombre_visitante+identificador_visitante+" "+categoria+" "+sexo+" "+grupo);
         try{ 
             String sql="Select id_categoria from categoria where nombre_cat= '"+categoria+"' and sexo='"+sexo+"';";
             Conexion parametro= new Conexion();
@@ -164,7 +177,7 @@ public class fechajornada extends javax.swing.JPanel {
             Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs=st.executeQuery(sql);
             while(rs.first()){
-            idcategoria=rs.getNString("id_categoria");
+            idcategoria=rs.getString("id_categoria");
             break;
             }            
             }catch(SQLException | ClassNotFoundException ex){
@@ -178,7 +191,7 @@ public class fechajornada extends javax.swing.JPanel {
             Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs=st.executeQuery(sql);
             while(rs.first()){
-            clublocal=rs.getNString("id_club");
+            clublocal=rs.getString("id_club");
             break;
             }            
             }catch(SQLException | ClassNotFoundException ex){
@@ -192,7 +205,7 @@ public class fechajornada extends javax.swing.JPanel {
             Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs=st.executeQuery(sql);
             while(rs.first()){
-            idequipolocal=rs.getNString("id_equipo");
+            idequipolocal=rs.getString("id_equipo");
             break;
             }            
             }catch(SQLException | ClassNotFoundException ex){
@@ -208,7 +221,7 @@ public class fechajornada extends javax.swing.JPanel {
             Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs=st.executeQuery(sql);
             while(rs.first()){
-            clubvisitante=rs.getNString("id_club");
+            clubvisitante=rs.getString("id_club");
             break;
             }            
             }catch(SQLException | ClassNotFoundException ex){
@@ -222,7 +235,7 @@ public class fechajornada extends javax.swing.JPanel {
             Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs=st.executeQuery(sql);
             while(rs.first()){
-            idequipovisitante=rs.getNString("id_equipo");
+            idequipovisitante=rs.getString("id_equipo");
             break;
             }            
             }catch(SQLException | ClassNotFoundException ex){
@@ -238,12 +251,13 @@ public class fechajornada extends javax.swing.JPanel {
             Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs=st.executeQuery(sql);
             while(rs.first()){
-            id_juego=rs.getNString("id_juego");
+            id_juego=rs.getString("id_juego");
             break;
             }            
             }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(fechajornada.class.getName()).log(Level.SEVERE, null, ex);
             }
+        System.out.println(id_juego);
         modificarcalendario.labelidjuego.setText(id_juego);
         try{ 
             String sql="Select id_fechajuego from fecha_juego where id_fechajuego='"+id_juego+"';";
@@ -418,7 +432,28 @@ public class fechajornada extends javax.swing.JPanel {
             buscarid();
        
        }catch(Exception e){
+           try{
+                int tamano=modificarcalendario.panelmodificar.getTabCount();
+        for(int i=0;i<=tamano;i++){
+                 modificarcalendario.panelmodificar.remove(i);
+                 i--;
+                 tamano=modificarcalendario.panelmodificar.getTabCount(); 
+                 if( tamano== 0){
+                     break;
+                 } 
+                 }
+        try{
             abrirverfecha();
+        }catch(Exception ea){
+            JOptionPane.showMessageDialog(null,"No posee fecha en los juegos para esta categoria","Información", JOptionPane.INFORMATION_MESSAGE);
+             
+        } 
+        
+            
+        }catch(Exception em){
+        
+        }     
+           
        }
     }//GEN-LAST:event_bsiguienteActionPerformed
 
