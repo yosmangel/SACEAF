@@ -10,9 +10,12 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import saceaf.Principal;
+import static torneocronograma.vercalendario.combocategoria;
+import static torneocronograma.vercalendario.panelvercalendario;
 
 
 public class verfechajornada extends javax.swing.JPanel {
@@ -26,6 +29,7 @@ public class verfechajornada extends javax.swing.JPanel {
             identificador_visitante;
     int idnumero,numeroeq,ctrl,ronda;
     static String ncategoria, lsexo,serialtorneo,cidcategoria,letragrupo,id_modalidad; 
+    
     public verfechajornada() {
         initComponents();
         cargarcombo();
@@ -46,7 +50,7 @@ public class verfechajornada extends javax.swing.JPanel {
             Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs=st.executeQuery(sql);
             while(rs.first()){
-            cidcategoria=rs.getNString("id_categoria");
+            cidcategoria=rs.getString("id_categoria");
             break;
             }            
             }catch(SQLException | ClassNotFoundException ex){
@@ -86,10 +90,11 @@ public class verfechajornada extends javax.swing.JPanel {
                 }
     }
     public static void cargarcombo(){
+         verfechajornada.combogrupo.removeAllItems();
          ncategoria=modificarcalendario.combocategoria.getSelectedItem().toString();
          serialtorneo=Principal.labelserialtorneo.getText();
          lsexo=Principal.labelsexo.getText();
-         combogrupo.removeAllItems();
+         
           try{
           Conexion parametros= new Conexion();
           Class.forName(parametros.getDriver());
@@ -97,7 +102,7 @@ public class verfechajornada extends javax.swing.JPanel {
           Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
           ResultSet rs=st.executeQuery("Select id_categoria from categoria where nombre_cat='"+ncategoria+"' and sexo='"+lsexo+"';");
           while(rs.first()){
-          cidcategoria=rs.getNString("id_categoria");
+          cidcategoria=rs.getString("id_categoria");
           break;
           }
           }catch(SQLException | ClassNotFoundException ex){
@@ -110,7 +115,7 @@ public class verfechajornada extends javax.swing.JPanel {
           Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
           ResultSet rs=st.executeQuery("Select id_modalidad from modalidad where id_categoria='"+cidcategoria+"' and id_torneo='"+serialtorneo+"';");
           while(rs.first()){
-          id_modalidad=rs.getNString("id_modalidad");
+          id_modalidad=rs.getString("id_modalidad");
           break;
           }
           }catch(SQLException | ClassNotFoundException ex){
@@ -265,8 +270,8 @@ public class verfechajornada extends javax.swing.JPanel {
     }//GEN-LAST:event_combogrupoActionPerformed
 
     private void batrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batrasActionPerformed
-        try{
-       int tamano=modificarcalendario.panelmodificar.getTabCount();
+        /**try{
+                int tamano=modificarcalendario.panelmodificar.getTabCount();
         for(int i=0;i<=tamano;i++){
                  modificarcalendario.panelmodificar.remove(i);
                  i--;
@@ -276,9 +281,12 @@ public class verfechajornada extends javax.swing.JPanel {
                  } 
                  }
          abrirfechajornada();
-       }catch(Exception e){
-           
-       }
+            
+        }catch(Exception em){
+        
+        } */
+         modificarcalendario.panelmodificar.remove(this);
+         abrirfechajornada();
     }//GEN-LAST:event_batrasActionPerformed
 
 
