@@ -280,6 +280,7 @@ public final class equiposcopa extends javax.swing.JPanel {
             camponumeroeq.setText("");
             campoequipo.setText("");
             labelserial.setText("");
+            cargarcombo();
             bsiguiente.setEnabled(true);
             }
 
@@ -379,7 +380,8 @@ public final class equiposcopa extends javax.swing.JPanel {
 
    }
     public void cargarcombo(){
-          categoria=panelcrear.combocategoria.getSelectedItem().toString();
+         combo1.removeAllItems();
+         categoria=panelcrear.combocategoria.getSelectedItem().toString();
          idtorneo=Principal.labelserialtorneo.getText();
           try{
           Conexion parametros= new Conexion();
