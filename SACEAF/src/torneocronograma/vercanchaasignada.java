@@ -47,17 +47,15 @@ public class vercanchaasignada extends javax.swing.JPanel {
             Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs=st.executeQuery(sql);
             while(rs.first()){
-            cidcategoria=rs.getNString("id_categoria");
+            cidcategoria=rs.getString("id_categoria");
             break;
             }            
-            }catch(SQLException ex){
+            }catch(SQLException | ClassNotFoundException ex){
             Logger.getLogger(vercanchaasignada.class.getName()).log(Level.SEVERE, null, ex);
-            }catch(ClassNotFoundException e){
-            Logger.getLogger(vercanchaasignada.class.getName()).log(Level.SEVERE,null,e);
             }
      try{
-            String[] titulos={"Fecha juego","Jor.","Nombre cancha","Hora","Equipo local"," ","Equipo visitante"," "};
-            String[] registro= new String[8];
+            String[] titulos={"Fecha juego","Jor.","Nombre cancha","Hora","Equipo local"," ","Equipo visitante"};
+            String[] registro= new String[7];
             String sql="Select f.fecha_juego, j.jornada ,ca.nombre_cancha,ca.hora_juego, c.nombre_club, e.identificador ,cc.nombre_club, ee.identificador from club c, equipo e, h_equipo he,juego j,club cc, equipo ee, h_equipo hee,juego jj, fecha_juego f, formulario fo, cancha ca where j.equipo_local=he.id_hequipo and he.id_equipo=e.id_equipo and e.id_club=c.id_club and jj.equipo_visitante=hee.id_hequipo and hee.id_equipo=ee.id_equipo and ee.id_club=cc.id_club and j.id_torneo='"+serialtorneo+"' and jj.id_torneo='"+serialtorneo+"' and j.grupo='"+letragrupo+"' and jj.id_juego=j.id_juego and j.id_categoria='"+cidcategoria+"' and f.id_fechajuego=j.id_juego and f.id_juego=j.id_juego and fo.id_juego=j.id_juego and fo.id_juego=jj.id_juego and fo.id_cancha=ca.id_cancha and fo.id_juego=f.id_fechajuego order by f.fecha_juego asc;";
             Conexion parametro= new Conexion();
             Class.forName(parametro.getDriver());
@@ -70,21 +68,23 @@ public class vercanchaasignada extends javax.swing.JPanel {
                registro [1]=rs.getString("j.jornada");
                registro [2]=rs.getString("ca.nombre_cancha");
                registro [3]=rs.getString("ca.hora_juego");
-               registro [4]=rs.getString("c.nombre_club");
-               registro [5]=rs.getString("e.identificador");
-               registro [6]=rs.getString("cc.nombre_club");
-               registro [7]=rs.getString("ee.identificador");
+               String equipoL=rs.getString("c.nombre_club");
+               String identificadorL=rs.getString("e.identificador");
+               registro [4]=equipoL+" "+identificadorL;
+               registro [5]="vs";
+               String equipoV=rs.getString("cc.nombre_club");
+               String identificadorV=rs.getString("ee.identificador");
+               registro [6]=equipoV+" "+identificadorV;
                modelo.addRow(registro);
             }
             tablacruces.setModel(modelo);
             tablacruces.getColumnModel().getColumn(0).setPreferredWidth(90);
             tablacruces.getColumnModel().getColumn(1).setPreferredWidth(41);
             tablacruces.getColumnModel().getColumn(2).setPreferredWidth(150);
-            tablacruces.getColumnModel().getColumn(2).setPreferredWidth(80);
-            tablacruces.getColumnModel().getColumn(2).setPreferredWidth(180);
-            tablacruces.getColumnModel().getColumn(3).setPreferredWidth(40);
-            tablacruces.getColumnModel().getColumn(4).setPreferredWidth(180);
+            tablacruces.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tablacruces.getColumnModel().getColumn(4).setPreferredWidth(170);
             tablacruces.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tablacruces.getColumnModel().getColumn(6).setPreferredWidth(170);
             TableRowSorter modeloordenado= new TableRowSorter(modelo);
             tablacruces.setRowSorter(modeloordenado);
             
@@ -93,6 +93,7 @@ public class vercanchaasignada extends javax.swing.JPanel {
                 }
     }
     public static void cargarcombo(){
+         vercanchaasignada.combogrupo.removeAllItems();
          ncategoria=modificarcalendario.combocategoria.getSelectedItem().toString();
          serialtorneo=Principal.labelserialtorneo.getText();
          lsexo=Principal.labelsexo.getText();
@@ -104,7 +105,7 @@ public class vercanchaasignada extends javax.swing.JPanel {
           Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
           ResultSet rs=st.executeQuery("Select id_categoria from categoria where nombre_cat='"+ncategoria+"' and sexo='"+lsexo+"';");
           while(rs.first()){
-          cidcategoria=rs.getNString("id_categoria");
+          cidcategoria=rs.getString("id_categoria");
           break;
           }
           }catch(SQLException | ClassNotFoundException ex){
@@ -117,7 +118,7 @@ public class vercanchaasignada extends javax.swing.JPanel {
           Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
           ResultSet rs=st.executeQuery("Select id_modalidad from modalidad where id_categoria='"+cidcategoria+"' and id_torneo='"+serialtorneo+"';");
           while(rs.first()){
-          id_modalidad=rs.getNString("id_modalidad");
+          id_modalidad=rs.getString("id_modalidad");
           break;
           }
           }catch(SQLException | ClassNotFoundException ex){
