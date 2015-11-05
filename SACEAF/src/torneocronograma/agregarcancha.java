@@ -19,8 +19,10 @@ import torneodatoscronograma.formulario1;
 
 public final class agregarcancha extends javax.swing.JPanel {
 
-    String jornada,nombre_juego,hlocal,idjuego,categoria,idcategoria,idtorneo, hvisitante, sexo,nombrelocal,nombrevisitante,identificadorlocal,identificadorvisitante;
-    String dia,mes,year,fecha_juego, id_formulario,idcancha,cancha,eequipo_local,eequipo_visitante;
+    String jornada,nombre_juego,hlocal,idjuego,categoria,idcategoria,idtorneo, hvisitante, sexo,nombrelocal,nombrevisitante,
+            identificadorlocal,identificadorvisitante,dia,mes,year,fecha_juego, id_formulario,idcancha,cancha,
+            eequipo_local,eequipo_visitante, hora;
+    int validacionCancha;
     static DefaultTableModel modelo;
     
     
@@ -202,7 +204,45 @@ public final class agregarcancha extends javax.swing.JPanel {
         }
         
     }
- 
+    public void verificarCancha(){
+        validacionCancha=0;
+        cancha=(String)tablacanchas.getValueAt(tablacanchas.getSelectedRow(),1);
+        hora=(String)tablacanchas.getValueAt(tablacanchas.getSelectedRow(),2);
+        fecha_juego=campofecha.getText();
+        idtorneo=Principal.labelserialtorneo.getText();
+        idcancha=idtorneo+cancha;
+        try{ 
+            String sql="select c.id_cancha from formulario f, fecha_juego fj, cancha c where fj.fecha_juego='"+fecha_juego+"' and f.id_fechajuego=fj.id_fechajuego and f.id_cancha='"+idcancha+"' and   f.id_torneo='"+idtorneo+"' and f.id_cancha=c.id_cancha and hora_juego='"+hora+"';";
+            Conexion parametro= new Conexion();
+            Class.forName(parametro.getDriver());
+            Connection con=DriverManager.getConnection(parametro.getURL(), parametro.getUsuario(), parametro.getPass());
+            Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs=st.executeQuery(sql);
+            while(rs.first()){
+            validacionCancha=2;
+            break;
+            }            
+            }catch(SQLException | ClassNotFoundException ex){
+            Logger.getLogger(agregarcancha.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        if(validacionCancha==2){
+            JOptionPane.showMessageDialog(null,"Ya asignó ese horario y cancha a otro juego, por favor escoja otro.","Información", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            guardar();
+            int tamano=modificarcalendario.panelmodificar.getTabCount();
+                 for(int i=0;i<=tamano;i++){
+                 modificarcalendario.panelmodificar.remove(i);
+                 i--;
+                 tamano=modificarcalendario.panelmodificar.getTabCount(); 
+                 if( tamano== 0){
+                     break;
+                 } 
+                 }
+         abrirvercancha();
+        }
+        
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -218,6 +258,7 @@ public final class agregarcancha extends javax.swing.JPanel {
         campofecha = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablacanchas = new javax.swing.JTable();
+        btnSalir = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(860, 270));
         setOpaque(false);
@@ -272,6 +313,20 @@ public final class agregarcancha extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tablacanchas);
 
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconossalir/exit6 30x30.png"))); // NOI18N
+        btnSalir.setText("Salir");
+        btnSalir.setContentAreaFilled(false);
+        btnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSalir.setIconTextGap(-2);
+        btnSalir.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconossalir/exit6 40x40.png"))); // NOI18N
+        btnSalir.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnSalir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -298,13 +353,15 @@ public final class agregarcancha extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(77, 77, 77)
-                .addComponent(bsiguiente)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bsiguiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(22, 22, 22))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,7 +378,9 @@ public final class agregarcancha extends javax.swing.JPanel {
                             .addComponent(campofecha, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(69, 69, 69)
-                        .addComponent(bsiguiente))
+                        .addComponent(bsiguiente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalir))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -342,17 +401,8 @@ public final class agregarcancha extends javax.swing.JPanel {
 
     private void bsiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsiguienteActionPerformed
         try{
-        guardar();
-        int tamano=modificarcalendario.panelmodificar.getTabCount();
-        for(int i=0;i<=tamano;i++){
-                 modificarcalendario.panelmodificar.remove(i);
-                 i--;
-                 tamano=modificarcalendario.panelmodificar.getTabCount(); 
-                 if( tamano== 0){
-                     break;
-                 } 
-                 }
-         abrirvercancha();
+        verificarCancha();
+        
         
         }catch(Exception e){
         int opc=JOptionPane.showConfirmDialog(null,"Desea seguir sin guardar los datos","Informacion",JOptionPane.YES_NO_OPTION);
@@ -375,9 +425,16 @@ public final class agregarcancha extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_bsiguienteActionPerformed
 
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        modificarcalendario.panelmodificar.remove(this);
+        modificarcalendario.rasignarcancha.setSelected(false);
+        modificarcalendario.combocategoria.setEnabled(true);
+    }//GEN-LAST:event_btnSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton bsiguiente;
+    public static javax.swing.JButton btnSalir;
     public static javax.swing.JTextField campofecha;
     public static javax.swing.JTextField campojornada;
     public static javax.swing.JTextField equipo_local;
