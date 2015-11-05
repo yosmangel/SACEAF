@@ -17,8 +17,9 @@ import torneodatoscronograma.fecha_juego;
 
 public final class agregarfecha extends javax.swing.JPanel {
 
-    String jornada,nombre_juego,hlocal,idjuego,categoria,idcategoria,idtorneo, hvisitante, sexo,nombrelocal,nombrevisitante,identificadorlocal,identificadorvisitante;
-    String dia,mes,year,fecha_juego;
+    String jornada,nombre_juego,hlocal,idjuego,categoria,idcategoria,idtorneo, hvisitante, sexo,nombrelocal,nombrevisitante,
+            identificadorlocal,identificadorvisitante,dia,mes,year,fecha_juego;
+
     public agregarfecha() {
         initComponents();
         cargardatos();
@@ -153,6 +154,7 @@ public final class agregarfecha extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         campoyear = new javax.swing.JTextField();
         bguardar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(860, 270));
         setOpaque(false);
@@ -217,6 +219,20 @@ public final class agregarfecha extends javax.swing.JPanel {
             }
         });
 
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconossalir/exit6 30x30.png"))); // NOI18N
+        btnSalir.setText("Salir");
+        btnSalir.setContentAreaFilled(false);
+        btnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSalir.setIconTextGap(-2);
+        btnSalir.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconossalir/exit6 40x40.png"))); // NOI18N
+        btnSalir.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnSalir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -249,7 +265,9 @@ public final class agregarfecha extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(campoyear, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
-                .addComponent(bsiguiente)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bsiguiente)
+                    .addComponent(btnSalir))
                 .addGap(32, 32, 32))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
@@ -284,7 +302,9 @@ public final class agregarfecha extends javax.swing.JPanel {
                             .addComponent(jLabel4)
                             .addComponent(campoyear, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addComponent(bguardar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bguardar)
+                    .addComponent(btnSalir))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
@@ -302,8 +322,8 @@ public final class agregarfecha extends javax.swing.JPanel {
 
     private void bguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bguardarActionPerformed
         guardar();
-         try{
-       int tamano=modificarcalendario.panelmodificar.getTabCount();
+       /**  try{
+                int tamano=modificarcalendario.panelmodificar.getTabCount();
         for(int i=0;i<=tamano;i++){
                  modificarcalendario.panelmodificar.remove(i);
                  i--;
@@ -313,9 +333,12 @@ public final class agregarfecha extends javax.swing.JPanel {
                  } 
                  }
          abrirverfecha();
-       }catch(Exception e){
             
-       }
+        }catch(Exception em){
+        
+        } */
+         modificarcalendario.panelmodificar.remove(this);
+         abrirverfecha();
     }//GEN-LAST:event_bguardarActionPerformed
 
     private void bsiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsiguienteActionPerformed
@@ -338,10 +361,17 @@ public final class agregarfecha extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_bsiguienteActionPerformed
 
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        modificarcalendario.panelmodificar.remove(this);
+        modificarcalendario.rfechajornada.setSelected(false);
+        modificarcalendario.combocategoria.setEnabled(true);
+    }//GEN-LAST:event_btnSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton bguardar;
     public static javax.swing.JButton bsiguiente;
+    public static javax.swing.JButton btnSalir;
     public static javax.swing.JTextField campodia;
     public static javax.swing.JTextField campojornada;
     public static javax.swing.JTextField campomes;
