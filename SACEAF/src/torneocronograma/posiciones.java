@@ -45,7 +45,7 @@ public class posiciones extends javax.swing.JPanel {
           Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
           ResultSet rs=st.executeQuery("Select id_categoria from categoria where nombre_cat='"+ncategoria+"' and sexo='"+lsexo+"';");
           while(rs.first()){
-          cidcategoria=rs.getNString("id_categoria");
+          cidcategoria=rs.getString("id_categoria");
           break;
           }
           }catch(SQLException | ClassNotFoundException ex){
@@ -106,7 +106,7 @@ public class posiciones extends javax.swing.JPanel {
           Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
           ResultSet rs=st.executeQuery("Select id_categoria from categoria where nombre_cat='"+ncategoria+"' and sexo='"+lsexo+"';");
           while(rs.first()){
-          cidcategoria=rs.getNString("id_categoria");
+          cidcategoria=rs.getString("id_categoria");
           break;
           }
           }catch(SQLException | ClassNotFoundException ex){
@@ -119,7 +119,7 @@ public class posiciones extends javax.swing.JPanel {
           Statement st=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
           ResultSet rs=st.executeQuery("Select id_modalidad from modalidad where id_categoria='"+cidcategoria+"' and id_torneo='"+serialtorneo+"';");
           while(rs.first()){
-          id_modalidad=rs.getNString("id_modalidad");
+          id_modalidad=rs.getString("id_modalidad");
           break;
           }
           }catch(SQLException | ClassNotFoundException ex){
