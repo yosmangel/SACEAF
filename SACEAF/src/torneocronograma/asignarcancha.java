@@ -156,6 +156,7 @@ public class asignarcancha extends javax.swing.JPanel {
         sexo=Principal.labelsexo.getText();
         grupo=combogrupo.getSelectedItem().toString();
         idtorneo=Principal.labelserialtorneo.getText();
+        ctrl=0;
         try{ 
             String sql="Select id_categoria from categoria where nombre_cat= '"+categoria+"' and sexo='"+sexo+"';";
             Conexion parametro= new Conexion();
@@ -416,7 +417,8 @@ public class asignarcancha extends javax.swing.JPanel {
             buscarid();
        
        }catch(Exception e){
-            abrirvercancha();
+           modificarcalendario.panelmodificar.remove(this);
+           abrirvercancha();
        }
     }//GEN-LAST:event_bsiguienteActionPerformed
 
