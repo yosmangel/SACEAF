@@ -16,6 +16,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -250,7 +252,7 @@ public class cruces extends javax.swing.JPanel {
     }//GEN-LAST:event_combogrupoActionPerformed
 
     private void MostrarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarReporteActionPerformed
-
+/*
         ncategoria= vercalendario.combocategoria.getSelectedItem().toString();
         serialtorneo= Principal.labelserialtorneo.getText();
         lsexo=Principal.labelsexo.getText();
@@ -292,6 +294,18 @@ public class cruces extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, ex.getMessage());
             }
         //}
+        */
+        Connection miconexion=ConexionReportes.GetConnection();
+            try{
+                String UbicacionReporte=System.getProperty("user.dir")+"/src/Basededatos/Cruces.jrxml";
+                JasperReport jasperReport=JasperCompileManager.compileReport(UbicacionReporte);
+                JasperPrint print=JasperFillManager.fillReport(jasperReport, null, miconexion);
+                JasperViewer view=new JasperViewer(print, false);
+                view.setVisible(true);
+ 
+            } catch (JRException ex) {
+            Logger.getLogger(cruces.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_MostrarReporteActionPerformed
 
 

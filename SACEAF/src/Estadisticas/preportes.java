@@ -4,6 +4,7 @@ import Basededatos.ConexionReportes;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -79,7 +80,7 @@ public class preportes extends javax.swing.JPanel {
         jLabel6.setBounds(210, 100, 250, 22);
 
         ComboReporte.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        ComboReporte.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nomina", "MasDeudaEquipo", "MasGolesEquipo", "MasTarjetasEquipo", "MasTarjetasJugador", "MenosGolesEquipo", "MenosTarjetasEquipo", "MenosTarjetasJugador" }));
+        ComboReporte.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nomina", "MasDeudaEquipo", "MasGolesEquipo", "MasTarjetasEquipo", "MasTarjetasJugador", "MenosGolesEquipo", "MenosTarjetasEquipo", "MenosTarjetasJugador", "PruebaKevin" }));
         ComboReporte.setToolTipText("");
         jPanel1.add(ComboReporte);
         ComboReporte.setBounds(240, 140, 190, 30);
@@ -227,6 +228,22 @@ public class preportes extends javax.swing.JPanel {
                 JasperPrint print=JasperFillManager.fillReport(jasperReport, null, miconexion);
                 JasperViewer view=new JasperViewer(print, false);
                 view.setVisible(true);
+            }
+
+            catch (Exception ex){
+                JOptionPane.showMessageDialog(this, ex.getMessage());
+            }  
+        }
+            //PruebaKevin
+         if (i==8){
+            Connection miconexion=ConexionReportes.GetConnection();
+            try{
+                String UbicacionReporte=System.getProperty("user.dir")+"/src/Basededatos/FechasdeJuego.jrxml";
+                JasperReport jasperReport=JasperCompileManager.compileReport(UbicacionReporte);
+                JasperPrint print=JasperFillManager.fillReport(jasperReport, null, miconexion);
+                JasperViewer view=new JasperViewer(print, false);
+                view.setVisible(true);
+ 
             }
 
             catch (Exception ex){
