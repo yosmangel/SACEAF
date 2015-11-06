@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5c6ef34a-f64c-447b-94a9-ed0a3e991e13">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#CCCCCC"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[Select f.fecha_juego, j.jornada , c.nombre_club as Club1, e.identificador as identificador1 ,cc.nombre_club as Club2, ee.identificador as identificador2 from club c, equipo e, h_equipo he,juego j,club cc, equipo ee, h_equipo hee,juego jj, fecha_juego f where j.equipo_local=he.id_hequipo and he.id_equipo=e.id_equipo and e.id_club=c.id_club and jj.equipo_visitante=hee.id_hequipo and hee.id_equipo=ee.id_equipo and ee.id_club=cc.id_club and j.id_torneo='1002' and jj.id_torneo='1002' and j.grupo='A' and jj.id_juego=j.id_juego and j.id_categoria='03' and f.id_fechajuego=j.id_juego and f.id_juego=j.id_juego order by f.fecha_juego asc;
+]]>
+	</queryString>
+	<field name="fecha_juego" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jornada" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Club1" class="java.lang.String"/>
+	<field name="identificador1" class="java.lang.String"/>
+	<field name="Club2" class="java.lang.String"/>
+	<field name="identificador2" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="128" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="211" y="0" width="515" height="62" forecolor="#000000" uuid="35c458b0-545e-4b11-85d4-0507b9e326cf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="40" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Cruces por Fecha y Jornada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="249" y="62" width="433" height="22" forecolor="#000000" uuid="dc2ae0ed-657a-4842-afb9-77eb722adb7e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Asociación de Futbol del Estado Bolivariano de Miranda]]></text>
+			</staticText>
+			<image>
+				<reportElement x="1" y="0" width="139" height="119" uuid="029f042c-7add-490f-b6fc-b88345c9f48f"/>
+				<imageExpression><![CDATA["C:\\Users\\Kevin\\Documents\\NetBeansProjects\\SACEAF\\SACEAF\\src\\Basededatos\\LogoAsomiranda.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="22" width="802" height="1" uuid="5b62ac69-976b-4e13-870f-ad5ea853b840"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="8" width="114" height="15" forecolor="#000000" uuid="9f622641-b232-47c6-bf6a-ed4f63f4f51a"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Fecha del Juego]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="114" y="8" width="56" height="15" forecolor="#000000" uuid="bfbcdda9-de16-463d-b3a6-a71acb4d469d"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Jornada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="233" y="7" width="45" height="15" forecolor="#000000" uuid="32eab5e4-a5dd-44d8-aa9c-11a8826599cc"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Club 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="343" y="7" width="73" height="15" forecolor="#000000" uuid="d149f2bd-7d66-47fa-a35d-a89873bc63ab"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Identificador ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="478" y="8" width="46" height="15" forecolor="#000000" uuid="7e252061-02d2-4cea-a5d6-3dc656089272"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Club 2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="596" y="7" width="73" height="15" forecolor="#000000" uuid="0811548d-6863-4f19-8bcb-333757872b65"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Identificador]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="15" uuid="cd6921b6-27ab-4191-9b8b-031e67fde9b3"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="114" y="0" width="56" height="15" uuid="66a68ad7-faa3-4fbe-bb7c-f3f8746d7ed9"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{jornada}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="353" y="0" width="52" height="15" uuid="4a1ef122-7f6c-427a-b287-2c50e9b9a179"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{identificador1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="607" y="0" width="46" height="15" uuid="09e0b09b-edfc-4402-9ec2-53e45f3de8d2"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{identificador2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yy">
+					<reportElement style="Detail" x="1" y="0" width="113" height="15" uuid="bec78e1f-4c10-4838-8db6-1714e643b8c6"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{fecha_juego}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="438" y="0" width="122" height="15" uuid="bdebd952-81a9-466a-bdc6-55c1ca428024"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{Club2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="186" y="0" width="131" height="15" uuid="33cb0f3f-03f1-4172-875a-0d2a0ad5b245"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{Club1}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="17679d6b-6b9e-45d6-bac2-98237ac4fbe3"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#000000" backcolor="#FFFFFF" uuid="d47e0692-9324-4e95-b40e-2855b395b8a9"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="783" y="1" width="40" height="20" forecolor="#000000" uuid="3ce03c06-45c5-4d59-989d-e0840a7c68fb"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="703" y="1" width="80" height="20" forecolor="#000000" uuid="d9a74128-4e19-4fc9-ba03-6d85cab07660"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="21" y="1" width="197" height="20" forecolor="#000000" uuid="bdb70252-b1f1-4def-8c4f-73f2c69d748c"/>
+					<textElement verticalAlignment="Top">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
