@@ -14,8 +14,7 @@
 		</conditionalStyle>
 	</style>
 	<queryString>
-		<![CDATA[Select f.fecha_juego, j.jornada , c.nombre_club as Club1, e.identificador as identificador1 ,cc.nombre_club as Club2, ee.identificador as identificador2 from club c, equipo e, h_equipo he,juego j,club cc, equipo ee, h_equipo hee,juego jj, fecha_juego f where j.equipo_local=he.id_hequipo and he.id_equipo=e.id_equipo and e.id_club=c.id_club and jj.equipo_visitante=hee.id_hequipo and hee.id_equipo=ee.id_equipo and ee.id_club=cc.id_club and j.id_torneo='1002' and jj.id_torneo='1002' and j.grupo='A' and jj.id_juego=j.id_juego and j.id_categoria='03' and f.id_fechajuego=j.id_juego and f.id_juego=j.id_juego order by f.fecha_juego asc;
-]]>
+		<![CDATA[Select f.fecha_juego, j.jornada , c.nombre_club as Club1, e.identificador as identificador1 ,cc.nombre_club as Club2, ee.identificador as identificador2 from club c, equipo e, h_equipo he,juego j,club cc, equipo ee, h_equipo hee,juego jj, fecha_juego f where j.equipo_local=he.id_hequipo and he.id_equipo=e.id_equipo and e.id_club=c.id_club and jj.equipo_visitante=hee.id_hequipo and hee.id_equipo=ee.id_equipo and ee.id_club=cc.id_club and j.id_torneo='1002' and jj.id_torneo='1002' and j.grupo='A' and jj.id_juego=j.id_juego and j.id_categoria='03' and f.id_fechajuego=j.id_juego and f.id_juego=j.id_juego order by f.fecha_juego asc;]]>
 	</queryString>
 	<field name="fecha_juego" class="java.sql.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -74,9 +73,9 @@
 				<text><![CDATA[Jornada]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="233" y="7" width="45" height="15" forecolor="#000000" uuid="32eab5e4-a5dd-44d8-aa9c-11a8826599cc"/>
+				<reportElement style="Column header" x="186" y="7" width="131" height="15" forecolor="#000000" uuid="32eab5e4-a5dd-44d8-aa9c-11a8826599cc"/>
 				<textElement textAlignment="Center"/>
-				<text><![CDATA[Club 1]]></text>
+				<text><![CDATA[Equipo Local]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="343" y="7" width="73" height="15" forecolor="#000000" uuid="d149f2bd-7d66-47fa-a35d-a89873bc63ab"/>
@@ -84,9 +83,9 @@
 				<text><![CDATA[Identificador ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="478" y="8" width="46" height="15" forecolor="#000000" uuid="7e252061-02d2-4cea-a5d6-3dc656089272"/>
+				<reportElement style="Column header" x="438" y="8" width="122" height="15" forecolor="#000000" uuid="7e252061-02d2-4cea-a5d6-3dc656089272"/>
 				<textElement textAlignment="Center"/>
-				<text><![CDATA[Club 2]]></text>
+				<text><![CDATA[Equipo Visitante]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="596" y="7" width="73" height="15" forecolor="#000000" uuid="0811548d-6863-4f19-8bcb-333757872b65"/>
